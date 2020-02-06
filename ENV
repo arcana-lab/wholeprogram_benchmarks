@@ -1,3 +1,2 @@
 source /project/gllvm/enable
-CC=gclang
-CXX=gclang++
+export TOP_DIR=$PWD
