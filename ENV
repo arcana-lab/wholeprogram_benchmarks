@@ -1,0 +1,3 @@
+source /project/gllvm/enable
+CC=gclang
+CXX=gclang++
