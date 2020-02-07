@@ -1,7 +1,3 @@
-if [ $1 == "clean" ]
-then
-    rm -rf ./NAS
-else
     rm -rf ${TOP_DIR}/bitcodes/LLVM9.0/NAS/*
     rm -rf ./NAS
     git clone https://github.com/benchmark-subsetting/NPB3.0-omp-C.git NAS
@@ -21,4 +17,3 @@ else
     cd ${TOP_DIR}/bitcodes/LLVM9.0/NAS/
     tar -czf nas.tgz *
 
-fi
