@@ -19,11 +19,9 @@ chmod +x -R * #@Simone pls help
 printf 'yes' | ./install.sh  
 cp ${BUILD_DIR}/gclang.cfg config/
 cp ${BUILD_DIR}/pure_c_cpp_speed.bset benchspec/CPU/
-
-cd SPEC2017
 source shrc
 runcpu --loose -D --size test --tune peak -a setup --config gclang pure_c_cpp_speed
-
+cd ${BUILD_DIR}
 echo "DONE installing SPEC2017 at ${BUILD_DIR}/SPEC2017" 
 exit
 

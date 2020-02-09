@@ -19,4 +19,4 @@ STEP 3)
     Generate binaries of benchmarks from bitcode files and run them with:
         "./genBinaryfromBitcode.sh [workload] run" where workload = [test, train, refspeed].
     The generated binaries are executed with specified workload ONLY IF "run" is specified as second argument to this script.
-    NOTE: This script is provided as a framework to add in calls to your optimization passes before generating binaries and running them with specified workload.
+    NOTE: This script is provided as a framework to add in calls to your optimization passes before generating binaries and executing them with specified workload.

@@ -6,6 +6,7 @@ if [ ! "${1}" == "test" ] && [ ! "${1}" == "train" ] && [ ! "${1}" == "refspeed"
 fi
 
 
+
 source /project/gllvm/enable
 BUILD_DIR=`pwd`
 cd ../../bitcodes/LLVM9.0/SPEC2017
@@ -19,6 +20,10 @@ if [ ! -d "${BUILD_DIR}/benchmarks/" ]; then
   mkdir ${BUILD_DIR}/benchmarks
 fi
 
+if [ ! -d "${BUILD_DIR}/SPEC2017" ]; then
+	echo "Please run ./rebuild.sh first to install SPEC2017 and build benchmarks."
+	exit
+fi
 
 #Setup Run directories with runcpu
 cd SPEC2017
@@ -54,6 +59,8 @@ echo "Run directories created at ${BENCHMARKS_DIR} contain respective binaries a
  
 cd ${BITCODE_DIR}
 tar -czf spec2017.tgz *
+cd ${BUILD_DIR}
 echo "DONE" 
+
 exit
 
