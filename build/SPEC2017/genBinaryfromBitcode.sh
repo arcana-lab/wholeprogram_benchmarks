@@ -40,8 +40,9 @@ for benchmark in omnetpp_s xalancbmk_s deepsjeng_s leela_s perlbench_s mcf_s lbm
 done
 echo "-----------------------------------------------------------"
 
+
 #Run generated binaries with specified workloads
-if [ "${2}" == "run" ]; then
+if [ "${2}" == "-run" ]; then
 	echo "Running benchmarks with workload: $1"
 	for benchmark in omnetpp_s xalancbmk_s deepsjeng_s leela_s perlbench_s mcf_s lbm_s x264_s imagick_s nab_s xz_s; do
 		cd ${BENCHMARKS_DIR}/${benchmark}/$1
@@ -52,7 +53,6 @@ if [ "${2}" == "run" ]; then
 		echo "-----------------------------------------------------------"
 	done
 fi
-cd ${BUILD_DIR}	
 	
 echo "DONE" 
 exit

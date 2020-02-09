@@ -9,6 +9,11 @@ fi
 
 source /project/gllvm/enable
 BUILD_DIR=`pwd`
+
+if [ ! -d "../../bitcodes/LLVM9.0/SPEC2017" ]; then
+  mkdir ../../bitcodes/LLVM9.0/SPEC2017
+fi
+
 cd ../../bitcodes/LLVM9.0/SPEC2017
 BITCODE_DIR=`pwd` 
 cd ${BUILD_DIR}
@@ -59,7 +64,6 @@ echo "Run directories created at ${BENCHMARKS_DIR} contain respective binaries a
  
 cd ${BITCODE_DIR}
 tar -czf spec2017.tgz *
-cd ${BUILD_DIR}
 echo "DONE" 
 
 exit
