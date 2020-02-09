@@ -21,15 +21,21 @@ fi
 
 
 if [ ! -d "${BUILD_DIR}/benchmarks" ]; then
-	echo "Please run ./setupRun.sh first to build benchmarks and extract bitcodes"
+	echo "Please run ./setupRun.sh first to build benchmarks and extract bitcodes."
 	exit
 fi
+
 
 
 #Generate Binaries from Bitcode
 BENCHMARKS_DIR=${BUILD_DIR}/benchmarks
 
 for benchmark in omnetpp_s xalancbmk_s deepsjeng_s leela_s perlbench_s mcf_s lbm_s x264_s imagick_s nab_s xz_s; do
+
+	if [ ! -d "${BENCHMARKS_DIR}/${benchmark}/$1" ]; then
+		echo "Please run ./setupRun.sh $1 first to setup run directories for $1."
+		exit
+	fi
 	if [ -f "${BENCHMARKS_DIR}/${benchmark}/${benchmark}_newbin" ]; then
 		rm ${BENCHMARKS_DIR}/${benchmark}/${benchmark}_newbin
 	fi
@@ -45,6 +51,7 @@ echo "-----------------------------------------------------------"
 if [ "${2}" == "-run" ]; then
 	echo "Running benchmarks with workload: $1"
 	for benchmark in omnetpp_s xalancbmk_s deepsjeng_s leela_s perlbench_s mcf_s lbm_s x264_s imagick_s nab_s xz_s; do
+	
 		cd ${BENCHMARKS_DIR}/${benchmark}/$1
 		lastline="`tail -n 1 speccmds.cmd`"
 		arguments="$( echo $lastline | awk -F'peak.gclang ' '{print $2}')"
