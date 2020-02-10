@@ -1,23 +1,29 @@
+REQUIREMENTS: gclang (https://github.com/SRI-CSL/gllvm)
+
 STEP 1)
-	Install and build SPEC2017 benchmarks with:
-		"./rebuild.sh"
-	The script 'rebuild.sh' will do the following:   
-		1)Installs a fresh copy of SPEC2017 fetched from /project/benchmarks/SPEC2017.tar.gz
-		2)Builds all pure C/C++ speed benchmarks except 'gcc_s' with gclang/gclang++.
+	Run "make" or "make SPECTAR=YOUR_SPEC_TAR_FILE"
+
+	This will do the following:   
+		- Installs a fresh copy of SPEC2017 fetched from /project/benchmarks/SPEC2017.tar.gz (or from what you have specified)
+    - Fixed permissions to files in SPEC
 
 STEP 2)
-    Setup run directories and extract bitcodes with:
-        "./setupRun.sh [workload]" where workload = [test, train, refspeed]
+  Run "make compile"
 
-    The script 'setupRun.sh' will do the following:
-        1)Setup run directories for specified workload of all benchmarks at 'BenchmarksBitcodes/build/SPEC2017/benchmarks/'
-        2)Extract single bitcode files for all built benchmarks at respective run directories. 
+  This will 
+	  - Builds all pure C/C++ speed benchmarks except 'gcc_s' with gclang/gclang++.
+
+STEP 3)
+    Run "make bitcode" to setup run directories and extract bitcodes
+
+    This will do the following:
+    1)Setup run directories for specified workload of all benchmarks at 'BenchmarksBitcodes/build/SPEC2017/benchmarks/'
+    2)Extract single bitcode files for all built benchmarks at respective run directories. 
 		3)Creates run scripts run_workload.sh for each benchmark where workload = [test, train, refspeed]
 		4)Copies over all single bitcode files to '/BenchmarksBitcodes/bitcodes/LLVM9.0/SPEC2017'
         
-STEP 3) 
-    Generate binaries of benchmarks from bitcode files and run them with:
+STEP 4) 
+    Run the following script to generate binaries of benchmarks from bitcode files
         "./genBinaryfromBitcode.sh [workload] -run" where workload = [test, train, refspeed].
     The generated binaries are executed with specified workload ONLY IF "-run" is specified as second argument to this script.
     NOTE: This script is provided as a framework to add in calls to your optimization passes before generating binaries and executing them with specified workload.
-	
