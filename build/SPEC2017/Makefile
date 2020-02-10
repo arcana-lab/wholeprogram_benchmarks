@@ -14,7 +14,10 @@ compile:
 bitcode:
 	./scripts/$@.sh $(INPUT)
 
+binary:
+	./scripts/$@.sh $(INPUT)
+
 clean:
 	rm -rf SPEC2017
 
-.PHONY: clean compile bitcode
+.PHONY: clean compile bitcode binary

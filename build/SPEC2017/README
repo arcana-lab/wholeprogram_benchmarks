@@ -1,19 +1,19 @@
 REQUIREMENTS: gclang (https://github.com/SRI-CSL/gllvm)
 
-STEP 1)
+STEP 1) Setup the repository
 	Run "make" or "make SPECTAR=YOUR_SPEC_TAR_FILE"
 
 	This will do the following:   
 		- Installs a fresh copy of SPEC2017 fetched from /project/benchmarks/SPEC2017.tar.gz (or from what you have specified)
     - Fixed permissions to files in SPEC
 
-STEP 2)
+STEP 2) Generate the single bitcode file for every benchmark
   Run "make compile"
 
   This will 
 	  - Builds all pure C/C++ speed benchmarks except 'gcc_s' with gclang/gclang++.
 
-STEP 3)
+STEP 3) Save the single bitcode files 
     Run "make bitcode" to setup run directories and extract bitcodes.
     To change input, run "make bitcode INPUT=train"
 
@@ -23,7 +23,7 @@ STEP 3)
 		3)Creates run scripts run_workload.sh for each benchmark where workload = [test, train, refspeed]
 		4)Copies over all single bitcode files to '/BenchmarksBitcodes/bitcodes/LLVM9.0/SPEC2017'
         
-STEP 4) 
+STEP 4) Generate the binary from the single bitcode file
     Run the following script to generate binaries of benchmarks from bitcode files
         "./scripts/genBinaryfromBitcode.sh [workload] -run" where workload = [test, train, refspeed].
     The generated binaries are executed with specified workload ONLY IF "-run" is specified as second argument to this script.
