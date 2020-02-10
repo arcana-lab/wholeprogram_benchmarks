@@ -5,7 +5,7 @@ all: SPEC2017
 
 SPEC2017: $(SPECTAR)
 	tar -xf $^
-	chmod +x -R $@/bin $@/tools
+	chmod +x -R $@/bin $@/tools $@/*.sh
 	./scripts/setup.sh
 
 compile:
