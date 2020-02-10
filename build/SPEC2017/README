@@ -14,7 +14,8 @@ STEP 2)
 	  - Builds all pure C/C++ speed benchmarks except 'gcc_s' with gclang/gclang++.
 
 STEP 3)
-    Run "make bitcode" to setup run directories and extract bitcodes
+    Run "make bitcode" to setup run directories and extract bitcodes.
+    To change input, run "make bitcode INPUT=train"
 
     This will do the following:
     1)Setup run directories for specified workload of all benchmarks at 'BenchmarksBitcodes/build/SPEC2017/benchmarks/'

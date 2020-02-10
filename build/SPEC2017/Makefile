@@ -1,4 +1,5 @@
 SPECTAR=/project/benchmarks/SPEC2017.tar.gz
+INPUT=test #test, train, refspeed
 
 all: SPEC2017
 
@@ -11,7 +12,7 @@ compile:
 	./scripts/$@.sh 
 
 bitcode:
-	./scripts/$@.sh
+	./scripts/$@.sh $(INPUT)
 
 clean:
 	rm -rf SPEC2017
