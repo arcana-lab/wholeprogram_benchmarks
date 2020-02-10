@@ -4,14 +4,14 @@ all: SPEC2017
 
 SPEC2017: $(SPECTAR)
 	tar -xf $^
-	chmod +x -R * #@Simone pls help
-	./setup.sh
+	chmod +x -R $@/bin $@/tools
+	./scripts/setup.sh
 
 compile:
-	./$@.sh 
+	./scripts/$@.sh 
 
 bitcode:
-	./$@.sh
+	./scripts/$@.sh
 
 clean:
 	rm -rf SPEC2017
