@@ -18,6 +18,6 @@ binary:
 	./scripts/$@.sh $(INPUT)
 
 clean:
-	rm -rf SPEC2017
+	rm -rf SPEC2017 benchmarks
 
 .PHONY: clean compile bitcode binary
