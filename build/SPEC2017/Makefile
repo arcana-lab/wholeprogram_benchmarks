@@ -1,5 +1,6 @@
 SPECTAR=/project/benchmarks/SPEC2017.tar.gz
 INPUT=test #test, train, refspeed
+VERSION=rate #speed, rate
 
 all: SPEC2017
 
@@ -12,13 +13,13 @@ compile_speed:
 	./scripts/compile.sh pure_c_cpp_speed
 
 compile_rate:
-	./scripts/$@.sh pure_c_cpp_rate
+	./scripts/compile.sh pure_c_cpp_rate
 
 bitcode:
-	./scripts/$@.sh $(INPUT)
+	./scripts/$@.sh $(INPUT) $(VERSION)
 
 binary:
-	./scripts/$@.sh $(INPUT)
+	./scripts/$@.sh $(INPUT) $(VERSION)
 
 clean:
 	rm -rf SPEC2017 benchmarks

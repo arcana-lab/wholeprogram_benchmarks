@@ -11,3 +11,4 @@ cd SPEC2017
 printf 'yes' | ./install.sh  
 cp ${BUILD_DIR}/gclang.cfg config/
 cp ${BUILD_DIR}/pure_c_cpp_speed.bset benchspec/CPU/
+cp ${BUILD_DIR}/pure_c_cpp_rate.bset benchspec/CPU/
