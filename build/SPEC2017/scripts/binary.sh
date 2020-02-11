@@ -38,7 +38,7 @@ elif [ "${2}" == "speed" ]; then
 	key="_s"
 else
 	key=""
-	
+fi
 #Generate Binaries from Bitcode
 BENCHMARKS_DIR=${BUILD_DIR}/benchmarks
 
