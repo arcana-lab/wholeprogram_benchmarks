@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Set local variables
+BUILD_DIR=`pwd`
+
 # Check the inputs
 if [ ! "${1}" == "test" ] && [ ! "${1}" == "train" ] && [ ! "${1}" == "refspeed" ]; then
  
