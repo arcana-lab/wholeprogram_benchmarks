@@ -54,7 +54,7 @@ else
 	key=""
 fi
 
-for benchmark_string in `grep ${key} ${BUILD_DIR}/pure_c_cpp_${2}.bset`; do
+for benchmark_string in `sed 1d ${BUILD_DIR}/pure_c_cpp_${2}.bset | grep ${key}`; do
 	benchmark="$( echo $benchmark_string | awk -F'.' '{print $2}')"
 	if [ ! -d "${BENCHMARKS_DIR}/${benchmark}" ]; then
 		mkdir ${BENCHMARKS_DIR}/${benchmark}

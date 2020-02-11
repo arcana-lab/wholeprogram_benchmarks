@@ -42,7 +42,7 @@ fi
 #Generate Binaries from Bitcode
 BENCHMARKS_DIR=${BUILD_DIR}/benchmarks
 
-for benchmark_string in `grep ${key} ${BUILD_DIR}/pure_c_cpp_${2}.bset`; do
+for benchmark_string in `sed 1d ${BUILD_DIR}/pure_c_cpp_${2}.bset | grep ${key}`; do
 	benchmark="$( echo $benchmark_string | awk -F'.' '{print $2}')"
 	if [ ! -d "${BENCHMARKS_DIR}/${benchmark}/$1" ]; then
 		echo "Please run ./setupRun.sh $1 first to setup run directories for $1."
@@ -62,7 +62,7 @@ echo "-----------------------------------------------------------"
 #Run generated binaries with specified workloads
 if [ "${3}" == "-run" ]; then
 	echo "Running $2 benchmarks with workload: $1"
-	for benchmark_string in `grep ${key} ${BUILD_DIR}/pure_c_cpp_${2}.bset`; do
+	for benchmark_string in `sed 1d ${BUILD_DIR}/pure_c_cpp_${2}.bset | grep ${key}`; do
 	benchmark="$( echo $benchmark_string | awk -F'.' '{print $2}')"
 		cd ${BENCHMARKS_DIR}/${benchmark}/$1
 		lastline="`tail -n 1 speccmds.cmd`"
