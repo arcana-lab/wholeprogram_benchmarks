@@ -1,6 +1,6 @@
 SPECTAR=/project/benchmarks/SPEC2017.tar.gz
-INPUT=test #test, train, refspeed
-VERSION=speed #speed, rate
+INPUT=ref #test, train, ref
+VERSION=rate #speed, rate
 
 all: SPEC2017
 
@@ -24,7 +24,7 @@ setuprun:
 setuprun_all:
 	./scripts/setuprun.sh test $(VERSION);
 	./scripts/setuprun.sh train $(VERSION);
-	./scripts/setuprun.sh refspeed $(VERSION);
+	./scripts/setuprun.sh ref $(VERSION);
 
 binary:
 	./scripts/$@.sh $(VERSION)

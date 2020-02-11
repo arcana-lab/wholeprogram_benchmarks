@@ -8,7 +8,6 @@ $test             = 'test';
 $output           = 0;
 @benchmarks = qw(
 	500.perlbench_r
-	502.gcc_r
 	505.mcf_r
 	519.lbm_r
 	525.x264_r

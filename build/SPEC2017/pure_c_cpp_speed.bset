@@ -12,7 +12,6 @@ $output           = 0;
     631.deepsjeng_s
     641.leela_s
     600.perlbench_s
-    602.gcc_s
     605.mcf_s
     619.lbm_s
     625.x264_s

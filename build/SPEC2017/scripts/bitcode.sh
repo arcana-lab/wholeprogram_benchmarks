@@ -55,7 +55,11 @@ for benchmark_string in `sed 1d ${BUILD_DIR}/pure_c_cpp_${1}.bset | grep ${key}`
 	fi
 	echo ${benchmark}
 	go ${benchmark} run
-	cp run_peak_test_gclang.0000/${benchmark}_peak.gclang ${BENCHMARKS_DIR}/${benchmark}/${benchmark}
+	if [ "${benchmark}" == "xalancbmk_r" ]; then
+		cp run_peak_test_gclang.0000/cpuxalan_r_peak.gclang ${BENCHMARKS_DIR}/${benchmark}/${benchmark}
+	else
+		cp run_peak_test_gclang.0000/${benchmark}_peak.gclang ${BENCHMARKS_DIR}/${benchmark}/${benchmark}
+	fi
 	cd ${BENCHMARKS_DIR}/${benchmark}
 	
 	get-bc ${benchmark}

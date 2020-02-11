@@ -4,13 +4,13 @@
 BUILD_DIR=`pwd`
 
 # Check the inputs
-if [ ! "${1}" == "test" ] && [ ! "${1}" == "train" ] && [ ! "${1}" == "refspeed" ]; then
+if [ ! "${1}" == "test" ] && [ ! "${1}" == "train" ] && [ ! "${1}" == "ref" ]; then
  
-	echo "Please provide input configuration [test,train,refspeed] for setting up run directories. For Example: ./binary.sh refspeed rate -run"
+	echo "Please provide input configuration [test,train,refspeed] for setting up run directories. For Example: ./binary.sh ref rate -run"
 	exit
 fi
 if [ ! "${2}" == "rate" ] && [ ! "${2}" == "speed" ]; then
-  echo "Please provide version  [rate,speed] for setting up run directories. For Example: ./binary.sh refspeed rate -run"
+  echo "Please provide version  [rate,speed] for setting up run directories. For Example: ./binary.sh ref rate -run"
   exit
 fi
 
@@ -24,6 +24,15 @@ if [ ! -d "${BUILD_DIR}/benchmarks" ]; then
 	exit
 fi
 
+if [ "${1}" == "ref" ] && [ "${2}" == "rate" ]; then
+	inputsize="refrate"
+elif [ "${1}" == "ref" ] && [ "${2}" == "speed" ]; then
+	inputsize="refspeed"
+else
+	inputsize=${1}
+fi
+
+
 # Set local variables
 if [ "${2}" == "rate" ]; then
 	key="_r"
@@ -34,14 +43,14 @@ else
 fi
 
 # Run generated binaries with specified workloads
-echo "Running $2 benchmarks with workload: $1"
+echo "Running $2 benchmarks with workload: ${inputsize}"
 for benchmark_string in `sed 1d ${BUILD_DIR}/pure_c_cpp_${2}.bset | grep ${key}`; do
 benchmark="$( echo $benchmark_string | awk -F'.' '{print $2}')"
-	cd ${BENCHMARKS_DIR}/${benchmark}/$1
+	cd ${BENCHMARKS_DIR}/${benchmark}/${inputsize}
 	lastline="`tail -n 1 speccmds.cmd`"
 	arguments="$( echo $lastline | awk -F'peak.gclang ' '{print $2}')"
-	echo "Running ${benchmark} with ${benchmark}_newbin ${arguments} >${benchmark}_${1}_output.txt"
-	${BENCHMARKS_DIR}/${benchmark}/${benchmark}_newbin ${arguments} >${BENCHMARKS_DIR}/${benchmark}/${benchmark}_${1}_output.txt
+	echo "Running ${benchmark} with ${benchmark}_newbin ${arguments} >${benchmark}_${inputsize}_output.txt"
+	${BENCHMARKS_DIR}/${benchmark}/${benchmark}_newbin ${arguments} >${BENCHMARKS_DIR}/${benchmark}/${benchmark}_${inputsize}_output.txt
 	echo "-----------------------------------------------------------"
 done
 

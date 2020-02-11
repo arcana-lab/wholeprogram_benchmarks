@@ -20,7 +20,7 @@ BUILD_DIR=`pwd`
 
 # Check the inputs
 if [ ! "${1}" == "rate" ] && [ ! "${1}" == "speed" ]; then
-  echo "Please provide version  [rate,speed] for setting up run directories. For Example: ./binary.sh refspeed rate -run"
+  echo "Please provide version  [rate,speed] for setting up run directories. For Example: ./binary.sh refspeed rate"
   exit
 fi
 
@@ -38,7 +38,7 @@ fi
 BENCHMARKS_DIR=${BUILD_DIR}/benchmarks
 
 for benchmark_string in `sed 1d ${BUILD_DIR}/pure_c_cpp_${1}.bset | grep ${key}`; do
-	benchmark="$( echo $benchmark_string | awk -F'.' '{print $1}')"
+	benchmark="$( echo $benchmark_string | awk -F'.' '{print $2}')"
 	if [ -f "${BENCHMARKS_DIR}/${benchmark}/${benchmark}_newbin" ]; then
 		rm ${BENCHMARKS_DIR}/${benchmark}/${benchmark}_newbin
 	fi
