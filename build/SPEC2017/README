@@ -8,7 +8,9 @@ STEP 1) Setup the repository
     - Fixed permissions to files in SPEC
 
 STEP 2) Generate the single bitcode file for every benchmark
-  Run "make compile"
+  Run 
+  - "make compile_speed" for speed benchmarks or
+  - "make compile_rate" for rate benchmarks
 
   This will 
 	  - Builds all pure C/C++ speed benchmarks except 'gcc_s' with gclang/gclang++.

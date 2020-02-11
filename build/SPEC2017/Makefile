@@ -8,8 +8,11 @@ SPEC2017: $(SPECTAR)
 	chmod +x -R $@/bin $@/tools $@/*.sh
 	./scripts/setup.sh
 
-compile:
-	./scripts/$@.sh 
+compile_speed:
+	./scripts/compile.sh pure_c_cpp_speed
+
+compile_rate:
+	./scripts/$@.sh pure_c_cpp_rate
 
 bitcode:
 	./scripts/$@.sh $(INPUT)

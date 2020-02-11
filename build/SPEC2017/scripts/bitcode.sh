@@ -5,8 +5,6 @@ if [ ! "${1}" == "test" ] && [ ! "${1}" == "train" ] && [ ! "${1}" == "refspeed"
   exit
 fi
 
-
-
 source /project/gllvm/enable
 BUILD_DIR=`pwd`
 
