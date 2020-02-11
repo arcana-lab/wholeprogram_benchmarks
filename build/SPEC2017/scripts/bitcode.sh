@@ -52,6 +52,7 @@ elif [ "${2}" == "speed" ]; then
 	key="_s"
 else
 	key=""
+fi
 
 for benchmark_string in `grep ${key} ${BUILD_DIR}/pure_c_cpp_${2}.bset`; do
 	benchmark="$( echo $benchmark_string | awk -F'.' '{print $2}')"
