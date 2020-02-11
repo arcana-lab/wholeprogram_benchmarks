@@ -1,7 +1,10 @@
 #!/bin/bash
 
+# Set local variables
 BUILD_DIR=`pwd`
-cd ${BUILD_DIR}
+
+# Enable GLLVM
+source /project/gllvm/enable
 
 cd SPEC2017
 source shrc

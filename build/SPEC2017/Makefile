@@ -19,9 +19,12 @@ bitcode:
 	./scripts/$@.sh $(INPUT) $(VERSION)
 
 binary:
+	./scripts/$@.sh $(VERSION)
+
+run:
 	./scripts/$@.sh $(INPUT) $(VERSION)
 
 clean:
 	rm -rf SPEC2017 benchmarks
 
-.PHONY: clean compile bitcode binary
+.PHONY: clean compile bitcode binary run
