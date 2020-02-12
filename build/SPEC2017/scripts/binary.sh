@@ -37,7 +37,7 @@ fi
 # Generate Binaries from Bitcode
 BENCHMARKS_DIR=${BUILD_DIR}/benchmarks
 
-for benchmark_string in `sed 1d ${BUILD_DIR}/pure_c_cpp_${1}.bset | grep ${key}`; do
+for benchmark_string in `sed 1d ${BUILD_DIR}/patches/pure_c_cpp_${1}.bset | grep ${key}`; do
 	benchmark="$( echo $benchmark_string | awk -F'.' '{print $2}')"
 	if [ -f "${BENCHMARKS_DIR}/${benchmark}/${benchmark}_newbin" ]; then
 		rm ${BENCHMARKS_DIR}/${benchmark}/${benchmark}_newbin

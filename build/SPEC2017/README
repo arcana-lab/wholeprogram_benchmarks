@@ -1,32 +1,51 @@
 REQUIREMENTS: gclang (https://github.com/SRI-CSL/gllvm)
 
-STEP 1) Setup the repository
+STEP 1) Install repository
 	Run "make" or "make SPECTAR=YOUR_SPEC_TAR_FILE"
 
 	This will do the following:   
-		- Installs a fresh copy of SPEC2017 fetched from /project/benchmarks/SPEC2017.tar.gz (or from what you have specified)
-    - Fixed permissions to files in SPEC
+		- Install a fresh copy of SPEC2017 fetched from /project/benchmarks/SPEC2017.tar.gz (or from what you have specified)
+		- Fix permissions to files in SPEC
+		- Add gclang build config
 
-STEP 2) Generate the single bitcode file for every benchmark
-  Run 
-  - "make compile_speed" for speed benchmarks or
-  - "make compile_rate" for rate benchmarks
+STEP 2) Generate single bitcode file for every benchmark
+	Run 
+	- "make compile_speed" for speed benchmarks or
+	- "make compile_rate" for rate benchmarks
+	
+	This will do the following:
+		- Build all pure C/C++ speed or rate benchmarks except 'gcc_s,gcc_r,parest_r' with gclang/gclang++.
 
-  This will 
-	  - Builds all pure C/C++ speed benchmarks except 'gcc_s' with gclang/gclang++.
-
-STEP 3) Save the single bitcode files 
-    Run "make bitcode" to setup run directories and extract bitcodes.
-    To change input, run "make bitcode INPUT=train"
-
+STEP 3) Save single bitcode files 
+    Run "make bitcode" to extract bitcodes.
+	- To change version from speed to rate, run "make bitcode VERSION=rate"
+	
     This will do the following:
-    1)Setup run directories for specified workload of all benchmarks at 'BenchmarksBitcodes/build/SPEC2017/benchmarks/'
-    2)Extract single bitcode files for all built benchmarks at respective run directories. 
-		3)Creates run scripts run_workload.sh for each benchmark where workload = [test, train, refspeed]
-		4)Copies over all single bitcode files to '/BenchmarksBitcodes/bitcodes/LLVM9.0/SPEC2017'
+		-Extract single bitcode files 'benchmark.bc' for all built benchmarks at respective directories under 'BenchmarksBitcodes/build/SPEC2017/benchmarks/'. 
+		-Copy over all single bitcode files to '/BenchmarksBitcodes/bitcodes/LLVM9.0/SPEC2017'
+	
+STEP 4) Setup run directories 
+	Run "make setup" to setup run directories.
+	- To change input, run "make setup INPUT=train"
+	- To change version from speed to rate, run "make setup VERSION=rate"
+	- To setup for all inputs, run "make setup_all"
+	
+	This will do the following:
+		-Create a workload specific run directory for each benchmark under 'BenchmarksBitcodes/build/SPEC2017/benchmarks/'.
+		-Create run script run_workload.sh for each benchmark where workload = [test, train, ref]
         
-STEP 4) Generate the binary from the single bitcode file
-    Run the following script to generate binaries of benchmarks from bitcode files
-        "./scripts/genBinaryfromBitcode.sh [workload] -run" where workload = [test, train, refspeed].
-    The generated binaries are executed with specified workload ONLY IF "-run" is specified as second argument to this script.
-    NOTE: This script is provided as a framework to add in calls to your optimization passes before generating binaries and executing them with specified workload.
+STEP 5) Generate binary from the single bitcode file
+	Run "make binary" to generate binaries from single bitcode file
+    - To change version from speed to rate, run "make binary VERSION=rate"
+   
+	This will do the following:
+		-Generate a binary 'benchmark_newbin' for each benchmark at respective directories under 'BenchmarksBitcodes/build/SPEC2017/benchmarks/'.		
+    NOTE: This script is provided as a framework to add in calls to your optimization passes before generating binary.
+
+STEP 6) Run generated binary
+    Run "make run" to generate binaries from single bitcode file
+    - To change input, run "make run INPUT=ref"
+	- To change version from speed to rate, run "make run VERSION=rate"
+	
+	This will do the following:
+		-Run benchmarks with respective workloads and save output 'benchmark_workload_output.txt' at respective run directories.	

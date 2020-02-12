@@ -44,7 +44,7 @@ fi
 
 # Run generated binaries with specified workloads
 echo "Running $2 benchmarks with workload: ${inputsize}"
-for benchmark_string in `sed 1d ${BUILD_DIR}/pure_c_cpp_${2}.bset | grep ${key}`; do
+for benchmark_string in `sed 1d ${BUILD_DIR}/patches/pure_c_cpp_${2}.bset | grep ${key}`; do
 benchmark="$( echo $benchmark_string | awk -F'.' '{print $2}')"
 	cd ${BENCHMARKS_DIR}/${benchmark}/${inputsize}
 	lastline="`tail -n 1 speccmds.cmd`"
