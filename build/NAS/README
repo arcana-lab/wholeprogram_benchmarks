@@ -1,0 +1,22 @@
+REQUIREMENTS: gclang (https://github.com/SRI-CSL/gllvm)
+
+STEP 1) Setup the repository
+	Run "make" or "make NASTAR=YOUR_NAS_TAR_FILE"
+
+	This will do the following:   
+	- Installs a fresh copy of NAS fetched from /project/benchmarks/NAS.tgz (or from what you have specified)
+
+STEP 2) Generate the single bitcode file for every benchmark
+  Run 
+  - "make compile" for all  benchmarks 
+
+  This will 
+	  - Builds all the NAS benchmarks that do not encounter a compilation error
+
+STEP 3) Save the single bitcode files 
+    Run "make bitcode" to setup run directories and extract bitcodes.
+
+    This will do the following:
+    1)Setup run directories for specified workload of all benchmarks at 'BenchmarksBitcodes/build/NAS/benchmarks/'
+    2)Extract single bitcode files for all built benchmarks at respective run directories. 
+        
