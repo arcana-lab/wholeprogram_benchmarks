@@ -15,6 +15,10 @@ compile_speed:
 compile_rate:
 	./scripts/compile.sh pure_c_cpp_rate
 
+compile_all:
+	./scripts/compile.sh pure_c_cpp_rate;
+	./scripts/compile.sh pure_c_cpp_speed;
+
 bitcode:
 	./scripts/$@.sh $(VERSION)
 
@@ -33,6 +37,7 @@ run:
 	./scripts/$@.sh $(INPUT) $(VERSION)
 
 clean:
-	rm -rf SPEC2017 benchmarks
+	./scripts/uninstall.sh;
+	rm -rf SPEC2017
 
 .PHONY: clean compile bitcode binary run
