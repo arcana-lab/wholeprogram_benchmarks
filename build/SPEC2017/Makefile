@@ -1,18 +1,18 @@
 SPECTAR=/project/benchmarks/SPEC2017.tar.gz
 INPUT=test #test, train, ref
-VERSION=speed #speed, rate
+VERSION=rate #speed, rate
 
-all: SPEC2017
+all: compile_rate bitcode
 
 SPEC2017: $(SPECTAR)
 	tar -xf $^
 	chmod +x -R $@/bin $@/tools $@/*.sh
 	./scripts/install.sh
 
-compile_speed:
+compile_speed: SPEC2017
 	./scripts/compile.sh pure_c_cpp_speed
 
-compile_rate:
+compile_rate: SPEC2017
 	./scripts/compile.sh pure_c_cpp_rate
 
 compile_all:
@@ -20,10 +20,10 @@ compile_all:
 	./scripts/compile.sh pure_c_cpp_speed;
 
 bitcode:
-	./scripts/$@.sh $(VERSION)
+	./scripts/bitcode.sh $(VERSION)
 
 setup:
-	./scripts/$@.sh $(INPUT) $(VERSION)
+	./scripts/setup.sh $(INPUT) $(VERSION)
 	
 setup_all:
 	./scripts/setup.sh test $(VERSION);

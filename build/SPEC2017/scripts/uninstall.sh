@@ -7,5 +7,8 @@ if [ -d "${BUILD_DIR}/benchmarks/" ]; then
   rm -rf ${BUILD_DIR}/benchmarks
 fi
 
-cd SPEC2017
-printf 'yes' | ./uninstall.sh 
+if [ -e SPEC2017/uninstall.sh ] ; then
+  cd SPEC2017
+  printf 'yes' | ./uninstall.sh 
+fi
+rm -rf SPEC2017
