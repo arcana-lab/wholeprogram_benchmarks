@@ -39,7 +39,6 @@ cd SPEC2017
 source shrc
 runcpu --loose --size ${inputsize} --tune peak -a setup --config gclang pure_c_cpp_$2
 
-
 #Copy Run directories 
 BENCHMARKS_DIR=${BUILD_DIR}/benchmarks
 

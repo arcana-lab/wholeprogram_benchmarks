@@ -23,12 +23,12 @@ bitcode:
 	./scripts/bitcode.sh $(VERSION)
 
 setup:
-	./scripts/setup.sh $(INPUT) $(VERSION)
-	
-setup_all:
 	./scripts/setup.sh test $(VERSION);
 	./scripts/setup.sh train $(VERSION);
 	./scripts/setup.sh ref $(VERSION);
+
+optimization:
+	./scripts/optimization.sh $(VERSION)
 
 binary:
 	./scripts/$@.sh $(VERSION)
@@ -40,4 +40,4 @@ clean:
 	./scripts/uninstall.sh;
 	rm -rf SPEC2017
 
-.PHONY: clean compile bitcode binary run
+.PHONY: compile_speed compile_rate compile_all bitcode setup optimization binary run clean
