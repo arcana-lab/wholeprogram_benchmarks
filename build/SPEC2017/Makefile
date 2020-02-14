@@ -3,9 +3,9 @@ INPUT=test #test, train, ref
 VERSION=rate #speed, rate
 BENCHMARK=mcf_s #all, lbm_s, xz_r, ...
 
-all: SPEC2017 compile_rate bitcode setup
+all: SPEC2017 compile_rate bitcode setup optimization binary run
 
-SPEC2017:
+SPEC2017: $(SPECTAR)
 	tar -xf $^
 	chmod +x -R $@/bin $@/tools $@/*.sh
 	./scripts/install.sh
