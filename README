@@ -6,4 +6,4 @@ Inside the bitcodes directory will be the single file bitcodes for different ver
 
 Inside the build directory will be scripts needed to generate new bitcode files from the sources.
 
-To install gllvm (a tool that wraps around llvm to build a single bitcode file), please run setup.sh
+To install gllvm (a tool that wraps around llvm to build a single bitcode file), please run "make"

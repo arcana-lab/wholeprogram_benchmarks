@@ -1,4 +1,6 @@
-REQUIREMENTS: gclang (https://github.com/SRI-CSL/gllvm)
+REQUIREMENTS: 
+  - go 
+  - you have run "make" in the top directory. To check if you have done it, check if you have the file TOPDIR/install/bin/gclang
 
 STEP 1) Install repository
 	Run "make" or "make SPECTAR=YOUR_SPEC_TAR_FILE"
