@@ -2,6 +2,11 @@
 
 
 function runOptimizations {
+
+    if [ ! -d "${BUILD_DIR}/benchmarks/${1}" ]; then
+        echo "Warning: Benchmark directory ${1} not found, skipping."
+        return
+    fi
 	
 	echo "Running your optimizations for \"${1}\"" ;
 	cd ${BENCHMARKS_DIR}/${1}
