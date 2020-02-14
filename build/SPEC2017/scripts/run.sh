@@ -1,16 +1,36 @@
 #!/bin/bash
 
+
+function runBenchmark {
+	if [ ! -d "${BENCHMARKS_DIR}/${1}/${inputsize}" ]; then
+		echo "Error: Run directory not found for \"${1}\". Please run \"./scripts/setup.sh ${inputsize} version\" where version = [rate, speed]"
+		exit
+	fi
+	if [ ! -f "${BENCHMARKS_DIR}/${1}/${1}_newbin" ]; then
+		echo "Warning: Binary \"${1}_newbin\" not found for \"${1}\", Skipping "
+		return
+	fi
+	cd ${BENCHMARKS_DIR}/${1}/${inputsize}
+	lastline="`tail -n 1 speccmds.cmd`"
+	arguments="$( echo $lastline | awk -F'peak.gclang ' '{print $2}')"
+	echo "Running \"${1}\" with \"${1}_newbin ${arguments} >${1}_${inputsize}_output.txt\""
+	${BENCHMARKS_DIR}/${1}/${1}_newbin ${arguments} >${BENCHMARKS_DIR}/${1}/${1}_${inputsize}_output.txt
+	echo "--------------------------------------------------------------------------------------"
+}
+
+
+
 # Set local variables
 BUILD_DIR=`pwd`
 
 # Check the inputs
 if [ ! "${1}" == "test" ] && [ ! "${1}" == "train" ] && [ ! "${1}" == "ref" ]; then
- 
-	echo "Please provide input configuration [test,train,refspeed] for setting up run directories. For Example: ./binary.sh ref rate -run"
+	echo "Please provide input configuration [test,train,refspeed] for setting up run directories. For Example: \"./scripts/run.sh ref all\""
 	exit
 fi
-if [ ! "${2}" == "rate" ] && [ ! "${2}" == "speed" ]; then
-  echo "Please provide version  [rate,speed] for setting up run directories. For Example: ./binary.sh ref rate -run"
+
+if [ ! "${2}" ];  then
+  echo "Error: Please provide benchmark name or 'all' for running benchmark. For Example: \"./scripts/run.sh ref mcf_r\""
   exit
 fi
 
@@ -20,13 +40,14 @@ if [ ! -d "${BUILD_DIR}/SPEC2017" ]; then
 	exit
 fi
 if [ ! -d "${BUILD_DIR}/benchmarks" ]; then
-	echo "Please run ./setupRun.sh first to build benchmarks and extract bitcodes."
+	echo "Please run ./scripts/setupRun.sh first to build benchmarks and extract bitcodes."
 	exit
 fi
 
-if [ "${1}" == "ref" ] && [ "${2}" == "rate" ]; then
+
+if [ "${1}" == "ref" ] && [ "${2: -2}" == "_r" ]; then
 	inputsize="refrate"
-elif [ "${1}" == "ref" ] && [ "${2}" == "speed" ]; then
+elif [ "${1}" == "ref" ] && [ "${2: -2}" == "_s" ]; then
 	inputsize="refspeed"
 else
 	inputsize=${1}
@@ -43,16 +64,17 @@ else
 fi
 
 # Run generated binaries with specified workloads
-echo "Running $2 benchmarks with workload: ${inputsize}"
-for benchmark_string in `sed 1d ${BUILD_DIR}/patches/pure_c_cpp_${2}.bset | grep ${key}`; do
-benchmark="$( echo $benchmark_string | awk -F'.' '{print $2}')"
-	cd ${BENCHMARKS_DIR}/${benchmark}/${inputsize}
-	lastline="`tail -n 1 speccmds.cmd`"
-	arguments="$( echo $lastline | awk -F'peak.gclang ' '{print $2}')"
-	echo "Running ${benchmark} with ${benchmark}_newbin ${arguments} >${benchmark}_${inputsize}_output.txt"
-	${BENCHMARKS_DIR}/${benchmark}/${benchmark}_newbin ${arguments} >${BENCHMARKS_DIR}/${benchmark}/${benchmark}_${inputsize}_output.txt
-	echo "-----------------------------------------------------------"
-done
+BENCHMARKS_DIR=${BUILD_DIR}/benchmarks
+if [ "${2}" == "all" ]; then
+
+	for benchmark in `ls ${BENCHMARKS_DIR}`; do
+		runBenchmark ${benchmark} ;
+	done
+
+else
+	runBenchmark ${2} ;
+fi
+
 
 echo "DONE" 
 exit

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [ ! "${1}" == "rate" ] && [ ! "${1}" == "speed" ]; then
-  echo "Please provide version  [rate,speed] for setting up run directories. For Example: ./bitcode.sh rate "
+  echo "Please provide version  [rate,speed] for setting up run directories. For Example: \"./scripts/bitcode.sh rate\" "
   exit
 fi
 
@@ -26,7 +26,7 @@ if [ ! -d "${BUILD_DIR}/benchmarks/" ]; then
 fi
 
 if [ ! -d "${BUILD_DIR}/SPEC2017" ]; then
-	echo "Please run ./setup.sh and ./compile.sh first to install SPEC2017 and build benchmarks."
+	echo "Error: Please run \"./scripts/setup.sh\" and \"./scripts/compile.sh\" first to install SPEC2017 and build benchmarks."
 	exit
 fi
 
@@ -67,7 +67,7 @@ for benchmark_string in `sed 1d ${BUILD_DIR}/patches/pure_c_cpp_${1}.bset | grep
 
 done
 echo "-----------------------------------------------------------"
-echo "Run directories created at ${BENCHMARKS_DIR} contain respective binaries and bitcodes. Run workload '${1}' with ./run.sh found at respective workload directories."  
+echo "Run directories created at \"${BENCHMARKS_DIR}\" contain respective binaries and bitcodes. Run workload '${1}' with ./run.sh found at respective workload directories."  
  
 cd ${BITCODE_DIR}
 tar -czf spec2017.tgz *

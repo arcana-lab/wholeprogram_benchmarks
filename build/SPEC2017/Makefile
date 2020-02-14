@@ -1,10 +1,11 @@
 SPECTAR=/project/benchmarks/SPEC2017.tar.gz
 INPUT=test #test, train, ref
 VERSION=rate #speed, rate
+BENCHMARK=mcf_s #all, lbm_s, xz_r, ...
 
-all: compile_rate bitcode
+all: SPEC2017 compile_rate bitcode setup
 
-SPEC2017: $(SPECTAR)
+SPEC2017:
 	tar -xf $^
 	chmod +x -R $@/bin $@/tools $@/*.sh
 	./scripts/install.sh
@@ -28,13 +29,13 @@ setup:
 	./scripts/setup.sh ref $(VERSION);
 
 optimization:
-	./scripts/optimization.sh $(VERSION)
+	./scripts/optimization.sh $(BENCHMARK)
 
 binary:
-	./scripts/$@.sh $(VERSION)
-
+	./scripts/$@.sh $(BENCHMARK)
+	
 run:
-	./scripts/$@.sh $(INPUT) $(VERSION)
+	./scripts/$@.sh $(INPUT) $(BENCHMARK)
 
 clean:
 	./scripts/uninstall.sh;

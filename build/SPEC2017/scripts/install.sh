@@ -12,3 +12,4 @@ printf 'yes' | ./install.sh
 cp ${BUILD_DIR}/patches/gclang.cfg config/
 cp ${BUILD_DIR}/patches/pure_c_cpp_speed.bset benchspec/CPU/
 cp ${BUILD_DIR}/patches/pure_c_cpp_rate.bset benchspec/CPU/
+tar xf ${BUILD_DIR}/patches/parest_r_patch.tar.xz

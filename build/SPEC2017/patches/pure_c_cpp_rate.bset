@@ -18,7 +18,8 @@ $output           = 0;
 	520.omnetpp_r
 	523.xalancbmk_r
 	531.deepsjeng_r
-	541.leela_r
+	510.parest_r
+    541.leela_r
   );
 
 1;
