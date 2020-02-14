@@ -19,8 +19,12 @@ else
 	inputsize=${1}
 fi
 
-source /project/gllvm/enable
+# Setup the local variables and environment
 BUILD_DIR=`pwd`
+pushd ./;
+cd ../../install/bin ;
+export PATH=`pwd`:$PATH ;
+popd ;
 
 cd ${BUILD_DIR}
 

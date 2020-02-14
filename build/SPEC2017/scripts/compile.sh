@@ -1,10 +1,11 @@
 #!/bin/bash
 
-# Set local variables
+# Setup the local variables and environment
 BUILD_DIR=`pwd`
-
-# Enable GLLVM
-source /project/gllvm/enable
+pushd ./;
+cd ../../install/bin ;
+export PATH=`pwd`:$PATH ;
+popd ;
 
 if [ ! -d "${BUILD_DIR}/SPEC2017" ]; then
 	echo "Error: Please run \"./scripts/install.sh\"  first to install SPEC2017."

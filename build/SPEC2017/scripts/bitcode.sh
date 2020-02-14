@@ -5,10 +5,12 @@ if [ ! "${1}" == "rate" ] && [ ! "${1}" == "speed" ]; then
   exit
 fi
 
-
-source /project/gllvm/enable
+# Setup the local variables and environment
 BUILD_DIR=`pwd`
-
+pushd ./;
+cd ../../install/bin ;
+export PATH=`pwd`:$PATH ;
+popd ;
 
 if [ ! -d "../../bitcodes/LLVM9.0/SPEC2017" ]; then
   mkdir ../../bitcodes/LLVM9.0/SPEC2017
