@@ -1,2 +1,3 @@
-source /project/gllvm/enable
+./setup.sh
+export PATH=./install/bin:${PATH}
 export TOP_DIR=$PWD
