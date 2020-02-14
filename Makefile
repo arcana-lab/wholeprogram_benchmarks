@@ -2,4 +2,4 @@ all:
 	./setup.sh
 
 clean:
-	rm -fr install
+	rm -fr install bitcodes
