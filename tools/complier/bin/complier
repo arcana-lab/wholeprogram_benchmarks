@@ -1,0 +1,28 @@
+#!/bin/bash
+case $1 in
+    -addFile)
+        if [ ! -d "${COMPLIER_DIR}/files" ]; then
+            mkdir ${COMPLIER_DIR}/files
+        fi
+        cd ${COMPLIER_DIR}/files
+        cp $2 .
+        ;;
+
+    -addPass)
+        if [ ! -d "${COMPLIER_DIR}/passes" ]; then
+            mkdir ${COMPLIER_DIR}/passes
+        fi
+        cd ${COMPLIER_DIR}/passes
+        cp $2 .
+        echo "$3" >> passes.txt
+        ;;
+
+    -apply)
+
+        ;;
+
+    -clean)
+        rm -rf ${COMPLIER_DIR}/files
+        rm -rf ${COMPLIER_DIR}/passes
+        ;;
+esac

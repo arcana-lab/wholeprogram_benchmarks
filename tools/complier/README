@@ -1,0 +1,20 @@
+This simple tool does this following:
+1) Extracts bitcode from an executable
+2) Applies preset compiler (compiler + applier = complier) passes to the bitcode
+3) Links in any preset files
+4) Compiles bitcode back to an executable
+
+In order to build the 'preset' passes and files the following command could be run:
+
+complier -addFile /path/to/the/file.bc (This will eventually become an argument to llvm-link)
+complier -addPass /path/to/the/pass.so invokeName (This will eventually become the arguments to noelle-load)
+
+
+For instrumenting an executable for CARAT, this would look like:
+
+complier -addFile /path/to/carat.bc
+complier -addPass /path/to/carat.so CARAT 
+
+complier -apply executable
+
+
