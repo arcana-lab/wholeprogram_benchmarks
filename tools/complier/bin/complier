@@ -18,7 +18,39 @@ case $1 in
         ;;
 
     -apply)
+        get-bc $2
 
+        #LOAD THE PASSES
+        A="noelle-load "
+        for pass in ${COMPLIER_DIR}/passes/*.so; do
+            A+="-load ${pass} "
+        done
+        
+        #APPLY THE PASSES
+        while read -r p; do
+            A+="-$p "
+        done < "${COMPLIER_DIR}/passes/passes.txt"
+        A+="${2}.bc -o ${2}.bc"
+        echo $A
+        ${A}
+
+        #LINK THE .bc FILES
+        A="llvm-link ${2}.bc "
+        for file in ${COMPLIER_DIR}/files/*.bc; do
+            A+="${file} " 
+        done
+        A+=" -o ${2}.bc"
+        echo $A
+        ${A}
+
+        #RECOMPILE THE PROGRAM WITH LIBFILES
+        A="clang++ ${2}.bc "
+        for file in ${COMPLIER_DIR}/files/*.a; do
+            A+="${file} " 
+        done
+        A+="-o $2"
+        echo $A
+        ${A}
         ;;
 
     -clean)
