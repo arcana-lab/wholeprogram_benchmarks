@@ -6,13 +6,15 @@ This simple tool does this following:
 
 In order to build the 'preset' passes and files the following command could be run:
 
-complier -addFile /path/to/the/file.bc (This will eventually become an argument to llvm-link)
-complier -addPass /path/to/the/pass.so invokeName (This will eventually become the arguments to noelle-load)
+complier -addFile /path/to/the/file.bc (This will become an argument to llvm-link)
+compiler -addFile /path/to/lib/file.a (This will become an arg to the final compilation stage)
+complier -addPass /path/to/the/pass.so invokeName (This will become the arguments to noelle-load)
 
 
 For instrumenting an executable for CARAT, this would look like:
 
 complier -addFile /path/to/carat.bc
+complier -addFile /path/to/libcarat-user.a
 complier -addPass /path/to/carat.so CARAT 
 
 complier -apply executable
