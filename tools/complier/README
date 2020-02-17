@@ -19,4 +19,4 @@ complier -addPass /path/to/carat.so CARAT
 
 complier -apply executable
 
-
+Finally, sourcing the ENV file will allow complier to work correctly
