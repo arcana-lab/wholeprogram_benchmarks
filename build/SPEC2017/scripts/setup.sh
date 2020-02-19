@@ -75,6 +75,9 @@ for benchmark_string in `sed 1d ${BUILD_DIR}/patches/pure_c_cpp_${2}.bset | grep
 	
 	lastline="`tail -n 1 ${inputsize}/speccmds.cmd`"
 	arguments="$( echo $lastline | awk -F'peak.gclang ' '{print $2}')"
+	if [ "${key}" == "_r" ]; then
+	arguments="$( echo $arguments | awk -F'" ' '{print $1}')"
+	fi
 	echo '#!/bin/bash' > run_${inputsize}.sh
 	echo "cd `pwd`/${inputsize}" >> run_${inputsize}.sh
 	echo "./../${benchmark} ${arguments}" >> run_${inputsize}.sh
