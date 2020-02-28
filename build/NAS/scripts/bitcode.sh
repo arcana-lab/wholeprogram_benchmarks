@@ -4,9 +4,16 @@ BUILD_DIR=`pwd`
 
 benchmarks=(BT CG EP FT IS LU MG SP)
 versions=(A B C S W)
+if [ ! -d "../../bitcodes/" ]; then
+  mkdir ../../bitcodes/
+fi
+
+if [ ! -d "../../bitcodes/LLVM9.0" ]; then
+  mkdir ../../bitcodes/LLVM9.0/
+fi
 
 if [ ! -d "../../bitcodes/LLVM9.0/NAS" ]; then
-  mkdir ../../bitcodes/LLVM9.0/SPEC2017
+  mkdir ../../bitcodes/LLVM9.0/NAS
 fi
 
 cd ../../bitcodes/LLVM9.0/NAS
