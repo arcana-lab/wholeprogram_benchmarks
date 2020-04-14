@@ -22,11 +22,11 @@ if "blackscholes" in benchmarks or allBench:
 
 #W.I.P.
 if "bodytrack" in benchmarks or allBench:
-	print "BODYTRACK: NOT DONE YET"
-	#command = "cd ./parsec-3.0/pkgs/apps/bodytrack/src/; CC=gclang CXX=gclang++ ./configure; make; get-bc bodytrack"
-	#os.system(command)
-	#command = "cp ./parsec-3.0/pkgs/apps/bodytrack/src/bodytrack.bc ./bitcodes/"
-	#os.system(command)	
+	#print "BODYTRACK: NOT DONE YET"
+	command = "cd ./parsec-3.0/pkgs/apps/bodytrack/src/; CC=gclang CXX=gclang++ ./configure; make; get-bc ./TrackingBenchmark/bodytrack"
+	os.system(command)
+	command = "cp ./parsec-3.0/pkgs/apps/bodytrack/src/TrackingBenchmark/bodytrack.bc ./bitcodes/"
+	os.system(command)	
 
 #W.I.P.
 if "facesim" in benchmarks or allBench:
