@@ -1,0 +1,67 @@
+make[1]: Entering directory '/home/yso0488/projects/BenchmarksBitcodes/build/SPEC2017/benchmarks/x264_s'
+ln -s /home/yso0488/projects/noelle/install/../src/runtime/Parallelizer_utils.cpp
+mkdir -p include ; cd include ; ../download.sh "https://github.com/scampanoni/virgil.git" "threadpool" ;
+Cloning https://github.com/scampanoni/virgil.git
+Cloning into 'threadpool'...
+clang++ "-DDEBUG" -Iinclude/threadpool/include -std=c++14 -emit-llvm -O3 -c Parallelizer_utils.cpp -o Parallelizer_utils.bc
+llvm-link x264_s.bc Parallelizer_utils.bc -o baseline.bc
+noelle-norm baseline.bc -o baseline.bc
+opt -load /home/yso0488/projects/noelle/install/lib/libSvf.so -load /home/yso0488/projects/noelle/install/lib/libCudd.so -basicaa -mem2reg -simplifycfg -instcombine -tailcallelim -loop-simplify -lcssa -loop-unswitch -instcombine -loop-simplify -lcssa -indvars -loop-deletion -instcombine -indvars -break-constgeps -mergereturn baseline.bc -o baseline.bc
+Bitcode is modified by SVF
+llvm-dis baseline.bc
+./inject_hotprofiler.sh baseline.bc baseline_prof.bc
+clang++ -fprofile-instr-generate baseline_prof.bc -lm -lstdc++ -lpthread -o baseline_prof
+cd test ; ./../baseline_prof `tail -n 1 ../run_test.sh | awk -Fx264_s '{print $2}'`; mv default.profraw ../ ;
+yuv [info]: 1280x720p 0:0 @ 25/1 fps (cfr)
+x264 [info]: using cpu capabilities: none!
+x264 [info]: profile High, level 3.1
+                                                                               x264 [info]: frame I:2     Avg QP:16.53  size: 90388
+x264 [info]: frame P:58    Avg QP:23.50  size: 30333
+x264 [info]: frame B:96    Avg QP:28.74  size:  1839
+x264 [info]: consecutive B-frames:  1.3% 23.4% 70.1%  5.2%
+x264 [info]: mb I  I16..4: 50.3% 38.1% 11.6%
+x264 [info]: mb P  I16..4:  0.7%  1.1%  0.2%  P16..4: 37.9% 25.4% 20.5%  0.0%  0.0%    skip:14.2%
+x264 [info]: mb B  I16..4:  0.0%  0.0%  0.0%  B16..8: 40.4%  1.7%  0.2%  direct: 0.2%  skip:57.5%  L0:38.9% L1:55.4% BI: 5.7%
+x264 [info]: 8x8 transform intra:43.7% inter:51.8%
+x264 [info]: coded y,uvDC,uvAC intra: 45.6% 58.1% 30.8% inter: 16.8% 16.1% 2.8%
+x264 [info]: i16 v,h,dc,p: 82%  9%  7%  2%
+x264 [info]: i8 v,h,dc,ddl,ddr,vr,hd,vl,hu: 16% 14% 22%  7%  8%  8%  8%  8%  9%
+x264 [info]: i4 v,h,dc,ddl,ddr,vr,hd,vl,hu: 19% 14% 21%  7%  8%  9%  7%  8%  7%
+x264 [info]: i8c dc,h,v,p: 65% 15% 15%  5%
+x264 [info]: Weighted P-Frames: Y:0.0%
+x264 [info]: ref P L0: 67.1% 21.4%  9.5%  1.9%
+x264 [info]: ref B L0: 86.3% 13.0%  0.7%
+x264 [info]: ref B L1: 89.5% 10.5%
+x264 [info]: kb/s:2713.67
+
+encoded 156 frames, inf fps, 2713.67 kb/s
+llvm-profdata merge default.profraw -output=output.prof
+noelle-load -pgo-test-profile-file=output.prof -block-freq -pgo-instr-use -HotProfiler baseline.bc -o baseline_hotprofiled.bc
+HotProfiler: Start
+HotProfiler:   Total instructions = 348749721333
+HotProfiler: Exit
+llvm-dis baseline_hotprofiled.bc
+noelle-meta-pdg-embed baseline_hotprofiled.bc -o baseline_with_metadata.bc
+noelle-meta-clean baseline_hotprofiled.bc -o baseline_hotprofiled.bc
+noelle-load -load /home/yso0488/projects/noelle/install/lib/CleanMetadata.so -CleanMetadata -clean-pdg-metadata=true baseline_hotprofiled.bc -o baseline_hotprofiled.bc
+Clean PDG Metadata
+noelle-load -PDGAnalysis -noelle-pdg-verbose=3 baseline_hotprofiled.bc -o baseline_with_metadata.bc
+Start at WPAPass
+Bitcode is not modified by SVF
+End at WPAPass
+get PDG through getPDG()
+Check if PDG has been embeded as metadata
+Construct PDG from Analysis
+Stack dump:
+0.	Program arguments: opt -load /home/yso0488/projects/noelle/install/lib/libSvf.so -load /home/yso0488/projects/noelle/install/lib/libCudd.so -veto -nander -hander -sander -sfrander -wander -ander -lander -hlander -stat=false -load /home/yso0488/projects/noelle/install/lib/AllocAA.so -load /home/yso0488/projects/noelle/install/lib/TalkDown.so -load /home/yso0488/projects/noelle/install/lib/PDGAnalysis.so -load /home/yso0488/projects/noelle/install/lib/Architecture.so -load /home/yso0488/projects/noelle/install/lib/DataFlow.so -load /home/yso0488/projects/noelle/install/lib/HotProfiler.so -load /home/yso0488/projects/noelle/install/lib/Loops.so -load /home/yso0488/projects/noelle/install/lib/Parallelization.so -load /home/yso0488/projects/noelle/install/lib/Heuristics.so -load /home/yso0488/projects/noelle/install/lib/ParallelizationTechnique.so -load /home/yso0488/projects/noelle/install/lib/LoopDistribution.so -load /home/yso0488/projects/noelle/install/lib/DSWP.so -load /home/yso0488/projects/noelle/install/lib/DOALL.so -load /home/yso0488/projects/noelle/install/lib/HELIX.so -load /home/yso0488/projects/noelle/install/lib/Parallelizer.so -globals-aa -cfl-steens-aa -tbaa -scev-aa -cfl-anders-aa -scalar-evolution -loops -loop-simplify -lcssa -domtree -postdomtree -PDGAnalysis -noelle-pdg-verbose=3 baseline_hotprofiled.bc -o baseline_with_metadata.bc 
+1.	Running pass 'Computing the Program Dependence Graph' on module 'baseline_hotprofiled.bc'.
+#0 0x000000000219868a llvm::sys::PrintStackTrace(llvm::raw_ostream&) (/project/extra/llvm/9.0.0/release/bin/opt+0x219868a)
+#1 0x0000000002196614 llvm::sys::RunSignalHandlers() (/project/extra/llvm/9.0.0/release/bin/opt+0x2196614)
+#2 0x0000000002196775 SignalHandler(int) (/project/extra/llvm/9.0.0/release/bin/opt+0x2196775)
+#3 0x00007f74e0ad3dd0 __restore_rt (/lib64/libpthread.so.0+0x12dd0)
+#4 0x00007f74df5b670f raise (/lib64/libc.so.6+0x3770f)
+#5 0x00007f74df5a0b25 abort (/lib64/libc.so.6+0x21b25)
+#6 0x00007f74de8bffdd llvm::PDGAnalysis::addEdgeFromFunctionModRef(llvm::PDG*, llvm::Function&, llvm::AAResults&, llvm::CallInst*, llvm::CallInst*) /home/yso0488/projects/noelle/src/pdg/src/PDGAnalysis.cpp:635:7
+/home/yso0488/projects/noelle/install/bin/noelle-load: line 25: 2500748 Aborted                 (core dumped) opt -load /home/yso0488/projects/noelle/install/lib/libSvf.so -load /home/yso0488/projects/noelle/install/lib/libCudd.so -veto -nander -hander -sander -sfrander -wander -ander -lander -hlander -stat=false -load /home/yso0488/projects/noelle/install/lib/AllocAA.so -load /home/yso0488/projects/noelle/install/lib/TalkDown.so -load /home/yso0488/projects/noelle/install/lib/PDGAnalysis.so -load /home/yso0488/projects/noelle/install/lib/Architecture.so -load /home/yso0488/projects/noelle/install/lib/DataFlow.so -load /home/yso0488/projects/noelle/install/lib/HotProfiler.so -load /home/yso0488/projects/noelle/install/lib/Loops.so -load /home/yso0488/projects/noelle/install/lib/Parallelization.so -load /home/yso0488/projects/noelle/install/lib/Heuristics.so -load /home/yso0488/projects/noelle/install/lib/ParallelizationTechnique.so -load /home/yso0488/projects/noelle/install/lib/LoopDistribution.so -load /home/yso0488/projects/noelle/install/lib/DSWP.so -load /home/yso0488/projects/noelle/install/lib/DOALL.so -load /home/yso0488/projects/noelle/install/lib/HELIX.so -load /home/yso0488/projects/noelle/install/lib/Parallelizer.so -globals-aa -cfl-steens-aa -tbaa -scev-aa -cfl-anders-aa -scalar-evolution -loops -loop-simplify -lcssa -domtree -postdomtree -PDGAnalysis -noelle-pdg-verbose=3 baseline_hotprofiled.bc -o baseline_with_metadata.bc
+make[1]: *** [Makefile:32: baseline_with_metadata.bc] Error 134
+make[1]: Leaving directory '/home/yso0488/projects/BenchmarksBitcodes/build/SPEC2017/benchmarks/x264_s'
