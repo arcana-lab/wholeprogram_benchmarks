@@ -1,0 +1,74 @@
+Parallelization options: -noelle-verbose=3 -dswp-force -noelle-disable-helix -dswp-no-scc-merge
+Time interval: 30 minutes
+
+deepsjeng_r:
+  failed on Parallelization -- Seg fault
+
+deepsjeng_s:
+  failed on Parallelization -- Seg fault
+
+imagick_r:
+  failed on PDG Construct PDG from Analysis -- llvm::PDGAnalysis::addEdgeFromFunctionModRef
+
+imagick_s:
+  failed on PDG Construct PDG from Analysis -- llvm::PDGAnalysis::addEdgeFromFunctionModRef
+
+lbm_r:
+  failed on Parallelization -- NOT SUPPORTED BYTE SIZE (128): <2 x double>
+
+lbm_s:
+  failed on Parallelization -- NOT SUPPORTED BYTE SIZE (128): <2 x double>
+
+leela_r:
+  failed on PDG Construct PDG from Analysis -- llvm::PDGAnalysis::addEdgeFromFunctionModRef
+
+leela_s:
+  failed on PDG Construct PDG from Analysis -- llvm::PDGAnalysis::addEdgeFromFunctionModRef
+
+mcf_r:
+  failed on Parallelization -- NOT SUPPORTED BYTE SIZE (256): <8 x i32>
+
+mcf_s:
+  failed on Parallelization -- NOT SUPPORTED BYTE SIZE (256): <8 x i32>
+
+nab_r:
+  failed on Parallelization -- NOT SUPPORTED BYTE SIZE (256): <8 x i32>
+
+nab_s:
+  failed on Parallelization -- NOT SUPPORTED BYTE SIZE (256): <8 x i32>
+
+namd_r:
+  failed on PDG Construct PDG from Analysis -- llvm::PDGAnalysis::addEdgeFromFunctionModRef 
+
+omnetpp_r:
+  SVF runs too long
+
+omnetpp_s:
+  SVF runs too long
+
+parest_r:
+  SVF runs too long
+
+perlbench_r:
+  SVF runs too long
+
+perlbench_s:
+  SVF runs too long
+
+x264_r:
+  failed on PDG Construct PDG from Analysis -- llvm::PDGAnalysis::addEdgeFromFunctionModRef
+
+x264_s:
+  failed on PDG Construct PDG from Analysis -- llvm::PDGAnalysis::addEdgeFromFunctionModRef
+
+xalancbmk_r:
+  failed on PDG Construct PDG from Analysis -- llvm::PDGAnalysis::addEdgeFromFunctionModRef
+
+xalancbmk_s:
+  failed on PDG Construct PDG from Analysis -- llvm::PDGAnalysis::addEdgeFromFunctionModRef 
+
+xz_r:
+  failed on PDG Construct PDG from Analysis -- llvm::PDGAnalysis::addEdgeFromFunctionModRef
+
+xz_s:
+  failed on PDG Construct PDG from Analysis -- llvm::PDGAnalysis::addEdgeFromFunctionModRef

@@ -1,0 +1,51 @@
+make[1]: Entering directory '/home/yso0488/projects/BenchmarksBitcodes/build/SPEC2017/benchmarks/omnetpp_r'
+ln -s /home/yso0488/projects/noelle/install/../src/runtime/Parallelizer_utils.cpp
+mkdir -p include ; cd include ; ../download.sh "https://github.com/scampanoni/virgil.git" "threadpool" ;
+Cloning https://github.com/scampanoni/virgil.git
+Cloning into 'threadpool'...
+clang++ "-DDEBUG" -Iinclude/threadpool/include -std=c++14 -emit-llvm -O3 -c Parallelizer_utils.cpp -o Parallelizer_utils.bc
+llvm-link omnetpp_r.bc Parallelizer_utils.bc -o baseline.bc
+noelle-norm baseline.bc -o baseline.bc
+opt -load /home/yso0488/projects/noelle/install/lib/libSvf.so -load /home/yso0488/projects/noelle/install/lib/libCudd.so -basicaa -mem2reg -simplifycfg -instcombine -tailcallelim -loop-simplify -lcssa -loop-unswitch -instcombine -loop-simplify -lcssa -indvars -loop-deletion -instcombine -indvars -break-constgeps -mergereturn baseline.bc -o baseline.bc
+Bitcode is modified by SVF
+llvm-dis baseline.bc
+./inject_hotprofiler.sh baseline.bc baseline_prof.bc
+clang++ -fprofile-instr-generate baseline_prof.bc -lm -lstdc++ -lpthread -o baseline_prof
+cd test ; ./../baseline_prof `tail -n 1 ../run_test.sh | awk -Fomnetpp_r '{print $2}'`; mv default.profraw ../ ;
+OMNeT++ Discrete Event Simulation  (C) 1992-2008 Andras Varga, OpenSim Ltd.
+Version: 4.0, build: 090310-10709, edition: Academic Public License -- NOT FOR COMMERCIAL USE
+See the license for distribution terms and warranty disclaimer
+Setting up Cmdenv...
+Loading NED files from a SPEC directory 13
+
+Preparing for running configuration General, run #0...
+Scenario: $repetition=0
+Assigned runID=speccpu-runid
+Setting up network `largeNet'...
+Initializing...
+
+Running simulation...
+** Event #1   T=0   Elapsed: 0.000s (0m 00s)  0% completed   ev/sec=0
+** Event #2160226   T=0.003   Elapsed: 0.000s (0m 00s)  100% completed   ev/sec=0
+
+<!> Simulation time limit reached -- simulation stopped.
+
+
+Calling finish() at end of Run #0...
+
+End.
+llvm-profdata merge default.profraw -output=output.prof
+noelle-load -pgo-test-profile-file=output.prof -block-freq -pgo-instr-use -HotProfiler baseline.bc -o baseline_hotprofiled.bc
+HotProfiler: Start
+HotProfiler:   Total instructions = 46514019346253
+HotProfiler: Exit
+llvm-dis baseline_hotprofiled.bc
+noelle-meta-pdg-embed baseline_hotprofiled.bc -o baseline_with_metadata.bc
+noelle-meta-clean baseline_hotprofiled.bc -o baseline_hotprofiled.bc
+noelle-load -load /home/yso0488/projects/noelle/install/lib/CleanMetadata.so -CleanMetadata -clean-pdg-metadata=true baseline_hotprofiled.bc -o baseline_hotprofiled.bc
+Clean PDG Metadata
+noelle-load -PDGAnalysis -noelle-pdg-verbose=3 baseline_hotprofiled.bc -o baseline_with_metadata.bc
+Start at WPAPass
+Bitcode is not modified by SVF
+make[1]: *** Deleting file 'baseline_with_metadata.bc'
+make[1]: *** [Makefile:32: baseline_with_metadata.bc] Terminated
