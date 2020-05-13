@@ -11,10 +11,14 @@ function runBenchmark {
 		return
 	fi
 	cd ${BENCHMARKS_DIR}/${1}/${inputsize}
-	lastline="`tail -n 1 speccmds.cmd`"
-	arguments="$( echo $lastline | awk -F'peak.gclang ' '{print $2}')"
+	# lastline="`tail -n 1 speccmds.cmd`"
+	# arguments="$( echo $lastline | awk -F'peak.gclang ' '{print $2}')"
+	lastline="`tail -n 1 ${BENCHMARKS_DIR}/${1}/run_${inputsize}.sh`"
+	arguments="$( echo $lastline | awk -F${1} '{print $2}')"
 	echo "Running \"${1}\" with \"${1}_newbin ${arguments} >${1}_${inputsize}_output.txt\""
-	${BENCHMARKS_DIR}/${1}/${1}_newbin ${arguments} >${BENCHMARKS_DIR}/${1}/${1}_${inputsize}_output.txt
+	# ${BENCHMARKS_DIR}/${1}/${1}_newbin ${arguments} >${BENCHMARKS_DIR}/${1}/${1}_${inputsize}_output.txt
+	../${1}_newbin ${arguments} >${BENCHMARKS_DIR}/${1}/${1}_${inputsize}_output.txt
+	echo `tail -n 1 ${BENCHMARKS_DIR}/${1}/${1}_${inputsize}_output.txt`
 	echo "--------------------------------------------------------------------------------------"
 }
 
