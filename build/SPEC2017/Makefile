@@ -3,7 +3,7 @@ INPUT=test #test, train, ref
 VERSION=rate #speed, rate
 BENCHMARK=mcf_r #all, lbm_s, xz_r, ...
 
-all: SPEC2017 compile_rate bitcode setup optimization binary run
+all: SPEC2017 compile_all bitcode setup optimization binary run
 
 SPEC2017: $(SPECTAR)
 	tar -xf $^
@@ -21,12 +21,16 @@ compile_all:
 	./scripts/compile.sh pure_c_cpp_speed;
 
 bitcode:
-	./scripts/bitcode.sh $(VERSION)
+	./scripts/bitcode.sh rate
+	./scripts/bitcode.sh speed
 
 setup:
-	./scripts/setup.sh test $(VERSION);
-	./scripts/setup.sh train $(VERSION);
-	./scripts/setup.sh ref $(VERSION);
+	./scripts/setup.sh test rate;
+	./scripts/setup.sh train rate;
+	./scripts/setup.sh ref rate;
+	./scripts/setup.sh test speed;
+	./scripts/setup.sh train speed;
+	./scripts/setup.sh ref speed;
 
 optimization:
 	./scripts/optimization.sh $(BENCHMARK)
