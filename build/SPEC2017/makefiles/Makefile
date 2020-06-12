@@ -6,7 +6,7 @@ OPT_LEVEL=-O3
 
 # Arguments
 BENCHMARK=
-PARALLELIZATION_OPTIONS=-noelle-verbose=1 -noelle-disable-helix
+PARALLELIZATION_OPTIONS=-noelle-verbose=1 -noelle-disable-helix --noelle-min-hot=5
 
 # Front-end
 FRONTEND_FLAGS=-emit-llvm -O0 -Xclang -disable-O0-optnone
