@@ -13,6 +13,7 @@ function runOptimizations {
 	cp ${BUILD_DIR}/makefiles/* .
 	make clean > /dev/null ;
 	timeout 30m make BENCHMARK=${1} >> noelle_output.txt 2>&1 ;
+  exitOutput=$? ;
   echo "  The compilation output can be found here: `pwd`/noelle_output.txt" ;
 }
 
@@ -55,4 +56,4 @@ fi
 echo "-----------------------------------------------------------"
 
 echo "DONE" 
-exit
+exit $exitOutput 

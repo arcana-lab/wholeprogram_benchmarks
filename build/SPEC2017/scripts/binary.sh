@@ -9,7 +9,7 @@ OPT=opt
 function genBinary {
 	# Libraries
 	
-	LIBS="-lm -mavx -z muldefs -Wno-return-type -lstdc++ "
+	LIBS="-lm -mavx -z muldefs -Wno-return-type -lstdc++ -lpthread "
 	if [ ! -f "${BENCHMARKS_DIR}/${1}/${1}.bc" ]; then
 		echo "Warning: Bitcode not found for ${1}, skipping"
 		return
@@ -20,6 +20,7 @@ function genBinary {
 	echo "Generating binary '${1}_newbin' for ${1} from ${1}.bc" ;
 	cd ${BENCHMARKS_DIR}/${1}
 	${CC} -O3 ${1}.bc ${LIBS} -o ${1}_newbin;
+  exitOutput=$? ;
 	chmod +x ${1}_newbin;
 }
 
@@ -62,4 +63,4 @@ fi
 echo "-----------------------------------------------------------"
 
 echo "DONE" 
-exit
+exit $exitOutput ;
