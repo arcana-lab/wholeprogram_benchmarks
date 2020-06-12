@@ -39,11 +39,8 @@ output.prof: default.profraw
 default.profraw: baseline_prof
 	cd test ; ./../$< `tail -n 1 ../run_test.sh | awk -F$(BENCHMARK) '{print $$2}'`; mv $@ ../ ;
 
-baseline_prof: baseline_prof.bc
-	$(CPP) -fprofile-instr-generate $^ $(LIBS) -o $@
-
-baseline_prof.bc: baseline.bc
-	./inject_hotprofiler.sh $^ $@
+baseline_prof: baseline.bc
+	noelle-prof-coverage $^ $@ $(LIBS)
 
 baseline.bc: $(BENCHMARK).bc $(RUNTIME).bc
 	llvm-link $^ -o $@
