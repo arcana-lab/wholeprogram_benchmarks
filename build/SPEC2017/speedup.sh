@@ -3,9 +3,13 @@
 benchmarks="`ls benchmarks | grep _s`" ;
 finalOutput="" ;
 
+# Setup
 rm -f noelle_speedup.txt ;
 touch baseline_times.txt ;
 touch noelle_times.txt ;
+
+# Fetch the bitcodes
+make bitcode ;
 
 for b in $benchmarks ; do
   echo "Checking $b";
