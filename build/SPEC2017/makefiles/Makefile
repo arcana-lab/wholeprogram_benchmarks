@@ -6,7 +6,7 @@ OPT_LEVEL=-O3
 
 # Arguments
 BENCHMARK=
-PARALLELIZATION_OPTIONS=-noelle-verbose=1 -noelle-disable-helix --noelle-min-hot=5
+PARALLELIZATION_OPTIONS=-noelle-verbose=1 -noelle-pdg-verbose=1 -noelle-min-hot=5 -noelle-disable-helix -noelle-disable-dswp -noelle-disable-doall
 
 # Front-end
 FRONTEND_FLAGS=-emit-llvm -O0 -Xclang -disable-O0-optnone
@@ -37,7 +37,7 @@ output.prof: default.profraw
 	llvm-profdata merge $^ -output=$@
 
 default.profraw: baseline_prof
-	cd test ; ./../$< `tail -n 1 ../run_test.sh | awk -F$(BENCHMARK) '{print $$2}'`; mv $@ ../ ;
+	cd test ; ./../$< `tail -n 1 ../run_train.sh | awk -F$(BENCHMARK) '{print $$2}'`; mv $@ ../ ;
 
 baseline_prof: baseline.bc
 	noelle-prof-coverage $^ $@ $(LIBS)
