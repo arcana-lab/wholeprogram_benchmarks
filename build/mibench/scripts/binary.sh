@@ -1,11 +1,18 @@
 #!/bin/bash
 
+# Get benchmark suite dir
+PWD_PATH="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )/.." ;
+
 # Compilers
-CC=clang ;
-CXX=clang++ ;
+CC="clang" ;
+CXX="clang++" ;
+FLAGS="-O3" ;
 
 # Libraries
 LIBS="-lm -lstdc++" ;
+
+# Additional libraries for lame benchmmark
+LIBS_EXTRA="-L${PWD_PATH}/mibench-master/consumer/lame/lame3.70 -lmp3lame -lncurses" ;
 
 function genBinary {
   # Check if bitcode exists
@@ -22,12 +29,20 @@ function genBinary {
   # Generate binary
 	echo "Generating binary '${1}' for ${1} from ${1}.bc" ;
 	cd ${benchmarksDir}/${1} ;
-	${CXX} -O3 ${1}.bc ${LIBS} -o ${1} ;
+  if [ "${1}" == "lame" ] ; then
+    ${CXX} ${FLAGS} ${1}.bc ${LIBS} ${LIBS_EXTRA} -o ${1} ;
+  else
+	  ${CXX} -O3 ${1}.bc ${LIBS} -o ${1} ;
+  fi
+
+  # If something goes wrong, return and go to the next benchmark
+  if [ "$?" != 0 ] ; then
+    echo "ERROR: compiling ${1} from bitcode." ;
+    return ;
+  fi
+
 	chmod +x ${1} ;
 }
-
-# Get benchmark suite dir
-PWD_PATH="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )/.." ;
 
 # Get bitcode benchmark dir
 benchmarksDir="${PWD_PATH}/benchmarks" ;
