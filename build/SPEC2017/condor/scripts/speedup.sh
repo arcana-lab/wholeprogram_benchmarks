@@ -8,6 +8,7 @@ finalOutput="" ;
 rm -f noelle_speedup.txt ;
 touch baseline_times.txt ;
 touch noelle_times.txt ;
+touch noelle_speedup.txt ;
 
 # Fetch the bitcodes
 make bitcode ;
