@@ -1,10 +1,31 @@
 #!/bin/bash
 
+function isNoBenchmark {
+  local benchmarkToCopare ;
+  benchmarkToCopare="${1}" ;
+
+  local noBenchmarksList ;
+  noBenchmarksList=("bfspeed" "bftest" "echogs" "genarch" "genconf" "jpegtran" "rdjpgcom" "tcat" "timing" "wrjpgcom") ;
+
+  local result ;
+  result=0 ;
+
+  for elem in ${noBenchmarksList[@]} ; do
+    if [[ "${elem}" == "${benchmarkToCopare}" ]] ; then
+      result=1 ;
+      break ;
+    fi
+  done
+
+  echo "${result}" ;
+}
+
 # Get benchmark suite dir
 PWD_PATH="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )/.." ;
+benchmarkSuiteName="MiBench" ;
 
 # Check benchmark suite is extracted
-pathToBenchmarkSuite="${PWD_PATH}/mibench-master" ;
+pathToBenchmarkSuite="${PWD_PATH}/${benchmarkSuiteName}" ;
 if ! test -d ${pathToBenchmarkSuite} ; then
   echo "ERROR: ${pathToBenchmarkSuite} not found. Run make install." ;
   exit 1 ;
@@ -12,7 +33,7 @@ fi
 
 # Get bitcode dir
 llvmVersion=`llvm-config --version` ;
-bitcodesDir="${PWD_PATH}/../../bitcodes/LLVM${llvmVersion}/mibench" ;
+bitcodesDir="${PWD_PATH}/../../bitcodes/LLVM${llvmVersion}/${benchmarkSuiteName}" ;
 mkdir -p ${bitcodesDir} ;
 
 # Get a list of all generated binaries, we'll use it to extract bitcode files
@@ -25,6 +46,13 @@ errorFile="${PWD_PATH}/error_bitcode_generation.txt" ;
 rm -f ${errorFile} ;
 
 for elem in ${listOfBinaries} ; do
+  # Check whether the current benchmark we want to extract a bitcode file from is a real benchmark or not, if it is not, then skip to the next one
+  currentBenchmark=`basename ${elem}` ;
+  isNotABenchmark=$(isNoBenchmark ${currentBenchmark}) ;
+  if [ ${isNotABenchmark} == "1" ] ; then
+    continue ;
+  fi
+
   echo "Generating bitcode for ${elem}" ;
 
   # Extract bitcode file

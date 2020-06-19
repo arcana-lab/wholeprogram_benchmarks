@@ -2,9 +2,10 @@
 
 # Get benchmark suite dir
 PWD_PATH="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )/.." ;
+benchmarkSuiteName="MiBench" ;
 
 # Check benchmark suite is extracted
-pathToBenchmarkSuite="${PWD_PATH}/mibench-master" ;
+pathToBenchmarkSuite="${PWD_PATH}/${benchmarkSuiteName}" ;
 if ! test -d ${pathToBenchmarkSuite} ; then
   echo "ERROR: ${pathToBenchmarkSuite} not found. Run make install." ;
   exit 1 ;

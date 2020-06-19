@@ -2,8 +2,7 @@
 
 function runBenchmark {
   # Get function args
-  inputArg="${1}" ;
-  benchmarkArg="${2}" ;
+  benchmarkArg="${1}" ;
 
   # Check if paths exists
   pathToBenchmark="${PWD_PATH}/benchmarks/${benchmarkArg}" ;
@@ -32,13 +31,13 @@ function runBenchmark {
 
   # Copy binary into benchmark suite
   cp ${currBinary} ${pathToBinary} ;
-  echo "Executing ${pathToBinary}/${benchmarkArg} with ${inputArg} input" ;
+  echo "Executing ${pathToBinary}/${benchmarkArg}" ;
 
   # Go in the benchmark suite and run the binary
   pushd . &> /dev/null ;
   cd ${pathToBinary} ;
 
-  runScript="./runme_${inputArg}.sh" ;
+  runScript="./runme_${benchmarkArg}.sh" ;
   if ! test -f ${runScript} ; then
     echo "WARNING: ${runScript} not found. Going up one dir." ;
     cd ../ ;
@@ -50,6 +49,10 @@ function runBenchmark {
   fi
 
   ${runScript} ;
+  if [ "$?" != 0 ] ; then
+    echo "ERROR: run of ${runScript} failed." ;
+  fi
+
   popd &> /dev/null ;
 }
 
@@ -57,8 +60,7 @@ function runBenchmark {
 PWD_PATH="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )/.." ;
 
 # Get args
-inputToRun="${1}" ;
-benchmarkToRun="${2}" ;
+benchmarkToRun="${1}" ;
 
 # Get bitcode benchmark dir
 benchmarksDir="${PWD_PATH}/benchmarks" ;
@@ -70,10 +72,10 @@ fi
 # Run benchmark
 if [ "${benchmarkToRun}" == "all" ]; then
 	for benchmark in `ls ${benchmarksDir}`; do
-		runBenchmark ${inputToRun} ${benchmark} ;
+		runBenchmark ${benchmark} ;
 	done
 else
-	runBenchmark ${inputToRun} ${benchmarkToRun} ;
+	runBenchmark ${benchmarkToRun} ;
 fi
 
 echo "DONE" 

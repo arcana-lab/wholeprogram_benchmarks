@@ -1,31 +1,30 @@
 TAR=/project/benchmarks/mibench-master.tar.bz2
 BENCHMARK=all
-INPUT=small
 
-all: install compile_all bitcode setup optimization binary run
+all: compile_all bitcode setup optimization binary run
 
-install: $(TAR)
+MiBench: $(TAR)
 	./scripts/install.sh $(TAR)
 
-compile_all:
+compile_all: MiBench
 	./scripts/compile_all.sh
 
-bitcode:
+bitcode: MiBench
 	./scripts/bitcode.sh
 
-setup:
+setup: MiBench
 	./scripts/setup.sh
 
-optimization:
+optimization: MiBench
 	./scripts/optimization.sh $(BENCHMARK)
 
-binary:
+binary: MiBench
 	./scripts/binary.sh $(BENCHMARK)
 	
-run:
-	./scripts/run.sh $(INPUT) $(BENCHMARK)
+run: MiBench
+	./scripts/run.sh $(BENCHMARK)
 
 clean:
 	./scripts/uninstall.sh
 
-.PHONY: install compile_all bitcode setup optimization binary run clean
+.PHONY: compile_all bitcode setup optimization binary run clean

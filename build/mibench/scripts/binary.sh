@@ -2,6 +2,7 @@
 
 # Get benchmark suite dir
 PWD_PATH="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )/.." ;
+benchmarkSuiteName="MiBench" ;
 
 # Compilers
 CC="clang" ;
@@ -12,7 +13,7 @@ FLAGS="-O3" ;
 LIBS="-lm -lstdc++" ;
 
 # Additional libraries for lame benchmmark
-LIBS_EXTRA="-L${PWD_PATH}/mibench-master/consumer/lame/lame3.70 -lmp3lame -lncurses" ;
+LIBS_EXTRA="-L${PWD_PATH}/${benchmarkSuiteName}/consumer/lame/lame3.70 -lmp3lame -lncurses" ;
 
 function genBinary {
   # Check if bitcode exists
