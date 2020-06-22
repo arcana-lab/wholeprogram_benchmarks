@@ -3,7 +3,11 @@ INPUT=test #test, train, ref
 VERSION=rate #speed, rate
 BENCHMARK=mcf_r #all, lbm_s, xz_r, ...
 
-all: SPEC2017 compile_all bitcode setup optimization binary run
+all: baseline_code_generation
+
+optimized_code_generation: compile_all bitcode setup optimization binary run
+
+baseline_code_generation: compile_all bitcode setup binary
 
 SPEC2017: $(SPECTAR)
 	tar -xf $^
