@@ -1,6 +1,6 @@
-#!/bin/bash
+#!/bin/bash -e
 
-noelleBin="`which noelle`";
+noelleBin="`which noelle-config`";
 noelleDir=`dirname $noelleBin`/../../ ;
 noelleDir=`realpath $noelleDir` ;
 echo $noelleDir ;
