@@ -48,10 +48,15 @@ function runBenchmark {
     fi
   fi
 
-  ${runScript} ;
+  perfStatFile="${PWD_PATH}/benchmarks/${benchmarkArg}/${benchmarkArg}_large_output.txt" ;
+  perf stat ${runScript} > ${perfStatFile} ;
   if [ "$?" != 0 ] ; then
     echo "ERROR: run of ${runScript} failed." ;
   fi
+
+  # Print last line of perf stat output file
+  echo `tail -n 1 ${perfStatFile}` ;
+	echo "--------------------------------------------------------------------------------------" ;
 
   popd &> /dev/null ;
 }
@@ -60,7 +65,8 @@ function runBenchmark {
 PWD_PATH="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )/.." ;
 
 # Get args
-benchmarkToRun="${1}" ;
+inputToIgnore="${1}" ;
+benchmarkToRun="${2}" ;
 
 # Get bitcode benchmark dir
 benchmarksDir="${PWD_PATH}/benchmarks" ;
