@@ -1,5 +1,12 @@
 #!/bin/bash
 
+# Setup the local variables and environment
+BUILD_DIR=`pwd`
+pushd ./;
+cd ../../install/bin ;
+export PATH=`pwd`:$PATH ;
+popd ;
+
 # Check if gclang is in PATH
 which gclang ;
 if [ "$?" != "0" ] ; then
