@@ -1,7 +1,11 @@
 TAR=/project/benchmarks/mibench-master.tar.bz2
 BENCHMARK=all
 
-all: compile_all bitcode setup optimization binary run
+all: baseline_code_generation
+
+optimized_code_generation: compile_all bitcode setup optimization binary run
+
+baseline_code_generation: compile_all bitcode setup binary
 
 MiBench: $(TAR)
 	./scripts/install.sh $(TAR)
@@ -27,4 +31,4 @@ run: MiBench
 clean:
 	./scripts/uninstall.sh
 
-.PHONY: compile_all bitcode setup optimization binary run clean
+.PHONY: optimized_code_generation baseline_code_generation compile_all bitcode setup optimization binary run clean
