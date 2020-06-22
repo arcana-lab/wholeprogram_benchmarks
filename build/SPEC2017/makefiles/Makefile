@@ -6,7 +6,8 @@ OPT_LEVEL=-O3
 
 # Arguments
 BENCHMARK=
-PARALLELIZATION_OPTIONS=-noelle-verbose=1 -noelle-pdg-verbose=1 -noelle-min-hot=5 -noelle-disable-helix -noelle-disable-dswp -noelle-disable-inliner
+PARALLELIZATION_OPTIONS=
+NOELLE_OPTIONS=-noelle-verbose=1 -noelle-pdg-verbose=1 -noelle-min-hot=5 -noelle-disable-helix -noelle-disable-dswp -noelle-disable-inliner
 
 # Front-end
 FRONTEND_FLAGS=-emit-llvm -O0 -Xclang -disable-O0-optnone
@@ -24,7 +25,7 @@ LIBS=-lm -lstdc++ -lpthread
 all: baseline_parallelized.bc
 
 baseline_parallelized.bc: baseline_with_metadata.bc
-	noelle-parallelizer $^ -o $@ $(PARALLELIZATION_OPTIONS)
+	noelle-parallelizer $^ -o $@ $(NOELLE_OPTIONS) $(PARALLELIZATION_OPTIONS)
 	llvm-dis $@
 	cp $@ $(BENCHMARK).bc
 
@@ -44,7 +45,7 @@ baseline_prof: baseline.bc
 
 baseline.bc: $(BENCHMARK).bc $(RUNTIME).bc
 	llvm-link $^ -o $@
-	noelle-pre $@
+	noelle-pre $@ $(NOELLE_OPTIONS)
 	llvm-dis $@
 
 $(RUNTIME).bc: $(RUNTIME).cpp download
