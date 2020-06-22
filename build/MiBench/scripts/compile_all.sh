@@ -1,5 +1,12 @@
 #!/bin/bash
 
+# Check if gclang is in PATH
+which gclang ;
+if [ "$?" != "0" ] ; then
+  echo "ERROR: gclang is not in PATH. For Zythos cluster users, execute: export PATH=/project/gllvm/gllvm/bin:$\{PATH\}" ;
+  exit 1 ;
+fi
+
 # Get benchmark suite dir
 PWD_PATH="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )/.." ;
 benchmarkSuiteName="MiBench" ;
