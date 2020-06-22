@@ -1,5 +1,1 @@
-all:
-	echo "Optimization"
-
-clean:
-	rm -f *.o
+../../SPEC2017/makefiles/Makefile
