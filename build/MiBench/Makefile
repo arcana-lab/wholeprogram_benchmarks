@@ -1,5 +1,6 @@
 TAR=/project/benchmarks/mibench-master.tar.bz2
 BENCHMARK=all
+INPUT=large # useless, we always use large for MiBench, necessary to match SPEC2017 Makefile
 
 all: baseline_code_generation
 
@@ -26,7 +27,7 @@ binary: MiBench
 	./scripts/binary.sh $(BENCHMARK)
 	
 run: MiBench
-	./scripts/run.sh $(BENCHMARK)
+	./scripts/run.sh $(INPUT) $(BENCHMARK)
 
 clean:
 	./scripts/uninstall.sh
