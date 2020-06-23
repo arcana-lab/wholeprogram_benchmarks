@@ -13,7 +13,7 @@ function runOptimizations {
 	cp ${PWD_PATH}/makefiles/* . ;
 	make clean > /dev/null ;
   timeout 30m make BENCHMARK=${1} >> noelle_output.txt 2>&1 ;
-
+  exitOutput=$? ;
   return ;
 }
 
@@ -41,4 +41,4 @@ fi
 echo "-----------------------------------------------------------"
 echo "DONE"
 
-exit
+exit ${exitOutput} ;
