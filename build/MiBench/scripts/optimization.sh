@@ -11,7 +11,8 @@ function runOptimizations {
 	echo "Running your optimizations for \"${1}\"" ;
 	cd ${benchmarksDir}/${1} ;
 	cp ${PWD_PATH}/makefiles/* . ;
-	make ;
+	make clean > /dev/null ;
+  timeout 30m make BENCHMARK=${1} >> noelle_output.txt 2>&1 ;
 
   return ;
 }
