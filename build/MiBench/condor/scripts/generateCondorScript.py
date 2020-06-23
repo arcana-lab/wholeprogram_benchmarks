@@ -1,1 +1,0 @@
-../../../SPEC2017/condor/scripts/generateCondorScript.py
