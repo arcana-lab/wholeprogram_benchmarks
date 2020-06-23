@@ -38,7 +38,7 @@ output.prof: default.profraw
 	llvm-profdata merge $^ -output=$@
 
 default.profraw: baseline_prof
-	cd test ; ./../$< `tail -n 1 ../run_train.sh | awk -F$(BENCHMARK) '{print $$2}'`; mv $@ ../ ;
+	cd train ; ./../$< `tail -n 1 ../run_train.sh | awk -F$(BENCHMARK) '{print $$2}'`; mv $@ ../ ;
 
 baseline_prof: baseline.bc
 	noelle-prof-coverage $^ $@ $(LIBS)
