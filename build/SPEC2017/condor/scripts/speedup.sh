@@ -11,7 +11,7 @@ touch noelle_times.txt ;
 touch noelle_speedup.txt ;
 
 # Fetch the bitcodes
-make setup ;
+make bitcode ;
 
 for b in $benchmarks ; do
   echo "Checking $b";
