@@ -1,7 +1,6 @@
 #!/bin/bash
 
-benchmarks="namd_r parest_r"
-benchmarks="$benchmarks `ls benchmarks | grep _s`" ;
+benchmarks="`ls benchmarks`" ;
 finalOutput="" ;
 
 # Setup
