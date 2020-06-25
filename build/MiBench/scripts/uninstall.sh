@@ -16,3 +16,5 @@ rm -rf ${bitcodesDir} ;
 
 benchmarkSuiteDir="${PWD_PATH}/${benchmarkSuiteName}" ;
 rm -rf ${benchmarkSuiteDir} ;
+
+rm -rf ._mibench-master ;
