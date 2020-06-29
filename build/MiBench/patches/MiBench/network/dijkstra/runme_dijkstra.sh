@@ -1,3 +1,3 @@
 #!/bin/sh
 
-./dijkstra input.dat > output_large.dat
+./dijkstra input_verylarge.dat > output_large.dat

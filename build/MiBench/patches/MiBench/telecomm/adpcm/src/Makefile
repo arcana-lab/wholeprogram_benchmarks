@@ -12,6 +12,7 @@
 # uncomment this option: -static.
 #
 CC = gcc
+SB_OPT=-O0 -Xclang -disable-O0-optnone
 LFLAGS = -mv8
 LFLAGS = $(LFLAGS) -static
 #
@@ -48,10 +49,10 @@ sgidaudio: sgidaudio.o adpcm.o
 	$(CC) sgidaudio.o adpcm.o -o sgidaudio -laudiofile -lm
 
 rawcaudio: rawcaudio.o adpcm.o
-	$(CC) $(CFLAGS) rawcaudio.o adpcm.o -o rawcaudio
+	$(CC) $(CFLAGS) rawcaudio.o adpcm.o -o rawcaudio $(SB_OPT)
 
 rawdaudio: rawdaudio.o adpcm.o
-	$(CC) $(CFLAGS) rawdaudio.o adpcm.o -o rawdaudio
+	$(CC) $(CFLAGS) rawdaudio.o adpcm.o -o rawdaudio $(SB_OPT)
 
 timing: timing.o adpcm.o
 	$(CC) $(CFLAGS) timing.o adpcm.o -o timing

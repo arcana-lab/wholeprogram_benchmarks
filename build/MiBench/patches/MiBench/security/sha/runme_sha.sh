@@ -1,3 +1,3 @@
 #!/bin/sh
 
-./sha input_large.asc > output_large.txt
+./sha input_verylarge.asc > output_large.txt
