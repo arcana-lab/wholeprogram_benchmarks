@@ -1,3 +1,3 @@
 #!/bin/sh
 
-./bf_e e input_large.asc output_large.enc 1234567890abcdeffedcba0987654321
+./bf_e e input_verylarge.asc output_verylarge.enc 1234567890abcdeffedcba0987654321
