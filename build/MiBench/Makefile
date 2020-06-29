@@ -4,11 +4,11 @@ INPUT=large # useless, we always use large for MiBench, necessary to match SPEC2
 
 all: baseline_code_generation
 
-optimized_code_generation: compile_all bitcode setup optimization binary run
+optimized_code_generation: compile_all bitcode bitcode_copy setup optimization binary run
 
-baseline_code_generation: compile_all bitcode setup binary
+baseline_code_generation: compile_all bitcode bitcode_copy setup binary
 
-MiBench: $(TAR)
+MiBench:
 	./scripts/install.sh $(TAR)
 
 compile_all: MiBench
@@ -16,6 +16,9 @@ compile_all: MiBench
 
 bitcode: MiBench
 	./scripts/bitcode.sh
+
+bitcode_copy: MiBench
+	./scripts/bitcode_copy.sh
 
 setup: MiBench
 	./scripts/setup.sh
