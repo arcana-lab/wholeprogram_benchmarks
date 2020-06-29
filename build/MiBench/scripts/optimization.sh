@@ -7,9 +7,14 @@ function runOptimizations {
     return ;
   fi
 
+  # Go in the benchmark dir
+	cd ${benchmarksDir}/${1} ;
+
+  # Copy run script for default.profraw execution
+  cp ${PWD_PATH}/makefiles/run.sh . ;
+
   # Run optimization
 	echo "Running your optimizations for \"${1}\"" ;
-	cd ${benchmarksDir}/${1} ;
 	cp ${PWD_PATH}/makefiles/* . ;
 	make clean > /dev/null ;
   timeout 30m make BENCHMARK=${1} >> noelle_output.txt 2>&1 ;

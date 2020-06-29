@@ -1,5 +1,20 @@
 #!/bin/bash
 
+function split {
+  headOrTail="${1}" ;
+  stringToSplit="${2}" ;
+  IFS=' ' ;
+  read -a stringAsArray <<< "${stringToSplit}" ;
+
+  if [ ${headOrTail} == "h" ] ; then
+    echo ${stringAsArray[0]} ;
+  else
+    echo ${stringAsArray[@]:1} ;
+  fi
+
+  return ;
+}
+
 function runBenchmark {
   # Get function args
   benchmarkArg="${1}" ;
@@ -34,7 +49,6 @@ function runBenchmark {
   echo "Executing ${pathToBinary}/${benchmarkArg}" ;
 
   # Go in the benchmark suite and run the binary
-  pushd . &> /dev/null ;
   cd ${pathToBinary} ;
 
   runScript="./runme_${benchmarkArg}.sh" ;
@@ -43,22 +57,27 @@ function runBenchmark {
     cd ../ ;
     if ! test -f ${runScript} ; then
       echo "WARNING: ${runScript} not found. Skipping..." ;
-      popd  &> /dev/null;
       return ;
     fi
   fi
+  commandToRun=`tail -n 1 ${runScript}` ;
+  binary=$(split h "${commandToRun}") ;
+  args=$(split t "${commandToRun}") ;
 
   perfStatFile="${PWD_PATH}/benchmarks/${benchmarkArg}/${benchmarkArg}_large_output.txt" ;
-  perf stat ${runScript} > ${perfStatFile} ;
+  commandToRunSplit="${binary} ${args}" ;
+  echo "Running: ${commandToRunSplit} in ${PWD}" ;
+  eval perf stat ${commandToRunSplit} > ${perfStatFile} ;
   if [ "$?" != 0 ] ; then
-    echo "ERROR: run of ${runScript} failed." ;
+    echo "ERROR: run of ${commandToRunSplit} failed." ;
+    return ;
   fi
 
   # Print last line of perf stat output file
   echo `tail -n 1 ${perfStatFile}` ;
 	echo "--------------------------------------------------------------------------------------" ;
 
-  popd &> /dev/null ;
+  return ;
 }
 
 # Get benchmark suite dir
@@ -78,10 +97,10 @@ fi
 # Run benchmark
 if [ "${benchmarkToRun}" == "all" ]; then
 	for benchmark in `ls ${benchmarksDir}`; do
-		runBenchmark ${benchmark} ;
+    runBenchmark ${benchmark} ;
 	done
 else
-	runBenchmark ${benchmarkToRun} ;
+  runBenchmark ${benchmarkToRun} ;
 fi
 
 echo "DONE" 
