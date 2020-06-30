@@ -17,9 +17,10 @@ $output           = 0;
 	508.namd_r
 	520.omnetpp_r
 	523.xalancbmk_r
+  526.blender_r
 	531.deepsjeng_r
 	510.parest_r
-    541.leela_r
+  541.leela_r
   );
 
 1;
