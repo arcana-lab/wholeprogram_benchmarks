@@ -29,13 +29,10 @@ baseline_parallelized.bc: baseline_with_metadata.bc
 	llvm-dis $@
 	cp $@ $(BENCHMARK).bc
 
-baseline_with_metadata.bc: output.prof baseline.bc
+baseline_with_metadata.bc: default.profraw baseline.bc
 	noelle-meta-prof-embed $^ -o $@
 	noelle-meta-pdg-embed $@ -o $@
 	llvm-dis $@
-
-output.prof: default.profraw
-	llvm-profdata merge $^ -output=$@
 
 default.profraw: baseline_prof
 	cd train ; ./../$< `tail -n 1 ../run_train.sh | awk -F$(BENCHMARK) '{print $$2}'`; mv $@ ../ ;
