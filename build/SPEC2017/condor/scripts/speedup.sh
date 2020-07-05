@@ -13,6 +13,12 @@ touch noelle_speedup.txt ;
 # Fetch the bitcodes
 make bitcode ;
 
+# Clean
+rm -f benchmarks/*/default.profraw ;
+rm -f benchmarks/*/baseline* ;
+rm -f benchmarks/*/noelle_output.txt ;
+rm -f benchmarks/*/*train_output.txt ;
+
 for b in $benchmarks ; do
   echo "Checking $b";
 
