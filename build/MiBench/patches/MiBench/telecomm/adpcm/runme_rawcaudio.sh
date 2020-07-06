@@ -1,3 +1,3 @@
 #!/bin/sh
 
-./bin/rawcaudio < data/large.pcm > output_large.adpcm
+./bin/rawcaudio < data/very_large.pcm > output_very_large.adpcm
