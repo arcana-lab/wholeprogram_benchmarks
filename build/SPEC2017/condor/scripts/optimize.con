@@ -28,7 +28,7 @@ Error = $(LogDir)/condor.err
 Log = $(LogDir)/condor.log
 
 # Each job requires access to the whole machine
-+IsWholeMachineJob      = true
++IsWholeMachineJob      = false
 +IsSuspensionJob        = false
 
 # Set the priority
@@ -39,7 +39,6 @@ InitialDir = $(RepoPath)
 Executable = $(RepoPath)/condor/bin/run.sh
 
 # Arguments of run.sh
-Arguments = "$(InitialDir) speedup.sh"
+Arguments = "$(InitialDir) optimize.sh $(Benchmark)"
 
 # List the tests
-Queue

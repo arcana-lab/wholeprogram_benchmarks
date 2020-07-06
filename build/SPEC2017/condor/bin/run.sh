@@ -1,11 +1,12 @@
 #!/bin/bash
 
 # Fetch the inputs
-if test $# -lt 1 ; then
-  echo "USAGE: `basename $0` REPO_DIR " ;
+if test $# -lt 2 ; then
+  echo "USAGE: `basename $0` REPO_DIR COMMAND " ;
   exit 1;
 fi
 repoDir="$1" ;
+binaryToRun="$2" ;
 
 # Setup the environment
 source ~/.bash_profile ;
@@ -14,4 +15,4 @@ source ~/.bash_profile ;
 cd $repoDir/ ;
 
 # Run
-./condor/scripts/speedup.sh ;
+./condor/scripts/${binaryToRun} ${@:3};
