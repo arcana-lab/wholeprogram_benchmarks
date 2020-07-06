@@ -29,7 +29,7 @@ BITCODE_DIR=`pwd`
 cd ${BUILD_DIR}
 
 #delete previously generated bitcodes
-rm -rf ${BITCODE_DIR}/*
+#rm -rf ${BITCODE_DIR}/* # ED: this script is invoked twice (for speed and rate benchmarks), if we remove the whole bitcode directory we'll be left with only one set of benchmarks.
 
 if [ ! -d "${BUILD_DIR}/benchmarks/" ]; then
   mkdir ${BUILD_DIR}/benchmarks
@@ -73,14 +73,17 @@ for benchmark_string in `sed 1d ${BUILD_DIR}/patches/pure_c_cpp_${1}.bset | grep
 	cd ${BENCHMARKS_DIR}/${benchmark}
 	
 	get-bc ${benchmark}
-	cp ${benchmark}.bc ${BITCODE_DIR}/
 
 done
 echo "-----------------------------------------------------------"
 echo "Run directories created at \"${BENCHMARKS_DIR}\" contain respective binaries and bitcodes. Run workload '${1}' with ./run.sh found at respective workload directories."  
- 
+
+# Copy bitcode into bitcode dir and removebenchmarks dir, it will be created by bitocde_copy.sh
+cp -r ${BENCHMARKS_DIR}/* ${BITCODE_DIR}/ ;
+rm -r ${BENCHMARKS_DIR} ;
+
 cd ${BITCODE_DIR}
-tar -czf spec2017.tgz *
+#tar -czf spec2017.tgz *
 echo "DONE" 
 
 exit

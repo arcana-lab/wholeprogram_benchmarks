@@ -5,9 +5,9 @@ BENCHMARK=mcf_r #all, lbm_s, xz_r, ...
 
 all: baseline_code_generation
 
-optimized_code_generation: compile_all bitcode setup optimization binary run
+optimized_code_generation: compile_all bitcode bitcode_copy setup optimization binary run
 
-baseline_code_generation: compile_all bitcode setup binary
+baseline_code_generation: compile_all bitcode bitcode_copy setup binary
 
 SPEC2017: $(SPECTAR)
 	tar -xf $^
@@ -27,6 +27,9 @@ compile_all: SPEC2017
 bitcode: SPEC2017
 	./scripts/bitcode.sh rate
 	./scripts/bitcode.sh speed
+
+bitcode_copy: SPEC2017
+	./scripts/bitcode_copy.sh
 
 setup: SPEC2017
 	./scripts/setup.sh test rate;

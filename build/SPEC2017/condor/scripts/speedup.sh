@@ -11,7 +11,7 @@ touch noelle_times.txt ;
 touch noelle_speedup.txt ;
 
 # Fetch the bitcodes
-make bitcode ;
+make bitcode_copy ;
 
 # Clean
 rm -f benchmarks/*/default.profraw ;
