@@ -1,3 +1,3 @@
 #!/bin/sh
 
-./crc ../adpcm/data/large.pcm > output_large.txt
+./crc ../adpcm/data/very_large.pcm > output_very_large.txt
