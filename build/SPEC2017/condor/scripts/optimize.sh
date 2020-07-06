@@ -6,14 +6,13 @@ if test $# -lt 1 ; then
   exit 1;
 fi
 b="$1" ;
+echo "Optimizing $b" ;
 
 # Clean
 rm -f benchmarks/${b}/default.profraw ;
 rm -f benchmarks/${b}/baseline* ;
 rm -f benchmarks/${b}/noelle_output.txt ;
 rm -f benchmarks/${b}/*train_output.txt ;
-
-echo "Optimizing $b" ;
 
 # Parallelize the benchmark
 make optimization BENCHMARK=$b ;
