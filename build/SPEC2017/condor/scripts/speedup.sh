@@ -34,24 +34,7 @@ for b in $benchmarks ; do
     make binary BENCHMARK=$b ;
 
     # Run the baseline
-    touch baseline_${b}.txt ;
-    for i in `seq 1 $numRuns` ; do
-
-      # Run
-      make run BENCHMARK=$b INPUT=train &> baseline_${b}_${i}.txt ;
-
-      # Collect the time
-      baselineTime=`awk '{
-          if (  ($2 == "seconds") &&
-                ($3 == "time")    &&
-                ($4 == "elapsed") ){
-            print $1 ;
-          }
-        }' baseline_${b}_${i}.txt `;
-
-      # Append the time
-      echo "$baselineTime" >> baseline_${b}.txt ;
-    done
+    ./condor/scripts/run.sh $b $numRuns baseline_${b}.txt ;
 
     # Fetch the median
     baselineTime=`awk -v n=$numRuns '
@@ -92,31 +75,9 @@ for b in $benchmarks ; do
     fi
 
     # Run the parallelized binary
-    hasFailed="0" ;
-    touch noelle_${b}.txt ;
-    for i in `seq 1 $numRuns` ; do
-
-      # Run
-      make run BENCHMARK=$b INPUT=train &> noelle_${b}_${i}.txt ;
-      if test $? -ne 0 ; then
-        echo "$b Error during execution of the parallel binary" >> noelle_speedup.txt ;
-        hasFailed="1" ;
-        break ;
-      fi
-
-      # Collect the time
-      noelleTime=`awk '{
-          if (  ($2 == "seconds") &&
-                ($3 == "time")    &&
-                ($4 == "elapsed") ){
-            print $1 ;
-          }
-        }' noelle_${b}_${i}.txt `;
-
-      # Append the time
-      echo "$noelleTime" >> noelle_${b}.txt ;
-    done
-    if test "$hasFailed" == "1" ; then
+    ./condor/scripts/run.sh $b $numRuns noelle_${b}.txt ;
+    if test "$?" != "0" ; then
+      echo "$b Error while executing the parallel binary" >> noelle_speedup.txt ;
       continue ;
     fi
 
