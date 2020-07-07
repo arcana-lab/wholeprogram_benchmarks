@@ -10,6 +10,8 @@ python2 scripts/generateCondorScript.py scripts/${condorFile} ./${condorFile} "$
 pushd ./ ;
 cd ../benchmarks ; 
 for i in `ls` ; do
+
+  # Check if it is a directory
   if ! test -d $i ; then
     continue ;
   fi
