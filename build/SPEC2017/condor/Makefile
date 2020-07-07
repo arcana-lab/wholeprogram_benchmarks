@@ -11,6 +11,9 @@ speedup.con:
 optimize.con:
 	./scripts/generateCondorScript.sh $@
 
+binary.con:
+	./scripts/generateCondorScript.sh $@
+
 clean:
 	rm -rf log/*.out log/*.err log/*.log *~ ./*.con
 
