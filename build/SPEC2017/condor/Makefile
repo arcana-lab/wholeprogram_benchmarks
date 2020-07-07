@@ -14,6 +14,9 @@ optimize.con:
 binary.con:
 	./scripts/generateCondorScript.sh $@
 
+run.con:
+	./scripts/generateCondorScript.sh $@
+
 clean:
 	rm -rf log/*.out log/*.err log/*.log *~ ./*.con
 
