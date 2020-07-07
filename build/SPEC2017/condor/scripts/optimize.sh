@@ -18,12 +18,12 @@ rm -f benchmarks/${b}/*train_output.txt ;
 make optimization BENCHMARK=$b ;
 if test $? -ne 0 ; then
   echo "$b Error during parallelization" >> noelle_optimize.txt ;
-  continue ;
+  exit 1;
 fi
 
 # Generate the parallel binary
 make binary BENCHMARK=$b ;
 if test $? -ne 0 ; then
   echo "$b Error during binary generation (the parallelization succeded)" >> noelle_optimize.txt ;
-  continue ;
+  exit 1;
 fi
