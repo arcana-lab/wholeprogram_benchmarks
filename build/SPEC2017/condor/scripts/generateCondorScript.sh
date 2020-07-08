@@ -16,6 +16,13 @@ for i in `ls` ; do
     continue ;
   fi
 
+  # Check if there is the bitcode
+  if ! test -e ${i}/${i}.bc ; then
+    continue ;
+  fi
+  echo "  Benchmark ${i} is added" ;
+
+  # Add the entry to the condor file
   echo "Benchmark = $i" >> ${origDir}/${condorFile} ;
   echo "Queue" >> ${origDir}/${condorFile} ;
 done
