@@ -1,21 +1,21 @@
 EMAIL=
 
-all: optimize.con run
+all: optimize.con submit
 
-run: 
+submit: 
 	./scripts/submit.sh *.con
 
 speedup.con:
 	python2 scripts/generateCondorScript.py scripts/$@ ./$@ "$@" " " ${EMAIL};
 
 optimize.con:
-	./scripts/generateCondorScript.sh $@
+	./scripts/generateCondorScript.sh $@ ".bc"
 
 binary.con:
-	./scripts/generateCondorScript.sh $@
+	./scripts/generateCondorScript.sh $@ ".bc"
 
 run.con:
-	./scripts/generateCondorScript.sh $@
+	./scripts/generateCondorScript.sh $@ "_newbin"
 
 clean:
 	rm -rf log/*.out log/*.err log/*.log *~ ./*.con
