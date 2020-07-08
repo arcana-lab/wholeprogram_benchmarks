@@ -38,6 +38,6 @@ InitialDir = $(RepoPath)
 Executable = $(RepoPath)/condor/bin/run.sh
 
 # Arguments of run.sh
-Arguments = "$(InitialDir) run.sh $(Benchmark) 5 $(InitialDir)/times.txt"
+Arguments = "$(InitialDir) run.sh $(Benchmark) 5 $(InitialDir)/times_$(Benchmark).txt"
 
 # List the tests
