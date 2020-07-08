@@ -42,7 +42,7 @@ baseline_prof: baseline.bc
 
 baseline.bc: $(BENCHMARK).bc $(RUNTIME).bc
 	llvm-link $^ -o $@
-	rm $< 
+	cp $< NOELLE_input.bc
 	noelle-pre $@ $(NOELLE_OPTIONS)
 	llvm-dis $@
 
