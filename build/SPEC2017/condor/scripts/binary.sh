@@ -9,12 +9,12 @@ b="$1" ;
 echo "Generating the binary for $b" ;
 
 # Clean
-rm -f benchmarks/${b}/noelle_optimize.txt ;
+rm -f benchmarks/${b}/binary.txt ;
 
 # Generate the parallel binary
 make binary BENCHMARK=$b ;
 if test $? -ne 0 ; then
-  echo "$b Error during binary generation" >> noelle_optimize.txt ;
+  echo "$b Error during binary generation" >> binary.txt ;
   exit 1;
 fi
 
