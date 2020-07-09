@@ -23,4 +23,11 @@ To run NOELLE, follow the next steps:
 
 9- wait the jobs to end
 
-10- collect the execution times. They are in the SPEC2017/times*.txt files
+10- go to the condor directory (SPEC2017/condor)
+
+11- run "make clean ; make run.con ; make submit"
+  This step runs 5 times each binary generated
+
+12- wait the jobs to end
+
+13- collect the execution times. They are in the SPEC2017/times*.txt files
