@@ -20,7 +20,7 @@ for i in `seq 1 $numRuns` ; do
   # Run
   make run BENCHMARK=$b INPUT=train &> ${tempFile} ;
   if test $? -ne 0 ; then
-    echo "$b Error during binary generation" >> ${outputFile} ;
+    echo "$b Error during execution" >> ${outputFile} ;
     break ;
   fi
 
