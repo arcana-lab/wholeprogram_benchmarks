@@ -8,3 +8,12 @@ rm -f benchmarks/*/*train_output.txt ;
 rm -f benchmarks/*/NOELLE_input.bc ;
 rm -f benchmarks/*/*newbin;
 
+pushd ./ ;
+cd benchmarks ;
+for i in `ls` ; do
+  if ! test -d $i ; then
+    continue ;
+  fi
+  rm -f $i/$i ;
+done
+popd ;
