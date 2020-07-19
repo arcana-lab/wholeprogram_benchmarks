@@ -6,13 +6,19 @@ function runBenchmark {
   benchmarkArg="${2}" ;
 
   # Check if paths exists
-  pathToBenchmark="${PWD_PATH}/benchmarks/${benchmarkArg}" ;
+  pathToBenchmark="${benchmarksDir}/${benchmarkArg}" ;
   if ! test -d ${pathToBenchmark} ; then
     echo "WARNING: ${pathToBenchmark} not found. Skipping..." ;
     return ;
   fi
 
-  pathToBinaryPath="${pathToBenchmark}/path.txt" ;
+  pathToBenchmarkRunDir="${pathToBenchmark}/run" ;
+  if ! test -d ${pathToBenchmarkRunDir} ; then
+    echo "WARNING: ${pathToBenchmarkRunDir} not found. Skipping..." ;
+    return ;
+  fi
+
+  pathToBinaryPath="${pathToBenchmarkRunDir}/path.txt" ;
   if ! test -f ${pathToBinaryPath} ; then
     echo "WARNING: ${pathToBinaryPath} not found. Skipping..." ;
     return ;
@@ -36,15 +42,11 @@ function runBenchmark {
     return ;
   fi
 
-  # Create run dir
-  rm -rf ${pathToBenchmark}/run ;
-  mkdir ${pathToBenchmark}/run ;
-
   # Copy binary into run dir under benchmark
-  cp ${currBinary} ${pathToBenchmark}/run ;
+  cp ${currBinary} ${pathToBenchmarkRunDir} ;
 
   # Go in the benchmark dir
-  cd ${pathToBenchmark}/run ;
+  cd ${pathToBenchmarkRunDir} ;
 
   # Extract inputs in run dir if the input archive exists
   pathToBenchmarkInput="${pathToBinary}/../../../inputs/input_${inputArg}.tar" ;
@@ -56,7 +58,7 @@ function runBenchmark {
   NTHREADS=1 source ${pathToInputConf} ;
 
   # Run benchmark in benchmarks/${benchmark}/run dir
-  perfStatFile="${PWD_PATH}/benchmarks/${benchmarkArg}/run/${benchmarkArg}_${inputArg}_output.txt" ;
+  perfStatFile="${pathToBenchmarkRunDir}/${benchmarkArg}_${inputArg}_output.txt" ;
   commandToRunSplit="./${benchmarkArg} ${run_args}" ;
   echo "Running: ${commandToRunSplit} in ${PWD}" ;
   eval perf stat ${commandToRunSplit} > ${perfStatFile} ;
@@ -79,7 +81,7 @@ PWD_PATH="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )/.." 
 inputToRun="${1}" ;
 benchmarkToRun="${2}" ;
 
-# Get bitcode benchmark dir
+# Get benchmark dir
 benchmarksDir="${PWD_PATH}/benchmarks" ;
 if ! test -d ${benchmarksDir} ; then
   echo "ERROR: ${benchmarksDir} not found. Run make bitcode_copy." ;
