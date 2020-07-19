@@ -81,27 +81,15 @@ function runBenchmark {
 }
 
 # Get benchmark suite dir
-PWD_PATH="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )/.." ;
+PWD_PATH="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )/../.." ;
 
 # Get args
 benchmarkToRun="${1}" ;
 binaryName="${2}" ;
 
-# Get bitcode benchmark dir
-benchmarksDir="${PWD_PATH}/benchmarks" ;
-if ! test -d ${benchmarksDir} ; then
-  echo "ERROR: ${benchmarksDir} not found. Run make setup." ;
-  exit 1 ;
-fi
 
 # Run benchmark
-if [ "${benchmarkToRun}" == "all" ]; then
-	for benchmark in `ls ${benchmarksDir}`; do
-    runBenchmark ${benchmark} ${binaryName} ;
-	done
-else
-  runBenchmark ${benchmarkToRun} ${binaryName} ;
-fi
+runBenchmark ${benchmarkToRun} ${binaryName} ;
 
 echo "DONE" 
 exit
