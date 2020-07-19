@@ -45,9 +45,10 @@ function runBenchmark {
     return ;
   fi
 
+  pushd . ;
+
   # Copy binary into benchmark suite
-  cp ${currBinary} ${pathToBinary} ;
-  echo "Executing ${pathToBinary}/${benchmarkArg}" ;
+  cp ${binaryNameArg} ${pathToBinary} ;
 
   # Go in the benchmark suite and run the binary
   cd ${pathToBinary} ;
@@ -64,16 +65,18 @@ function runBenchmark {
   commandToRun=`tail -n 1 ${runScript}` ;
   args=$(split t "${commandToRun}") ;
 
-  commandToRunSplit="${binaryNameArg} ${args}" ;
+  commandToRunSplit="./${binaryNameArg} ${args}" ;
   echo "Running: ${commandToRunSplit} in ${PWD}" ;
   eval ${commandToRunSplit} ;
   if [ "$?" != 0 ] ; then
     echo "ERROR: run of ${commandToRunSplit} failed." ;
+    popd ;
     return ;
   fi
 
 	echo "--------------------------------------------------------------------------------------" ;
 
+  popd ;
   return ;
 }
 
