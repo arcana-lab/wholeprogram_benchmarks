@@ -7,8 +7,12 @@ function runOptimizations {
     return ;
   fi
 
-  # Go in the benchmark dir
-	cd ${benchmarksDir}/${1} ;
+  # Create run directory, since makefiles/Makefile assumes everything is in the directory where the benchmarks will be executed
+  runDir="${benchmarksDir}/${1}/run" ;
+  mkdir -p ${runDir} ;
+
+  # Go in the benchmark run dir
+	cd ${runDir} ;
 
   # Copy all makefiles content in benchmarks
 	cp ${PWD_PATH}/makefiles/* . ;
