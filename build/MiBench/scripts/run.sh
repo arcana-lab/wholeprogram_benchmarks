@@ -90,7 +90,7 @@ benchmarkToRun="${2}" ;
 # Get bitcode benchmark dir
 benchmarksDir="${PWD_PATH}/benchmarks" ;
 if ! test -d ${benchmarksDir} ; then
-  echo "ERROR: ${benchmarksDir} not found. Run make setup." ;
+  echo "ERROR: ${benchmarksDir} not found. Run make bitcode_copy." ;
   exit 1 ;
 fi
 
