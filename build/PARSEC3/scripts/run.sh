@@ -1,23 +1,9 @@
 #!/bin/bash
 
-function split {
-  headOrTail="${1}" ;
-  stringToSplit="${2}" ;
-  IFS=' ' ;
-  read -a stringAsArray <<< "${stringToSplit}" ;
-
-  if [ ${headOrTail} == "h" ] ; then
-    echo ${stringAsArray[0]} ;
-  else
-    echo ${stringAsArray[@]:1} ;
-  fi
-
-  return ;
-}
-
 function runBenchmark {
   # Get function args
-  benchmarkArg="${1}" ;
+  inputArg="${1}" ;
+  benchmarkArg="${2}" ;
 
   # Check if paths exists
   pathToBenchmark="${PWD_PATH}/benchmarks/${benchmarkArg}" ;
@@ -44,28 +30,34 @@ function runBenchmark {
     return ;
   fi
 
-  # Copy binary into benchmark suite
-  cp ${currBinary} ${pathToBinary} ;
-  echo "Executing ${pathToBinary}/${benchmarkArg}" ;
-
-  # Go in the benchmark suite and run the binary
-  cd ${pathToBinary} ;
-
-  runScript="./runme_${benchmarkArg}.sh" ;
-  if ! test -f ${runScript} ; then
-    echo "WARNING: ${runScript} not found. Going up one dir." ;
-    cd ../ ;
-    if ! test -f ${runScript} ; then
-      echo "WARNING: ${runScript} not found. Skipping..." ;
-      return ;
-    fi
+  pathToInputConf="${pathToBinary}/../../../parsec/${inputArg}.runconf" ;
+  if ! test -f ${pathToInputConf} ; then
+    echo "WARNING: ${pathToInputConf} not found. Skipping..." ;
+    return ;
   fi
-  commandToRun=`tail -n 1 ${runScript}` ;
-  binary=$(split h "${commandToRun}") ;
-  args=$(split t "${commandToRun}") ;
 
-  perfStatFile="${PWD_PATH}/benchmarks/${benchmarkArg}/${benchmarkArg}_large_output.txt" ;
-  commandToRunSplit="${binary} ${args}" ;
+  # Create run dir
+  rm -rf ${pathToBenchmark}/run ;
+  mkdir ${pathToBenchmark}/run ;
+
+  # Copy binary into run dir under benchmark
+  cp ${currBinary} ${pathToBenchmark}/run ;
+
+  # Go in the benchmark dir
+  cd ${pathToBenchmark}/run ;
+
+  # Extract inputs in run dir if the input archive exists
+  pathToBenchmarkInput="${pathToBinary}/../../../inputs/input_${inputArg}.tar" ;
+  if test -f ${pathToBenchmarkInput} ; then
+    tar xf ${pathToBenchmarkInput} ;
+  fi
+
+  # Get args to run binary with
+  NTHREADS=1 source ${pathToInputConf} ;
+
+  # Run benchmark in benchmarks/${benchmark}/run dir
+  perfStatFile="${PWD_PATH}/benchmarks/${benchmarkArg}/run/${benchmarkArg}_${inputArg}_output.txt" ;
+  commandToRunSplit="./${benchmarkArg} ${run_args}" ;
   echo "Running: ${commandToRunSplit} in ${PWD}" ;
   eval perf stat ${commandToRunSplit} > ${perfStatFile} ;
   if [ "$?" != 0 ] ; then
@@ -84,7 +76,7 @@ function runBenchmark {
 PWD_PATH="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )/.." ;
 
 # Get args
-inputToIgnore="${1}" ;
+inputToRun="${1}" ;
 benchmarkToRun="${2}" ;
 
 # Get bitcode benchmark dir
@@ -97,10 +89,10 @@ fi
 # Run benchmark
 if [ "${benchmarkToRun}" == "all" ]; then
 	for benchmark in `ls ${benchmarksDir}`; do
-    runBenchmark ${benchmark} ;
+    runBenchmark ${inputToRun} ${benchmark} ;
 	done
 else
-  runBenchmark ${benchmarkToRun} ;
+  runBenchmark ${inputToRun} ${benchmarkToRun} ;
 fi
 
 echo "DONE" 

@@ -1,24 +1,11 @@
 #!/bin/bash
 
-function split {
-  headOrTail="${1}" ;
-  stringToSplit="${2}" ;
-  IFS=' ' ;
-  read -a stringAsArray <<< "${stringToSplit}" ;
-
-  if [ ${headOrTail} == "h" ] ; then
-    echo ${stringAsArray[0]} ;
-  else
-    echo ${stringAsArray[@]:1} ;
-  fi
-
-  return ;
-}
-
 function runBenchmark {
   # Get function args
   benchmarkArg="${1}" ;
   binaryNameArg="${2}" ;
+
+  inputArg="simlarge" ;
 
   # Check if paths exists
   pathToBenchmark="${PWD_PATH}/benchmarks/${benchmarkArg}" ;
@@ -45,38 +32,42 @@ function runBenchmark {
     return ;
   fi
 
-  pushd . ;
-
-  # Copy binary into benchmark suite
-  cp ${binaryNameArg} ${pathToBinary} ;
-
-  # Go in the benchmark suite and run the binary
-  cd ${pathToBinary} ;
-
-  runScript="./runme_${benchmarkArg}.sh" ;
-  if ! test -f ${runScript} ; then
-    echo "WARNING: ${runScript} not found. Going up one dir." ;
-    cd ../ ;
-    if ! test -f ${runScript} ; then
-      echo "WARNING: ${runScript} not found. Skipping..." ;
-      return ;
-    fi
+  pathToInputConf="${pathToBinary}/../../../parsec/${inputArg}.runconf" ;
+  if ! test -f ${pathToInputConf} ; then
+    echo "WARNING: ${pathToInputConf} not found. Skipping..." ;
+    return ;
   fi
-  commandToRun=`tail -n 1 ${runScript}` ;
-  args=$(split t "${commandToRun}") ;
 
-  commandToRunSplit="./${binaryNameArg} ${args}" ;
+  # Create run dir
+  rm -rf ${pathToBenchmark}/run ;
+  mkdir ${pathToBenchmark}/run ;
+
+  # Copy binary into run dir under benchmark
+  cp ${binaryNameArg} ${pathToBenchmark}/run ;
+
+  # Go in the benchmark run dir
+  cd ${pathToBenchmark}/run ;
+
+  # Extract inputs in run dir if the input archive exists
+  pathToBenchmarkInput="${pathToBinary}/../../../inputs/input_${inputArg}.tar" ;
+  if test -f ${pathToBenchmarkInput} ; then
+    tar xf ${pathToBenchmarkInput} ;
+  fi
+
+  # Get args to run binary with
+  NTHREADS=1 source ${pathToInputConf} ;
+
+  # Run benchmark in benchmarks/${benchmark}/run dir
+  commandToRunSplit="./${binaryNameArg} ${run_args}" ;
   echo "Running: ${commandToRunSplit} in ${PWD}" ;
   eval ${commandToRunSplit} ;
   if [ "$?" != 0 ] ; then
     echo "ERROR: run of ${commandToRunSplit} failed." ;
-    popd ;
     return ;
   fi
 
 	echo "--------------------------------------------------------------------------------------" ;
 
-  popd ;
   return ;
 }
 
