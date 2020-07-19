@@ -39,7 +39,6 @@ output.prof: default.profraw
 
 default.profraw: baseline_prof
 	./run.sh $(BENCHMARK) $<
-	#./$< `tail -n 1 ../run_train.sh | awk -F$(BENCHMARK) '{print $$2}'` ;
 
 baseline_prof: baseline.bc
 	noelle-prof-coverage $^ $@ $(LIBS)
