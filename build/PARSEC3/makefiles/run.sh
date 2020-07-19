@@ -51,7 +51,7 @@ function runBenchmark {
   # Extract inputs in run dir if the input archive exists
   pathToBenchmarkInput="${pathToBinary}/../../../inputs/input_${inputArg}.tar" ;
   if test -f ${pathToBenchmarkInput} ; then
-    tar xf ${pathToBinary}/../../../inputs/input_${inputArg}.tar ;
+    tar xf ${pathToBenchmarkInput} ;
   fi
 
   # Get args to run binary with

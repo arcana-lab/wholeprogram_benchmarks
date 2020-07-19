@@ -36,28 +36,27 @@ function runBenchmark {
     return ;
   fi
 
-  # Go in the benchmark dir
-  cd ${pathToBenchmark} ;
-
   # Create run dir
-  rm -rf ./run ;
-  mkdir ./run ;
+  rm -rf ${pathToBenchmark}/run ;
+  mkdir ${pathToBenchmark}/run ;
 
   # Copy binary into run dir under benchmark
-  cp ${currBinary} ./run ;
+  cp ${currBinary} ${pathToBenchmark}/run ;
+
+  # Go in the benchmark dir
+  cd ${pathToBenchmark}/run ;
 
   # Extract inputs in run dir if the input archive exists
-  cd ./run ;
   pathToBenchmarkInput="${pathToBinary}/../../../inputs/input_${inputArg}.tar" ;
   if test -f ${pathToBenchmarkInput} ; then
-    tar xf ${pathToBinary}/../../../inputs/input_${inputArg}.tar ;
+    tar xf ${pathToBenchmarkInput} ;
   fi
 
   # Get args to run binary with
   NTHREADS=1 source ${pathToInputConf} ;
 
   # Run benchmark in benchmarks/${benchmark}/run dir
-  perfStatFile="${PWD_PATH}/benchmarks/${benchmarkArg}/${benchmarkArg}_${inputArg}_output.txt" ;
+  perfStatFile="${PWD_PATH}/benchmarks/${benchmarkArg}/run/${benchmarkArg}_${inputArg}_output.txt" ;
   commandToRunSplit="./${benchmarkArg} ${run_args}" ;
   echo "Running: ${commandToRunSplit} in ${PWD}" ;
   eval perf stat ${commandToRunSplit} > ${perfStatFile} ;
