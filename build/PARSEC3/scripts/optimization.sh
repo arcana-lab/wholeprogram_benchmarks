@@ -1,18 +1,16 @@
 #!/bin/bash
 
 function runOptimizations {
+  benchmarkRunDir="${benchmarksDir}/${1}/run" ;
+
   # Check for benchmark dir
-  if [ ! -d "${benchmarksDir}/${1}" ]; then
-    echo "Warning: Benchmark directory ${1} not found, skipping." ;
+  if [ ! -d "${benchmarkRunDir}" ]; then
+    echo "Warning: Benchmark directory ${benchmarkRunDir} not found, skipping." ;
     return ;
   fi
 
-  # Create run directory, since makefiles/Makefile assumes everything is in the directory where the benchmarks will be executed
-  runDir="${benchmarksDir}/${1}/run" ;
-  mkdir -p ${runDir} ;
-
   # Go in the benchmark run dir
-	cd ${runDir} ;
+	cd ${benchmarkRunDir} ;
 
   # Copy all makefiles content in benchmarks
 	cp ${PWD_PATH}/makefiles/* . ;
