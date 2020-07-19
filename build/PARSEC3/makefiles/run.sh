@@ -38,18 +38,17 @@ function runBenchmark {
     return ;
   fi
 
-  # Go in the benchmark dir
-  cd ${pathToBenchmark} ;
-
   # Create run dir
-  rm -rf ./run ;
-  mkdir ./run ;
+  rm -rf ${pathToBenchmark}/run ;
+  mkdir ${pathToBenchmark}/run ;
 
   # Copy binary into run dir under benchmark
-  cp ${currBinary} ./run ;
+  cp ${binaryNameArg} ${pathToBenchmark}/run ;
+
+  # Go in the benchmark run dir
+  cd ${pathToBenchmark}/run ;
 
   # Extract inputs in run dir if the input archive exists
-  cd ./run ;
   pathToBenchmarkInput="${pathToBinary}/../../../inputs/input_${inputArg}.tar" ;
   if test -f ${pathToBenchmarkInput} ; then
     tar xf ${pathToBinary}/../../../inputs/input_${inputArg}.tar ;
