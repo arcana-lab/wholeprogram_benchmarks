@@ -48,6 +48,9 @@ function runBenchmark {
   # Go in the benchmark run dir
   cd ${pathToBenchmark}/run ;
 
+  # Copy .bc into run dir (needed by makefiles/Makefile)
+  cp ../${benchmarkArg}.bc . ;
+
   # Extract inputs in run dir if the input archive exists
   pathToBenchmarkInput="${pathToBinary}/../../../inputs/input_${inputArg}.tar" ;
   if test -f ${pathToBenchmarkInput} ; then
@@ -72,7 +75,7 @@ function runBenchmark {
 }
 
 # Get benchmark suite dir
-PWD_PATH="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )/../.." ;
+PWD_PATH="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )/../../.." ;
 
 # Get args
 benchmarkToRun="${1}" ;
