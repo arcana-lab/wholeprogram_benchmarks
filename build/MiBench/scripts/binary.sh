@@ -43,6 +43,7 @@ function genBinary {
   fi
 
 	chmod +x ${1} ;
+  cp ${1} ${1}_newbin ;
 }
 
 # Get bitcode benchmark dir
