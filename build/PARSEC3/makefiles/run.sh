@@ -14,6 +14,12 @@ function runBenchmark {
     return ;
   fi
 
+  pathToBenchmarkRunDir="${pathToBenchmark}/run" ;
+  if ! test -d ${pathToBenchmarkRunDir} ; then
+    echo "WARNING: ${pathToBenchmarkRunDir} not found. Skipping..." ;
+    return ;
+  fi
+
   pathToBinaryPath="${pathToBenchmark}/path.txt" ;
   if ! test -f ${pathToBinaryPath} ; then
     echo "WARNING: ${pathToBinaryPath} not found. Skipping..." ;
@@ -26,7 +32,7 @@ function runBenchmark {
     return ;
   fi
 
-  currBinary="${pathToBenchmark}/${binaryNameArg}" ;
+  currBinary="${pathToBenchmarkRunDir}/${binaryNameArg}" ;
   if ! test -f ${currBinary} ; then
     echo "WARNING: ${currBinary} not found. Skipping..." ;
     return ;
@@ -38,15 +44,11 @@ function runBenchmark {
     return ;
   fi
 
-  # Create run dir
-  rm -rf ${pathToBenchmark}/run ;
-  mkdir ${pathToBenchmark}/run ;
-
   # Copy binary into run dir under benchmark
-  cp ${binaryNameArg} ${pathToBenchmark}/run ;
+  cp ${binaryNameArg} ${pathToBenchmarkRunDir} ;
 
   # Go in the benchmark run dir
-  cd ${pathToBenchmark}/run ;
+  cd ${pathToBenchmarkRunDir} ;
 
   # Copy .bc into run dir (needed by makefiles/Makefile)
   cp ../${benchmarkArg}.bc . ;
