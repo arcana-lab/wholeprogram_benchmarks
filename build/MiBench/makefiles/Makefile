@@ -68,6 +68,6 @@ download:
 	mkdir -p include ; cd include ; ../download.sh $(RUNTIME_GITREPO) $(RUNTIME_DIRNAME) ;
 
 clean:
-	rm -rf include/ Parallelizer_utils.* baseline* default.profraw output.prof *.txt *.dot
+	rm -rf include/ Parallelizer_utils.* baseline* default.profraw output.prof noelle*.txt *.dot
 
 .PHONY: all clean
