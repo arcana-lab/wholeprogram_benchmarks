@@ -34,8 +34,6 @@ function computeMedian {
 # Fetch the inputs
 if test $# -lt 3 ; then
   echo "USAGE: `basename $0` BASELINE_DIRECTORY OPTIMIZATION_DIRECTORY SPEEDUP_FILE" ;
-  echo "" ;
-  echo "Each directory needs to have a subdirectory called \"data\" where all text files are" ;
   exit 1;
 fi
 baselineDir="`realpath $1`" ;
@@ -49,7 +47,6 @@ result="0" ;
 # Compute the speedups
 pushd ./ ;
 cd $optDir ;
-cd data ;
 for i in `ls` ; do
 
   # Compute the name of the benchmark
@@ -58,7 +55,7 @@ for i in `ls` ; do
 
   # Fetch the files
   optFile="`realpath $i`" ;
-  baselineFile="`realpath ${baselineDir}/data/$i`" ;
+  baselineFile="`realpath ${baselineDir}/$i`" ;
   echo "  Baseline = $baselineFile" ;
   echo "  Optimization = $optFile" ;
   if ! test -f $baselineFile ; then
