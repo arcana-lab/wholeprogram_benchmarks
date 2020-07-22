@@ -10,45 +10,36 @@ function runBenchmark {
   # Check if paths exists
   pathToBenchmark="${PWD_PATH}/benchmarks/${benchmarkArg}" ;
   if ! test -d ${pathToBenchmark} ; then
-    echo "WARNING: ${pathToBenchmark} not found. Skipping..." ;
-    return ;
-  fi
-
-  pathToBenchmarkRunDir="${pathToBenchmark}/run" ;
-  if ! test -d ${pathToBenchmarkRunDir} ; then
-    echo "WARNING: ${pathToBenchmarkRunDir} not found. Skipping..." ;
-    return ;
+    echo "ERROR: ${pathToBenchmark} not found. Skipping..." ;
+    exit 1 ;
   fi
 
   pathToBinaryPath="${pathToBenchmark}/path.txt" ;
   if ! test -f ${pathToBinaryPath} ; then
-    echo "WARNING: ${pathToBinaryPath} not found. Skipping..." ;
-    return ;
+    echo "ERROR: ${pathToBinaryPath} not found. Skipping..." ;
+    exit 1 ;
   fi
 
   pathToBinary=`cat ${pathToBinaryPath}` ;
   if ! test -d ${pathToBinary} ; then
-    echo "WARNING: ${pathToBinary} not found. Skipping..." ;
-    return ;
+    echo "ERROR: ${pathToBinary} not found. Skipping..." ;
+    exit 1 ;
   fi
 
-  currBinary="${pathToBenchmarkRunDir}/${binaryNameArg}" ;
+  currBinary="${pathToBenchmark}/${binaryNameArg}" ;
   if ! test -f ${currBinary} ; then
-    echo "WARNING: ${currBinary} not found. Skipping..." ;
-    return ;
+    echo "ERROR: ${currBinary} not found. Skipping..." ;
+    exit 1 ;
   fi
 
   pathToInputConf="${pathToBinary}/../../../parsec/${inputArg}.runconf" ;
   if ! test -f ${pathToInputConf} ; then
-    echo "WARNING: ${pathToInputConf} not found. Skipping..." ;
-    return ;
+    echo "ERROR: ${pathToInputConf} not found. Skipping..." ;
+    exit 1 ;
   fi
 
-  # Copy binary into run dir under benchmark
-  cp ${binaryNameArg} ${pathToBenchmarkRunDir} ;
-
   # Go in the benchmark run dir
-  cd ${pathToBenchmarkRunDir} ;
+  cd ${pathToBenchmark} ;
 
   # Copy .bc into run dir (needed by makefiles/Makefile)
   cp ../${benchmarkArg}.bc . ;
@@ -68,7 +59,7 @@ function runBenchmark {
   eval ${commandToRunSplit} ;
   if [ "$?" != 0 ] ; then
     echo "ERROR: run of ${commandToRunSplit} failed." ;
-    return ;
+    exit 1 ;
   fi
 
 	echo "--------------------------------------------------------------------------------------" ;
