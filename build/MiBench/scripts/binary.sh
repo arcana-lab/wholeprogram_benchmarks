@@ -10,7 +10,7 @@ CXX="clang++" ;
 FLAGS="-O3" ;
 
 # Libraries
-LIBS="-lm -lstdc++" ;
+LIBS="-lm -lstdc++ -lpthread" ;
 
 # Additional libraries for lame benchmmark
 LIBS_EXTRA="-L${PWD_PATH}/${benchmarkSuiteName}/consumer/lame/lame3.70 -lmp3lame -lncurses" ;
