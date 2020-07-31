@@ -53,18 +53,21 @@ function runBenchmark {
   # Go in the benchmark suite and run the binary
   cd ${pathToBinary} ;
 
+  # Get arguments of how to run the binary
   runScript="./runme_${benchmarkArg}.sh" ;
   if ! test -f ${runScript} ; then
     echo "WARNING: ${runScript} not found. Going up one dir." ;
     cd ../ ;
     if ! test -f ${runScript} ; then
       echo "WARNING: ${runScript} not found. Skipping..." ;
+      popd ;
       return ;
     fi
   fi
   commandToRun=`tail -n 1 ${runScript}` ;
   args=$(split t "${commandToRun}") ;
 
+  # Run the binary
   commandToRunSplit="./${binaryNameArg} ${args}" ;
   echo "Running: ${commandToRunSplit} in ${PWD}" ;
   eval ${commandToRunSplit} ;
@@ -73,6 +76,9 @@ function runBenchmark {
     popd ;
     return ;
   fi
+
+  # If everything goes well, copy everything back to benchmark dir
+  cp -r ${pathToBinary}/* ${pathToBenchmark} ;
 
 	echo "--------------------------------------------------------------------------------------" ;
 
