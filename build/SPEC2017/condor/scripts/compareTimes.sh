@@ -45,6 +45,7 @@ origDir="`pwd`" ;
 result="0" ;
 
 # Compute the speedups
+rm -f $speedupFile ;
 pushd ./ ;
 cd $optDir ;
 for i in `ls` ; do
