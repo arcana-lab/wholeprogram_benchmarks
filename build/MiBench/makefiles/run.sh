@@ -47,9 +47,6 @@ function runBenchmark {
 
   pushd . ;
 
-  # Copy binary into benchmark suite
-  cp ${binaryNameArg} ${pathToBinary} ;
-
   # Go in the benchmark suite and run the binary
   cd ${pathToBinary} ;
 
@@ -66,6 +63,9 @@ function runBenchmark {
   fi
   commandToRun=`tail -n 1 ${runScript}` ;
   args=$(split t "${commandToRun}") ;
+
+  # Copy binary into benchmark suite (i.e., current direcotry)
+  cp ${binaryNameArg} . ;
 
   # Run the binary
   commandToRunSplit="./${binaryNameArg} ${args}" ;
