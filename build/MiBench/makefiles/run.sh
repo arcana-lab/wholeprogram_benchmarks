@@ -65,7 +65,7 @@ function runBenchmark {
   args=$(split t "${commandToRun}") ;
 
   # Copy binary into benchmark suite (i.e., current direcotry)
-  cp ${binaryNameArg} . ;
+  cp ${pathToBenchmark}/${binaryNameArg} . ;
 
   # Run the binary
   commandToRunSplit="./${binaryNameArg} ${args}" ;
@@ -78,7 +78,7 @@ function runBenchmark {
   fi
 
   # If everything goes well, copy everything back to benchmark dir
-  cp -r ${pathToBinary}/* ${pathToBenchmark} ;
+  cp -r ./* ${pathToBenchmark} ;
 
 	echo "--------------------------------------------------------------------------------------" ;
 
