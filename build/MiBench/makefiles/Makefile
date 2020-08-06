@@ -7,7 +7,7 @@ OPT_LEVEL=-O3
 # Arguments
 BENCHMARK=
 PARALLELIZATION_OPTIONS=
-NOELLE_OPTIONS=-noelle-verbose=1 -noelle-pdg-verbose=1 -noelle-min-hot=1 -noelle-disable-helix -noelle-disable-dswp -noelle-disable-whilifier
+NOELLE_OPTIONS=-noelle-verbose=3 -noelle-pdg-verbose=1 -noelle-min-hot=1 -noelle-disable-dswp -noelle-disable-whilifier -noelle-disable-scev-simplification
 
 # Front-end
 FRONTEND_FLAGS=-emit-llvm -O0 -Xclang -disable-O0-optnone
@@ -20,7 +20,7 @@ RUNTIME_CFLAGS="-DDEBUG"
 RUNTIME=Parallelizer_utils
 
 # Libraries
-LIBS=-lm -lstdc++ -lpthread
+LIBS=-lm -lstdc++ -lpthread -ltermcap
 
 all: baseline_parallelized.bc
 
