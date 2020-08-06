@@ -44,10 +44,6 @@ function runBenchmark {
     return ;
   fi
 
-  # Copy binary into benchmark suite
-  cp ${currBinary} ${pathToBinary} ;
-  echo "Executing ${pathToBinary}/${benchmarkArg}" ;
-
   # Go in the benchmark suite and run the binary
   cd ${pathToBinary} ;
 
@@ -63,6 +59,10 @@ function runBenchmark {
   commandToRun=`tail -n 1 ${runScript}` ;
   binary=$(split h "${commandToRun}") ;
   args=$(split t "${commandToRun}") ;
+
+  # Copy binary into benchmark suite (i.e., current directory)
+  echo "Executing ${pathToBinary}/${benchmarkArg}" ;
+  cp ${currBinary} . ;
 
   perfStatFile="${PWD_PATH}/benchmarks/${benchmarkArg}/${benchmarkArg}_large_output.txt" ;
   commandToRunSplit="${binary} ${args}" ;
