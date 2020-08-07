@@ -51,7 +51,7 @@ ymin = 0
 ymax = math.ceil(max(data['data']))
 ystep = 1
 
-plt.xticks(xTicks, labels, fontsize = fontSize, rotation = 30, ha = 'right')
+plt.xticks(xTicks, labels, fontsize = fontSize, rotation = 60, ha = 'right')
 plt.yticks(range(ymin, ymax + 1, ystep), fontsize = fontSize)
 
 xmin = xTicks[0]
