@@ -57,16 +57,19 @@ plt.yticks(range(ymin, ymax + 1, ystep), fontsize = fontSize)
 xmin = xTicks[0]
 xmax = xTicks[-1]
 
-ax.set_ylim(ymin = ymin, ymax = ymax + 0.5)
+gap = 0.5
+
+ax.set_ylim(ymin = ymin, ymax = ymax + gap)
+ax.set_xlim(xmin = xmin - gap, xmax = xmax + gap)
 
 # Lines
-#ax.plot([xmin, xmax], [ymax, ymax], '--', color = 'k', linewidth = 1.5)
+ax.plot([xmin - gap, xmax + gap], [ymax, ymax], '--', color = 'red', linewidth = 1.5)
 #geomeanx = ((x[-1] - x[-2])/2.0) + x[-2]
 #ax.plot([geomeanx, geomeanx], [ymin, ymax], '--', color = 'k', linewidth = 1.5)
 
 # Annotations
-#fontSizeAnnotation = 11
-#ax.annotate('Maximum speedup', fontsize=fontSizeAnnotation, xy=(0.1, 29.5), color = 'black', bbox = dict(ec='white', fc = 'white', alpha = 1))
+fontSizeAnnotation = 11
+ax.annotate('Hardware cores', fontsize=fontSizeAnnotation, xy=(13, 11.3), color = 'black', bbox = dict(ec='none', fc = 'none', alpha = 1))
 
 ax.yaxis.grid(True, color = 'gray', ls = '--')
 ax.set_axisbelow(True)
