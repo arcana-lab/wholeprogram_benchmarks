@@ -78,7 +78,7 @@ ax.plot([xmin - gap, xmax + gap], [1.0, 1.0], '--', color = 'gray', linewidth = 
 
 # Annotations
 fontSizeAnnotation = 11
-ax.annotate('Hardware cores', fontsize=fontSizeAnnotation, xy=(13, 11.3), color = 'black', bbox = dict(ec='none', fc = 'none', alpha = 1))
+ax.annotate('Hardware cores', fontsize=fontSizeAnnotation, xy=(13, 11.3), color = 'red', bbox = dict(ec='none', fc = 'none', alpha = 1))
 
 ax.yaxis.grid(True, color = 'gray', ls = '--')
 ax.set_axisbelow(True)
