@@ -11,6 +11,7 @@ if ! test -d ${virtualEnvDir} ; then
   source ${virtualEnvDir}/bin/activate ;
   pip install --upgrade pip ;
   pip install matplotlib ;
+  pip install scipy ;
 
 else
   source ${virtualEnvDir}/bin/activate ;

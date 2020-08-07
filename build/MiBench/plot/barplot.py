@@ -2,6 +2,7 @@ import math
 import sys
 import matplotlib
 import matplotlib.pyplot as plt
+from scipy import stats as scistats
 
 def readFile(pathToFile):
   data = {'labels': [], 'data': []}
@@ -33,7 +34,11 @@ def getArgs():
 args = getArgs()
 data = readFile(args['pathToFile'])
 
+dataToPlot = data['data']
+dataToPlot.append(scistats.mstats.gmean(dataToPlot))
+
 labels = data['labels']
+labels.append('geo. mean')
 
 fig = plt.figure()
 ax = fig.add_subplot(111)
@@ -45,10 +50,10 @@ ax.set_ylabel('Speedup', fontsize = fontSize)
 
 barWidth = 0.4
 xTicks = range(len(labels))
-ax.bar(xTicks, data['data'], barWidth, color = 'black')
+ax.bar(xTicks, dataToPlot, barWidth, color = 'black')
 
 ymin = 0
-ymax = math.ceil(max(data['data']))
+ymax = math.ceil(max(dataToPlot))
 ystep = 1
 
 plt.xticks(xTicks, labels, fontsize = fontSize, rotation = 60, ha = 'right')
@@ -63,9 +68,13 @@ ax.set_ylim(ymin = ymin, ymax = ymax + gap)
 ax.set_xlim(xmin = xmin - gap, xmax = xmax + gap)
 
 # Lines
-ax.plot([xmin - gap, xmax + gap], [ymax, ymax], '--', color = 'red', linewidth = 1.5)
-#geomeanx = ((x[-1] - x[-2])/2.0) + x[-2]
-#ax.plot([geomeanx, geomeanx], [ymin, ymax], '--', color = 'k', linewidth = 1.5)
+lineWidth = 2.5
+ax.plot([xmin - gap, xmax + gap], [ymax, ymax], '--', color = 'red', linewidth = lineWidth)
+
+geomeanx = ((xTicks[-1] - xTicks[-2])/2.0) + xTicks[-2]
+ax.plot([geomeanx, geomeanx], [ymin, ymax + gap], '--', color = 'k', linewidth = lineWidth)
+
+ax.plot([xmin - gap, xmax + gap], [1.0, 1.0], '--', color = 'gray', linewidth = lineWidth)
 
 # Annotations
 fontSizeAnnotation = 11
