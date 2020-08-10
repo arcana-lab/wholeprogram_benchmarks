@@ -16,7 +16,7 @@ INCLUDES=-Iinclude/threadpool/include
 # Runtime
 RUNTIME_DIRNAME="threadpool"
 RUNTIME_GITREPO="https://github.com/scampanoni/virgil.git"
-RUNTIME_CFLAGS="-DDEBUG"
+RUNTIME_CFLAGS="-DNDEBUG"
 RUNTIME=Parallelizer_utils
 
 # Libraries
