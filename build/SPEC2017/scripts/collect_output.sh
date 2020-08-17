@@ -11,15 +11,21 @@ filesDir="$1" ;
 outDir="${filesDir}/output" ;
 mkdir -p ${outDir} ;
 
-# Create the bitcode directory
+# Create the bitcode directories
 bitcodeDir="${filesDir}/parallelized_bitcode" ;
 mkdir -p ${bitcodeDir} ;
+seqBitcodeDir="${filesDir}/baseline_bitcode" ;
+mkdir -p ${seqBitcodeDir} ;
 
 # Copy the text outputs ;
-cp *.txt ${filesDir}/ ;
+cp noelle*.txt ${filesDir}/ ;
 
 # Copy the makefile
 cp makefiles/Makefile ${filesDir}/ ;
+
+# Copy the times 
+mkdir -p ${filesDir}/data ;
+cp times*.txt ${filesDir}/data/ ;
 
 # Copy the files ;
 for i in `find ./benchmarks -name noelle_output.txt` ; do
@@ -35,6 +41,13 @@ for i in `find ./benchmarks -name noelle_output.txt` ; do
 
   # Copy the output
   cp $i ${outDir}/${benchDir}/$fileName ;
+
+  # Copy the baseline bitcode
+  seqBitcodeFile="${benchDir}/baseline_with_metadata.bc" ;
+  if test -f $seqBitcodeFile ; then
+    mkdir -p ${seqBitcodeDir}/${benchDir} ;
+    cp ${seqBitcodeFile} ${seqBitcodeDir}/${benchDir}/ ;
+  fi
 
   # Copy the parallelized bitcode
   bitcodeFile="${benchDir}/${benchName}.bc" ;
