@@ -1,5 +1,5 @@
 all:
-	./setup.sh
+	./scripts/setup.sh
 
 clean:
 	rm -fr install bitcodes
