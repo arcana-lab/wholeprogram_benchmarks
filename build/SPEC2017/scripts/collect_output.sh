@@ -16,6 +16,8 @@ bitcodeDir="${filesDir}/parallelized_bitcode" ;
 mkdir -p ${bitcodeDir} ;
 seqBitcodeDir="${filesDir}/baseline_bitcode" ;
 mkdir -p ${seqBitcodeDir} ;
+binaryDir="${filesDir}/binary" ;
+mkdir -p ${binaryDir} ;
 
 # Copy the text outputs ;
 cp noelle*.txt ${filesDir}/ ;
@@ -48,6 +50,16 @@ for i in `find ./benchmarks -name noelle_output.txt` ; do
     mkdir -p ${seqBitcodeDir}/${benchDir} ;
     cp ${seqBitcodeFile} ${seqBitcodeDir}/${benchDir}/ ;
   fi
+  seqBitcodeFile="${benchDir}/baseline.bc" ;
+  if test -f $seqBitcodeFile ; then
+    mkdir -p ${seqBitcodeDir}/${benchDir} ;
+    cp ${seqBitcodeFile} ${seqBitcodeDir}/${benchDir}/ ;
+  fi
+  seqBitcodeFile="${benchDir}/NOELLE_input.bc" ;
+  if test -f $seqBitcodeFile ; then
+    mkdir -p ${seqBitcodeDir}/${benchDir} ;
+    cp ${seqBitcodeFile} ${seqBitcodeDir}/${benchDir}/ ;
+  fi
 
   # Copy the parallelized bitcode
   bitcodeFile="${benchDir}/${benchName}.bc" ;
@@ -55,4 +67,12 @@ for i in `find ./benchmarks -name noelle_output.txt` ; do
     mkdir -p ${bitcodeDir}/${benchDir} ;
     cp ${bitcodeFile} ${bitcodeDir}/${benchDir}/ ;
   fi
+
+  # Copy the binary
+  binaryFile="${benchDir}/${benchName}" ;
+  if test -f $binaryFile ; then
+    mkdir -p ${binaryDir}/${benchDir} ;
+    cp ${binaryFile} ${binaryDir}/${benchDir}/ ;
+  fi
+
 done
