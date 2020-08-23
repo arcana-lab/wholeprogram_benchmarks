@@ -49,7 +49,7 @@ CXX="clang++" ;
 FLAGS="-O3" ;
 
 # Libraries
-LIBS="-lm -lstdc++" ;
+LIBS="-lm -lstdc++ -lpthread" ;
 
 function genBinary {
   # Check if bitcode exists
