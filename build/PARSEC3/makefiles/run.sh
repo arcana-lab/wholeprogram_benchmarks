@@ -68,7 +68,7 @@ function runBenchmark {
 }
 
 # Get benchmark suite dir
-PWD_PATH="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )/../../.." ;
+PWD_PATH="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )/../.." ;
 
 # Get args
 benchmarkToRun="${1}" ;

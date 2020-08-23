@@ -1,7 +1,7 @@
 #!/bin/bash
 
 function runOptimizations {
-  benchmarkRunDir="${benchmarksDir}/${1}/run" ;
+  benchmarkRunDir="${benchmarksDir}/${1}" ;
 
   # Check for benchmark dir
   if [ ! -d "${benchmarkRunDir}" ]; then
@@ -18,7 +18,7 @@ function runOptimizations {
   # Run optimization
 	echo "Running your optimizations for \"${1}\"" ;
 	make clean > /dev/null ;
-  timeout 30m make BENCHMARK=${1} >> noelle_output.txt 2>&1 ;
+  make BENCHMARK=${1} >> noelle_output.txt 2>&1 ;
   exitOutput=$? ;
   return ;
 }
