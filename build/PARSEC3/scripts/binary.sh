@@ -71,6 +71,7 @@ function genBinary {
   else
 	  ${CXX} ${FLAGS} ${1}.bc ${LIBS} -o ${1} ;
   fi
+  cp ${1} ${1}_newbin
 
   # If something goes wrong, return and go to the next benchmark
   if [ "$?" != 0 ] ; then
