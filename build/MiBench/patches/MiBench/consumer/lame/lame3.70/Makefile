@@ -273,7 +273,7 @@ DEP = $(c_sources:.c=.d)
 
 
 %.o: %.c 
-	$(CC) $(CPP_OPTS) $(CC_SWITCHES) -c $< -o $@
+	$(CC) $(CPP_OPTS) $(CC_SWITCHES) -c $< -o $@ $(SB_OPT)
 
 %.d: %.c
 	$(SHELL) -ec '$(CC) $(MAKEDEP)  $(CPP_OPTS) $(CC_SWITCHES)  $< | sed '\''s;$*.o;& $@;g'\'' > $@'
