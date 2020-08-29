@@ -20,7 +20,7 @@ RUNTIME_CFLAGS="-DNDEBUG"
 RUNTIME=Parallelizer_utils
 
 # Libraries
-LIBS=-lm -lstdc++ -lpthread
+LIBS=-lm -lstdc++ -lpthread -L../../parsec-3.0/pkgs/apps/x264/inst/amd64-linux.gclang/lib -lx264 -L/usr/lib64 -L/usr/lib
 
 all: baseline_parallelized.bc
 
