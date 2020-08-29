@@ -47,7 +47,7 @@ result="0" ;
 # Compute the speedups
 rm -f $speedupFile ;
 pushd ./ ;
-cd $optDir ;
+cd $baselineDir ;
 for i in `ls` ; do
 
   # Compute the name of the benchmark
@@ -55,12 +55,13 @@ for i in `ls` ; do
   echo "Benchmark: $i" ;
 
   # Fetch the files
-  optFile="`realpath $i`" ;
-  baselineFile="`realpath ${baselineDir}/$i`" ;
+  baselineFile="`realpath $i`" ;
+  optFile="`realpath ${optDir}/$i`" ;
   echo "  Baseline = $baselineFile" ;
   echo "  Optimization = $optFile" ;
-  if ! test -f $baselineFile ; then
-    echo "  The baseline file doesn't exist" ;
+  if ! test -f $optFile ; then
+    echo "  The optimization file doesn't exist" ;
+    echo "$bench 0" >> $speedupFile ;
     continue ;
   fi
 
