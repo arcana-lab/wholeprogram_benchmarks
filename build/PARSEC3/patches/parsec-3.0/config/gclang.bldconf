@@ -79,7 +79,7 @@ export CXXCPPFLAGS=""
 export LDFLAGS="-L${CC_HOME}/lib64 -L${CC_HOME}/lib"
 export LIBS=""
 export EXTRA_LIBS=""
-export PARMACS_MACRO_FILE="pthreads"
+export PARMACS_MACRO_FILE="serial"
 
 
 # OS-specific arguments
