@@ -8,6 +8,7 @@ rm -f benchmarks/*/*train_output.txt ;
 rm -f benchmarks/*/NOELLE_input.bc ;
 rm -f benchmarks/*/*newbin;
 rm -f benchmarks/*/*.dot ;
+rm -f benchmarks/*/Parallelizer_utils.cpp ;
 rm -f *.txt ;
 
 pushd ./ ;
