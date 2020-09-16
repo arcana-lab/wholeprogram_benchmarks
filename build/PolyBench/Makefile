@@ -7,10 +7,10 @@ optimized_code_generation: compile_all bitcode bitcode_copy optimization binary 
 
 baseline_code_generation: compile_all bitcode bitcode_copy binary
 
-PolyBench: $(POLYTAR)
+polybench-3.1: $(POLYTAR)
 	tar -xf $^
 
-compile_all: PolyBench
+compile_all: polybench-3.1
 	./scripts/compile.sh ;
 
 bitcode: PolyBench

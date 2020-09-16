@@ -31,8 +31,8 @@ for i in `cat utilities/benchmark_list`; do
   llvm-link *.bc -o all.bc ;
 
   # Copy the bitcode file
-  mkdir -p ${origDir}/$benchDirName ;
-  cp all.bc ${origDir}/$benchDirName/  ;
+  mkdir -p ${origDir}/benchmarks/$benchDirName ;
+  cp all.bc ${origDir}/benchmarks/$benchDirName/  ;
 
   popd ;
 done
