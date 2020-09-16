@@ -15,7 +15,7 @@ LIBS="-lm -lstdc++ -lpthread" ;
 function genBinary {
 
   # Check if bitcode exists
-	if [ ! -f "${benchmarksDir}/${1}/${1}.bc" ]; then
+	if [ ! -f "${benchmarksDir}/${1}/all.bc" ]; then
 		echo "Warning: Bitcode not found for ${1}, skipping" ;
 		return ;
 	fi
@@ -28,7 +28,7 @@ function genBinary {
   # Generate binary
 	echo "Generating binary '${1}' for ${1} from ${1}.bc" ;
 	cd ${benchmarksDir}/${1} ;
-	${CXX} ${FLAGS} ${1}.bc ${LIBS} -o ${1} ;
+	${CXX} ${FLAGS} all.bc ${LIBS} -o ${1} ;
   cp ${1} ${1}_newbin
 
   # If something goes wrong, return and go to the next benchmark
