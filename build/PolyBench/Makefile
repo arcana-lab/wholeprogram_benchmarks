@@ -13,23 +13,22 @@ polybench-3.1: $(POLYTAR)
 compile_all: polybench-3.1
 	./scripts/compile.sh ;
 
-bitcode: PolyBench
+bitcode: polybench-3.1
 	./scripts/bitcode.sh ;
 
-bitcode_copy: PolyBench
-	./scripts/bitcode_copy.sh
+bitcode_copy: polybench-3.1
+	#./scripts/bitcode_copy.sh
 
-optimization: PolyBench
+optimization: polybench-3.1
 	./scripts/optimization.sh $(BENCHMARK)
 
-binary: PolyBench
+binary: polybench-3.1
 	./scripts/$@.sh $(BENCHMARK)
 	
-run: PolyBench
+run: polybench-3.1
 	./scripts/$@.sh $(BENCHMARK)
 
 clean:
 	./scripts/uninstall.sh;
-	rm -rf PolyBench
 
 .PHONY: compile_speed compile_rate compile_all bitcode optimization binary run clean
