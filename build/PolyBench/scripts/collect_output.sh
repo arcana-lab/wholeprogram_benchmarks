@@ -1,0 +1,1 @@
+../../SPEC2017/scripts/collect_output.sh
