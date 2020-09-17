@@ -7,3 +7,21 @@ Inside the bitcodes directory will be the single file bitcodes for different ver
 Inside the build directory will be scripts needed to generate new bitcode files from the sources.
 
 To install gllvm (a tool that wraps around llvm to build a single bitcode file), please run "make"
+
+To run benchmarks of the suite X:
+  Clone the git repo: git clone /project/benchmarks/repositories/BenchmarksBitcodes
+
+  Switch to the branch noelle: git checkout noelle
+
+  Enable Go: source /project/go/go_1.13.7/enable
+
+  Compile the framework: from the root directory, run make
+
+  Generate the baseline bitcode files: 
+    cd build/X ; make
+
+  To run NOELLE, follow the steps you can find in build/X/condor/doc/README
+
+  If you want to customize the noelle options, modify build/X/makefiles/Makefile
+
+  The outputs of a benchmark (e.g., lbm_s) can be found in build/X/benchmarks/BENCHMARK
