@@ -26,7 +26,6 @@ all: baseline_parallelized.bc
 
 baseline.bc: $(BENCHMARK).bc $(RUNTIME).bc
 	llvm-link $^ -o $@
-	noelle-norm $@ -o $@
 	mv $< NOELLE_input.bc
 
 baseline_prof: baseline.bc
