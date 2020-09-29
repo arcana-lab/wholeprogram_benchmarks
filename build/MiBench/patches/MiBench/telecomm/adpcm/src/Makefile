@@ -18,7 +18,7 @@ LFLAGS = $(LFLAGS) -static
 #
 # End of addition
 ######################################################################
-CFLAGS = -static -O3
+CFLAGS = -static -O1
 
 # May need this on a sun:
 # CFLAGS=-O -I/usr/demo/SOUND

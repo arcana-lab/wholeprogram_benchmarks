@@ -3,9 +3,12 @@
 # To make smaller object code, but run a little slower, don't use UNROLL_LOOPS.
 # To use NIST's modified SHA of 7/11/94, define USE_MODIFIED_SHA
 
-CC = gcc
+CC = clang
 SB_OPT=-O0 -Xclang -disable-O0-optnone
-CFLAGS = -O3 -Wall
+CFLAGS = -O1 
+
+%.o: %.c
+	$(CC) -c $(SB_OPT) $^ -o $@
 
 sha:	sha_driver.o sha.o
 	$(CC) -o $@ sha_driver.o sha.o $(SB_OPT)

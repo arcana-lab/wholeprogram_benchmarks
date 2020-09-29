@@ -22,7 +22,7 @@ MAKE=make -f Makefile
 
 CC=gcc
 SB_OPT=-O0 -Xclang -disable-O0-optnone
-CFLAG= -static -O3 -fomit-frame-pointer
+CFLAG= -static -O1 -fomit-frame-pointer
 
 CFLAGS=$(OPTS) $(CFLAG)
 CPP=$(CC) -E

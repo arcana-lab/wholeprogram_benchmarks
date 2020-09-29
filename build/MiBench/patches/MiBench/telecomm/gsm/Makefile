@@ -36,7 +36,7 @@ CC		= gcc -ansi -pedantic -static
 SB_OPT=-O0 -Xclang -disable-O0-optnone
 # ARM gcc doesn't like the -O1 here...
 #CCFLAGS 	= -c -O1 -DSTUPID_COMPILER -DNeedFunctionPrototypes=1
-CCFLAGS 	= -c -O3 -DSTUPID_COMPILER -DNeedFunctionPrototypes=1 $(SB_OPT)
+CCFLAGS 	= -c -O1 -DSTUPID_COMPILER -DNeedFunctionPrototypes=1 $(SB_OPT)
 
 LD 		= $(CC)
 
