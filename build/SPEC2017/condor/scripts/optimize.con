@@ -2,7 +2,7 @@
 Universe = vanilla
 
 # Describe the target machine
-Requirements = (Machine == "piraat.cs.northwestern.edu")
+Requirements = (Machine == "allagash.cs.northwestern.edu")
 
 Rank = TARGET.Mips
 Copy_To_Spool = False
