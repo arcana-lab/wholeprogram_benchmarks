@@ -20,3 +20,8 @@ for i in `ls` ; do
   rm -f $i/$i ;
 done
 popd ;
+
+pushd ./ ;
+cd condor ; 
+make clean ; 
+popd ;
