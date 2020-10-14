@@ -29,6 +29,8 @@ run: polybench-3.1
 	./scripts/$@.sh $(BENCHMARK)
 
 clean:
-	./scripts/uninstall.sh;
+	./scripts/uninstall.sh
+	rm -f *.txt 
+	cd condor ; make clean ;
 
 .PHONY: compile_speed compile_rate compile_all bitcode optimization binary run clean
