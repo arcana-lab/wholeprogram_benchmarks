@@ -7,7 +7,7 @@ OPT_LEVEL=-O3
 # Arguments
 BENCHMARK=
 PARALLELIZATION_OPTIONS=
-NOELLE_OPTIONS=-noelle-verbose=3 -noelle-pdg-verbose=1 -noelle-min-hot=1 -noelle-disable-helix -noelle-disable-dswp -noelle-disable-doall -noelle-disable-whilifier
+NOELLE_OPTIONS=-noelle-verbose=3 -noelle-pdg-verbose=1 -noelle-min-hot=1 -noelle-disable-helix -noelle-disable-dswp -noelle-disable-doall
 
 # Front-end
 FRONTEND_FLAGS=-emit-llvm -O0 -Xclang -disable-O0-optnone
@@ -26,7 +26,6 @@ all: baseline_parallelized.bc
 
 baseline.bc: all.bc $(RUNTIME).bc
 	llvm-link $^ -o $@
-	noelle-norm $@ -o $@
 	mv $< NOELLE_input.bc
 
 baseline_prof: baseline.bc
