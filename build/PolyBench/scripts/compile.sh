@@ -20,7 +20,7 @@ for i in `cat utilities/benchmark_list`; do
   rm -f *.bc *.ll *.o ;
 
   # Generate the bitcode files
-  clang -O0 -Xclang -disable-O0-optnone -I ${suiteDir}/utilities -I ./ ${suiteDir}/utilities/polybench.c $benchName -DPOLYBENCH_TIME -emit-llvm -c
+  clang -O0 -Xclang -disable-O0-optnone -I ${suiteDir}/utilities -I ./ ${suiteDir}/utilities/polybench.c $benchName -DPOLYBENCH_TIME -DLARGE_DATASET -emit-llvm -c
   if test $? -ne 0 ; then
     rm -f *.bc *.ll ;
     popd ;
