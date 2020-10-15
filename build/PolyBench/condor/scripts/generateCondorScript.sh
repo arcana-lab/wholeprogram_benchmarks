@@ -23,7 +23,7 @@ for i in `ls` ; do
   fi
 
   # Check if there is the bitcode
-  if ! test -e ${i}/all${suffixName} ; then
+  if ! test -e ${i}/*${suffixName} ; then
     continue ;
   fi
   echo "  Benchmark ${i} is added" ;
