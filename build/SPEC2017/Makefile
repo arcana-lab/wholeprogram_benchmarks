@@ -49,7 +49,8 @@ run: SPEC2017
 	./scripts/$@.sh $(INPUT) $(BENCHMARK)
 
 clean:
-	./scripts/uninstall.sh;
-	rm -rf SPEC2017
+	./scripts/uninstall.sh
+	rm -f *.txt 
+	cd condor ; make clean ;
 
 .PHONY: compile_speed compile_rate compile_all bitcode setup optimization binary run clean
