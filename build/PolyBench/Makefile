@@ -16,8 +16,8 @@ compile_all: polybench-3.1
 bitcode: polybench-3.1
 	./scripts/bitcode.sh ;
 
-bitcode_copy: polybench-3.1
-	#./scripts/bitcode_copy.sh
+bitcode_copy:
+	./scripts/bitcode_copy.sh
 
 optimization: polybench-3.1
 	./scripts/optimization.sh $(BENCHMARK)
