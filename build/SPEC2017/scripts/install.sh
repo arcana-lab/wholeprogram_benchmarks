@@ -7,11 +7,11 @@ if [ -d "${PWD_PATH}/benchmarks/" ]; then
 fi
 
 cp ${PWD_PATH}/patches/gclang.cfg ${PWD_PATH}/SPEC2017/config/ ;
-cp ${BUILD_DIR}/patches/pure_c_cpp_speed.bset ${PWD_PATH}/SPEC2017/benchspec/CPU/ ;
-cp ${BUILD_DIR}/patches/pure_c_cpp_rate.bset ${PWD_PATH}/SPEC2017/benchspec/CPU/ ;
+cp ${PWD_PATH}/patches/pure_c_cpp_speed.bset ${PWD_PATH}/SPEC2017/benchspec/CPU/ ;
+cp ${PWD_PATH}/patches/pure_c_cpp_rate.bset ${PWD_PATH}/SPEC2017/benchspec/CPU/ ;
 
 cd ${PWD_PATH}/SPEC2017 ;
-tar xf ${BUILD_DIR}/patches/parest_r_patch.tar.xz ;
+tar xf ${PWD_PATH}/patches/parest_r_patch.tar.xz ;
 
 cp -r ${PWD_PATH}/patches/SPEC2017 ${PWD_PATH} ;
 
