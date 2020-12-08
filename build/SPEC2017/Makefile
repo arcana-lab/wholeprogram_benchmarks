@@ -1,7 +1,7 @@
 SPECTAR=/project/benchmarks/SPEC2017.tar.gz
 INPUT=test #test, train, ref
 VERSION=rate #speed, rate
-BENCHMARK=mcf_r #all, lbm_s, xz_r, ...
+BENCHMARK=all #mcf_r, lbm_s, xz_r, ...
 
 all: baseline_code_generation
 
