@@ -9,13 +9,13 @@ speedup.con:
 	python2 scripts/generateCondorScript.py scripts/$@ ./$@ "$@" " " ${EMAIL};
 
 optimize.con:
-	./scripts/generateCondorScript.sh $@ ".bc"
+	./scripts/generateCondorScript.sh $@ " " ".bc"
 
 binary.con:
-	./scripts/generateCondorScript.sh $@ ".bc"
+	./scripts/generateCondorScript.sh $@ " " ".bc"
 
 run.con:
-	./scripts/generateCondorScript.sh $@ "_newbin"
+	./scripts/generateCondorScript.sh $@ " " "_newbin"
 
 clean:
 	rm -rf log/*.out log/*.err log/*.log *~ ./*.con
