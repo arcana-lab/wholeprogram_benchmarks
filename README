@@ -1,4 +1,4 @@
-Welcome to the Benchmarks' Bitcodes Repository
+Welcome to the Whole-Benchmark bitcode repository
 
 This repo is intended to help produce single bitcode files of various benchmarks from many suites.
 
@@ -8,7 +8,7 @@ Inside the build directory will be scripts needed to generate new bitcode files 
 
 To install gllvm (a tool that wraps around llvm to build a single bitcode file), please run "make"
 
-To run benchmarks of the suite X:
+To run benchmarks of the suite X from the Zythos cluster:
   Clone the git repo: git clone /project/benchmarks/repositories/BenchmarksBitcodes
 
   Switch to the branch noelle: git checkout noelle
