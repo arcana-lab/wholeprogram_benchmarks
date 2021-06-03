@@ -19,14 +19,16 @@ To run NOELLE, follow the next steps:
 
 6- wait the jobs to end
 
-7- go to the condor directory (SPEC2017/condor)
+7- go to the condor directory
+  (from here: cd ../ )
 
 8- run "make clean ; make binary.con ; make submit"
   This step generates the parallel binaries from the parallelized bitcodes
 
 9- wait the jobs to end
 
-10- go to the condor directory (SPEC2017/condor)
+10- go to the condor directory
+  (from here: cd ../ )
 
 11- run "make clean ; make run.con ; make submit"
   This step runs 5 times each binary generated
