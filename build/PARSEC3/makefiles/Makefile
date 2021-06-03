@@ -59,7 +59,7 @@ baseline_parallelized.bc: baseline_with_metadata.bc
 	cp $@ $(BENCHMARK).bc
 
 $(RUNTIME).bc: $(RUNTIME).cpp download
-	$(CPP) $(RUNTIME_CFLAGS) $(INCLUDES) -std=c++14 -emit-llvm $(OPT_LEVEL) -c $< -o $@
+	$(CPP) $(RUNTIME_CFLAGS) $(INCLUDES) -std=c++17 -emit-llvm $(OPT_LEVEL) -c $< -o $@
 
 $(RUNTIME).cpp:
 	./fetchRuntime.sh
