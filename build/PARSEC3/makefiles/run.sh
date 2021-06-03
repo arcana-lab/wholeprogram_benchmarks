@@ -41,9 +41,6 @@ function runBenchmark {
   # Go in the benchmark run dir
   cd ${pathToBenchmark} ;
 
-  # Copy .bc into run dir (needed by makefiles/Makefile)
-  cp ../${benchmarkArg}.bc . ;
-
   # Extract inputs in run dir if the input archive exists
   pathToBenchmarkInput="${pathToBinary}/../../../inputs/input_${inputArg}.tar" ;
   if test -f ${pathToBenchmarkInput} ; then
