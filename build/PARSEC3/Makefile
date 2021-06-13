@@ -33,9 +33,12 @@ run: PARSEC3
 	./scripts/run.sh $(INPUT) $(BENCHMARK)
 
 clean:
+	./condor/scripts/clean.sh
+
+uninstall:
 	./scripts/uninstall.sh
 	rm -f *.txt 
 	cd condor ; make clean ;
 	rm -f tmp* ;
 
-.PHONY: optimized_code_generation baseline_code_generation compile_all bitcode setup optimization binary run clean
+.PHONY: optimized_code_generation baseline_code_generation compile_all bitcode setup optimization binary run clean uninstall
