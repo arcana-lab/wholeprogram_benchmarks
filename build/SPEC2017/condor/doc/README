@@ -35,4 +35,9 @@ To run NOELLE, follow the next steps:
 
 12- wait the jobs to end
 
-13- collect the execution times. They are in the SPEC2017/times*.txt files
+13- collect all results, execution times, bitcode files, binaries
+  - Go to the benchmark suite directory of this repository
+    (from here: cd ../../)
+
+  - Run 
+    ./scripts/collect_output.sh DIRECTORY_WHERE_YOU_WANT_TO_STORE_EVERYTHING_GENERATED
