@@ -27,7 +27,8 @@ for i in `ls` ; do
   fi
 
   # Check if there is the bitcode
-  if ! test -e ${i}/${prefixName}*${suffixName} ; then
+  filesFound="`ls ${i}/${prefixName}*${suffixName} 2> /dev/null`"
+  if test "${filesFound}" == "" ; then
     continue ;
   fi
   echo "  Benchmark ${i} is added" ;

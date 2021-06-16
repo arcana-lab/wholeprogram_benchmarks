@@ -12,7 +12,7 @@ optimize.con:
 	./scripts/generateCondorScript.sh $@ " " ".bc"
 
 binary.con:
-	./scripts/generateCondorScript.sh $@ " " ".bc"
+	./scripts/generateCondorScript.sh $@ "baseline_parallelized" ".bc"
 
 run.con:
 	./scripts/generateCondorScript.sh $@ " " "_newbin"
