@@ -1,5 +1,20 @@
 #!/bin/bash
 
+# Restore the original IR file
+pushd ./ ;
+cd benchmarks ;
+for i in `ls` ; do
+  if ! test -d $i ; then
+    continue ;
+  fi
+  if ! test -e ${i}/NOELLE_input.bc ; then
+    continue ;
+  fi
+
+  cp ${i}/NOELLE_input.bc ${i}/${i}.bc ;
+done
+popd ;
+
 # Clean
 rm -f benchmarks/*/default.profraw ;
 rm -f benchmarks/*/baseline* ;
