@@ -7,7 +7,8 @@ OPT_LEVEL=-O3
 # Arguments
 BENCHMARK=
 PARALLELIZATION_OPTIONS=-noelle-disable-helix -noelle-disable-dswp -noelle-disable-doall
-NOELLE_OPTIONS=-noelle-verbose=3 -noelle-pdg-verbose=1 -noelle-min-hot=1 -noelle-inliner-avoid-hoist-to-main -noelle-max-cores=8
+DISABLE_ENABLERS=-noelle-inliner-avoid-hoist-to-main -noelle-disable-whilifier
+NOELLE_OPTIONS=-noelle-verbose=3 -noelle-pdg-verbose=1 -noelle-min-hot=1 -noelle-max-cores=8 $(DISABLE_ENABLERS)
 
 # Front-end
 FRONTEND_FLAGS=-emit-llvm -O1 -Xclang -disable-llvm-passes
