@@ -5,7 +5,7 @@ function runBenchmark {
   benchmarkArg="${1}" ;
   binaryNameArg="${2}" ;
 
-  inputArg="simlarge" ;
+  inputArg="native" ;
 
   # Check if paths exists
   pathToBenchmark="${PWD_PATH}/benchmarks/${benchmarkArg}" ;
