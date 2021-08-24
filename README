@@ -11,8 +11,6 @@ To install gllvm (a tool that wraps around llvm to build a single bitcode file),
 To run benchmarks of the suite X from the Zythos cluster:
   Clone the git repo: git clone /project/benchmarks/repositories/BenchmarksBitcodes
 
-  Switch to the branch noelle: git checkout noelle
-
   Enable Go: source /project/go/go_1.13.7/enable
 
   Compile the framework: from the root directory, run make
