@@ -71,9 +71,9 @@ export MAKE="${GNUTOOL_HOME}/bin/${BINARY_PREFIX}make"
 PORTABILITY_FLAGS="-static-libgcc -Wl,--hash-style=both,--as-needed"
 
 # Arguments to use
-SB_OPT="-O0 -g -Xclang -disable-O0-optnone"
-export CFLAGS=" ${SB_OPT} -funroll-loops -fprefetch-loop-arrays ${PORTABILITY_FLAGS} "
-export CXXFLAGS=" ${SB_OPT} -funroll-loops -fprefetch-loop-arrays -fpermissive -fno-exceptions ${PORTABILITY_FLAGS} "
+SB_OPT="-O1 -g -Xclang -disable-llvm-passes"
+export CFLAGS=" ${SB_OPT} ${PORTABILITY_FLAGS} "
+export CXXFLAGS=" ${SB_OPT} -fpermissive -fno-exceptions ${PORTABILITY_FLAGS} "
 export CPPFLAGS=""
 export CXXCPPFLAGS=""
 export LDFLAGS="-L${CC_HOME}/lib64 -L${CC_HOME}/lib"
