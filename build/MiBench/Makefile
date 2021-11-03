@@ -33,8 +33,12 @@ run: MiBench
 	./scripts/run.sh $(INPUT) $(BENCHMARK)
 
 clean:
-	./scripts/uninstall.sh
+	./condor/scripts/clean.sh
 	rm -f *.txt 
 	cd condor ; make clean ;
+	rm -f tmp* ;
 
-.PHONY: optimized_code_generation baseline_code_generation compile_all bitcode setup optimization binary run clean
+uninstall: clean
+	./scripts/uninstall.sh
+
+.PHONY: optimized_code_generation baseline_code_generation compile_all bitcode setup optimization binary run clean uninstall
