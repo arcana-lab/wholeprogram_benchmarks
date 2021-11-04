@@ -5,7 +5,7 @@ if ! test -f data/$fileInput ; then
   pushd ./ ;
   mkdir -p data ;
   cd data ;
-  wget http://users.cs.northwestern.edu/~simonec/files/Software/MiBench/${fileInput}.xz ;
+  wget --no-check-certificate http://users.cs.northwestern.edu/~simonec/files/Software/MiBench/${fileInput}.xz ;
   tar -d ${fileInput}.xz ;
   popd ;
 fi

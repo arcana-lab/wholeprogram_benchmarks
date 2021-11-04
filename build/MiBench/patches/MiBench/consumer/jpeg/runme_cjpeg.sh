@@ -2,7 +2,7 @@
 
 fileInput="input_very_large.ppm";
 if ! test -f $fileInput ; then
-  wget http://users.cs.northwestern.edu/~simonec/files/Software/MiBench/${fileInput}.xz ;
+  wget --no-check-certificate http://users.cs.northwestern.edu/~simonec/files/Software/MiBench/${fileInput}.xz ;
   tar -d ${fileInput}.xz ;
 fi
 
