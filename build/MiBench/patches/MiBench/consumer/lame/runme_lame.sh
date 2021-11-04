@@ -1,3 +1,9 @@
 #!/bin/sh
 
-./lame3.70/lame very_large.wav output_very_large.mp3
+fileInput="very_large.wav";
+if ! test -f $fileInput ; then
+  wget http://users.cs.northwestern.edu/~simonec/files/Software/MiBench/${fileInput}.xz ;
+  tar -d ${fileInput}.xz ;
+fi
+
+./lame3.70/lame ${fileInput} output_very_large.mp3

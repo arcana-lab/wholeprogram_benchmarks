@@ -1,3 +1,13 @@
 #!/bin/sh
 
-./bin/rawcaudio < data/very_large.pcm > output_very_large.adpcm
+fileInput="very_large.pcm";
+if ! test -f data/$fileInput ; then
+  pushd ./ ;
+  mkdir -p data ;
+  cd data ;
+  wget http://users.cs.northwestern.edu/~simonec/files/Software/MiBench/${fileInput}.xz ;
+  tar -d ${fileInput}.xz ;
+  popd ;
+fi
+
+./bin/rawcaudio < data/$fileInput > output_very_large.adpcm
