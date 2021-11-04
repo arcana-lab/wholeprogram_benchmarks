@@ -2,7 +2,7 @@
 Universe = vanilla
 
 # Describe the target machine
-Requirements = (Machine == "allagash.cs.northwestern.edu")
+Requirements = 
 
 Rank = TARGET.Mips
 Copy_To_Spool = False
@@ -27,7 +27,7 @@ Error = $(LogDir)/condor.err
 Log = $(LogDir)/condor.log
 
 # Each job requires access to the whole machine
-+IsWholeMachineJob      = true
++IsWholeMachineJob      = false
 +IsSuspensionJob        = false
 
 # Set the priority
