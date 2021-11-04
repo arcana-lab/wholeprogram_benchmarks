@@ -44,9 +44,10 @@ function runBenchmark {
     return ;
   fi
 
-  # Go in the benchmark suite and run the binary
+  # Go in the benchmark suite where the script is
   cd ${pathToBinary} ;
 
+  # Get arguments of how to run the binary
   runScript="./runme_${benchmarkArg}.sh" ;
   if ! test -f ${runScript} ; then
     echo "WARNING: ${runScript} not found. Going up one dir." ;
@@ -56,6 +57,13 @@ function runBenchmark {
       return ;
     fi
   fi
+
+  # Unpack the input if necessary
+  if test -f ./unpack_input.sh ; then
+    ./unpack_input.sh ;
+  fi
+
+  # Run the benchmark
   commandToRun=`tail -n 1 ${runScript}` ;
   binary=$(split h "${commandToRun}") ;
   args=$(split t "${commandToRun}") ;
