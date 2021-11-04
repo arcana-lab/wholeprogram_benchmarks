@@ -25,7 +25,7 @@ rm -f benchmarks/*/*newbin;
 rm -f benchmarks/*/*.dot ;
 rm -f benchmarks/*/Parallelizer_utils.cpp ;
 rm -f benchmarks/*/Parallelizer_utils.bc ;
-rm benchmarks/*/*output.txt ;
+rm -f benchmarks/*/*output.txt ;
 rm -f *.txt ;
 
 pushd ./ ;
