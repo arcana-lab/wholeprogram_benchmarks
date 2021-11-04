@@ -6,17 +6,18 @@ OPT_LEVEL=-O3
 
 # Arguments
 BENCHMARK=
-PARALLELIZATION_OPTIONS=
-NOELLE_OPTIONS=-noelle-verbose=1 -noelle-pdg-verbose=1 -noelle-min-hot=1 -noelle-disable-helix -noelle-disable-dswp -noelle-disable-whilifier
+PARALLELIZATION_OPTIONS=-noelle-disable-helix -noelle-disable-dswp -noelle-disable-doall
+DISABLE_ENABLERS=-noelle-inliner-avoid-hoist-to-main -noelle-disable-whilifier -noelle-disable-loop-invariant-code-motion -noelle-disable-loop-distribution
+NOELLE_OPTIONS=-noelle-verbose=3 -noelle-pdg-verbose=1 -noelle-min-hot=1 -noelle-max-cores=8 $(DISABLE_ENABLERS)
 
 # Front-end
-FRONTEND_FLAGS=-emit-llvm -O0 -Xclang -disable-O0-optnone
+FRONTEND_FLAGS=-emit-llvm -O1 -Xclang -disable-llvm-passes
 INCLUDES=-Iinclude/threadpool/include
 
 # Runtime
 RUNTIME_DIRNAME="threadpool"
 RUNTIME_GITREPO="https://github.com/scampanoni/virgil.git"
-RUNTIME_CFLAGS="-DDEBUG"
+RUNTIME_CFLAGS="-DNDEBUG"
 RUNTIME=Parallelizer_utils
 
 # Libraries
@@ -58,7 +59,7 @@ baseline_parallelized.bc: baseline_with_metadata.bc
 	cp $@ $(BENCHMARK).bc
 
 $(RUNTIME).bc: $(RUNTIME).cpp download
-	$(CPP) $(RUNTIME_CFLAGS) $(INCLUDES) -std=c++14 -emit-llvm $(OPT_LEVEL) -c $< -o $@
+	$(CPP) $(RUNTIME_CFLAGS) $(INCLUDES) -std=c++17 -emit-llvm $(OPT_LEVEL) -c $< -o $@
 
 $(RUNTIME).cpp:
 	./fetchRuntime.sh
@@ -67,6 +68,6 @@ download:
 	mkdir -p include ; cd include ; ../download.sh $(RUNTIME_GITREPO) $(RUNTIME_DIRNAME) ;
 
 clean:
-	rm -rf include/ Parallelizer_utils.* baseline* default.profraw output.prof *.txt *.dot
+	rm -rf include/ Parallelizer_utils.* baseline* default.profraw output.prof noelle*.txt *.dot
 
 .PHONY: all clean

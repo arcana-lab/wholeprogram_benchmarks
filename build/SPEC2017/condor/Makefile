@@ -9,10 +9,10 @@ speedup.con:
 	python2 scripts/generateCondorScript.py scripts/$@ ./$@ "$@" " " ${EMAIL};
 
 optimize.con:
-	./scripts/generateCondorScript.sh $@ "all" ".bc"
+	./scripts/generateCondorScript.sh $@ " " ".bc"
 
 binary.con:
-	./scripts/generateCondorScript.sh $@ "all" ".bc"
+	./scripts/generateCondorScript.sh $@ "baseline_parallelized" ".bc"
 
 run.con:
 	./scripts/generateCondorScript.sh $@ " " "_newbin"
