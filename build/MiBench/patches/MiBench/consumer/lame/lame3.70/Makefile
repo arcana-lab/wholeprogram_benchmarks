@@ -12,7 +12,7 @@ ARCH = $(shell uname -m)
 # defaults:
 PGM = lame
 CC = gcc
-SB_OPT=-O0 -Xclang -disable-O0-optnone
+SB_OPT=-O1 -Xclang -disable-llvm-passes
 CC_OPTS =  -O
 GTK = 
 GTKLIBS = 

@@ -1,13 +1,5 @@
 #!/bin/sh
 
-fileInput="very_large.pcm";
-if ! test -f data/$fileInput ; then
-  pushd ./ ;
-  mkdir -p data ;
-  cd data ;
-  wget --no-check-certificate http://users.cs.northwestern.edu/~simonec/files/Software/MiBench/${fileInput}.xz ;
-  tar -d ${fileInput}.xz ;
-  popd ;
-fi
+./unpack_input.sh "very_large.pcm";
 
-./bin/rawcaudio < data/$fileInput > output_very_large.adpcm
+./bin/rawcaudio < data/very_large.pcm > output_very_large.adpcm

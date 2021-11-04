@@ -4,7 +4,7 @@
 # To use NIST's modified SHA of 7/11/94, define USE_MODIFIED_SHA
 
 CC = clang
-SB_OPT=-O0 -Xclang -disable-O0-optnone
+SB_OPT=-O1 -Xclang -disable-llvm-passes
 CFLAGS = -O1 
 
 %.o: %.c

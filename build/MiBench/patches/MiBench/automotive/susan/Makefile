@@ -1,5 +1,5 @@
 CC=gcc
-SB_OPT=-O0 -Xclang -disable-O0-optnone
+SB_OPT=-O1 -Xclang -disable-llvm-passes
 
 susan: susan.c Makefile
 	$(CC) -static -O4 -o susan susan.c -lm $(SB_OPT)

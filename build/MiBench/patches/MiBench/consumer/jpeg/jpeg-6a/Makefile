@@ -21,7 +21,7 @@ mandir = $(prefix)/man/man$(manext)
 
 # The name of your C compiler:
 CC= gcc
-SB_OPT=-O0 -Xclang -disable-O0-optnone
+SB_OPT=-O1 -Xclang -disable-llvm-passes
 
 # You may need to adjust these cc options:
 CFLAGS= -O  -I$(srcdir)

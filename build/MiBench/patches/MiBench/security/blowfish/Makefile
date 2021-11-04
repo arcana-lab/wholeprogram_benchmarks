@@ -21,7 +21,7 @@ MAKE=make -f Makefile
 #CFLAG= -O
 
 CC=gcc
-SB_OPT=-O0 -Xclang -disable-O0-optnone
+SB_OPT=-O1 -Xclang -disable-llvm-passes
 CFLAG= -static -O1 -fomit-frame-pointer
 
 CFLAGS=$(OPTS) $(CFLAG)
