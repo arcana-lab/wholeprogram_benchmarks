@@ -8,7 +8,7 @@ optimized_code_generation: compile_all bitcode bitcode_copy optimization binary 
 baseline_code_generation: compile_all bitcode bitcode_copy binary
 
 polybench-3.1: $(POLYTAR)
-	tar -xf $^
+	if ! test -d polybench-3.1 ; then tar -xf $^ ; fi
 
 compile_all: polybench-3.1
 	./scripts/compile.sh ;
@@ -29,8 +29,11 @@ run: polybench-3.1
 	./scripts/$@.sh $(BENCHMARK)
 
 clean:
-	./scripts/uninstall.sh
 	rm -f *.txt 
 	cd condor ; make clean ;
+	rm -f tmp* ;
+
+uninstall: clean
+	./scripts/uninstall.sh
 
 .PHONY: compile_speed compile_rate compile_all bitcode optimization binary run clean

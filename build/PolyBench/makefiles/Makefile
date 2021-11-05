@@ -6,11 +6,12 @@ OPT_LEVEL=-O3
 
 # Arguments
 BENCHMARK=
-PARALLELIZATION_OPTIONS=
-NOELLE_OPTIONS=-noelle-verbose=3 -noelle-pdg-verbose=1 -noelle-min-hot=1 -noelle-disable-helix -noelle-disable-dswp -noelle-disable-doall
+PARALLELIZATION_OPTIONS=-noelle-disable-helix -noelle-disable-dswp
+DISABLE_ENABLERS=-noelle-inliner-avoid-hoist-to-main -noelle-disable-whilifier -noelle-disable-loop-invariant-code-motion -noelle-disable-loop-distribution
+NOELLE_OPTIONS=-noelle-verbose=3 -noelle-pdg-verbose=1 -noelle-min-hot=1 -noelle-max-cores=8 $(DISABLE_ENABLERS)
 
 # Front-end
-FRONTEND_FLAGS=-emit-llvm -O0 -Xclang -disable-O0-optnone
+FRONTEND_FLAGS=-emit-llvm -O1 -Xclang -disable-llvm-passes
 INCLUDES=-Iinclude/threadpool/include
 
 # Runtime
@@ -26,6 +27,7 @@ all: baseline_parallelized.bc
 
 baseline.bc: all.bc $(RUNTIME).bc
 	llvm-link $^ -o $@
+	noelle-norm $@ -o $@
 	mv $< NOELLE_input.bc
 
 baseline_prof: baseline.bc
@@ -58,7 +60,7 @@ baseline_parallelized.bc: baseline_with_metadata.bc
 	cp $@ all.bc
 
 $(RUNTIME).bc: $(RUNTIME).cpp download
-	$(CPP) $(RUNTIME_CFLAGS) $(INCLUDES) -std=c++14 -emit-llvm $(OPT_LEVEL) -c $< -o $@
+	$(CPP) $(RUNTIME_CFLAGS) $(INCLUDES) -std=c++17 -emit-llvm $(OPT_LEVEL) -c $< -o $@
 
 $(RUNTIME).cpp:
 	./fetchRuntime.sh
