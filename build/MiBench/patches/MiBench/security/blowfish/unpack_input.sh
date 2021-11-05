@@ -2,7 +2,9 @@
 
 fileInput="input_verylarge.enc";
 if ! test -f $fileInput ; then
-  wget --no-check-certificate http://users.cs.northwestern.edu/~simonec/files/Software/MiBench/${fileInput}.xz ;
+  if ! test -f ${fileInput}.xz ; then
+    wget --no-check-certificate http://users.cs.northwestern.edu/~simonec/files/Software/MiBench/${fileInput}.xz ;
+  fi
   xz -d ${fileInput}.xz ;
 fi
 
