@@ -29,6 +29,7 @@ run: polybench-3.1
 	./scripts/$@.sh $(BENCHMARK)
 
 clean:
+	./condor/scripts/clean.sh
 	rm -f *.txt 
 	cd condor ; make clean ;
 	rm -f tmp* ;
