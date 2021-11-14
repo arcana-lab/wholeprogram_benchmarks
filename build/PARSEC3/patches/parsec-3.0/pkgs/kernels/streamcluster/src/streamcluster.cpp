@@ -83,7 +83,7 @@ tbb::cache_aligned_allocator<bool> memoryBool;
 #endif
 
 
-float dist(Point p1, Point p2, int dim);
+float dist(const Point &p1, const Point &p2, int dim);
 
 
 #ifdef TBB_VERSION
@@ -645,7 +645,7 @@ void intshuffle(int *intarray, int length)
 }
 
 /* compute Euclidean distance squared between two points */
-float dist(Point p1, Point p2, int dim)
+float dist(const Point &p1, const Point &p2, int dim)
 {
   int i;
   float result=0.0;
