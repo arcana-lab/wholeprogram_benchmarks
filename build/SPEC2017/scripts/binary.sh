@@ -19,7 +19,7 @@ function genBinary {
 	fi
 	echo "Generating binary '${1}_newbin' for ${1} from ${1}.bc" ;
 	cd ${BENCHMARKS_DIR}/${1}
-	${CC} -O3 -march=native ${1}.bc ${LIBS} -o ${1}_newbin;
+	${CC} -O1 ${1}.bc ${LIBS} -o ${1}_newbin;
   exitOutput=$? ;
 	chmod +x ${1}_newbin;
 }
