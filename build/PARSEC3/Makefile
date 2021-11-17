@@ -8,28 +8,28 @@ optimized_code_generation: compile_all bitcode bitcode_copy setup optimization b
 
 baseline_code_generation: compile_all bitcode bitcode_copy setup binary
 
-PARSEC3:
+parsec-3.0:
 	./scripts/install.sh $(TAR)
 
-compile_all: PARSEC3
+compile_all: parsec-3.0
 	./scripts/compile_all.sh
 
-bitcode: PARSEC3
+bitcode: parsec-3.0
 	./scripts/bitcode.sh
 
-bitcode_copy: PARSEC3
+bitcode_copy: parsec-3.0
 	./scripts/bitcode_copy.sh
 
-setup: PARSEC3
+setup: parsec-3.0
 	./scripts/setup.sh
 
-optimization: PARSEC3
+optimization: parsec-3.0
 	./scripts/optimization.sh $(BENCHMARK)
 
-binary: PARSEC3
+binary: parsec-3.0
 	./scripts/binary.sh $(BENCHMARK)
 	
-run: PARSEC3
+run: parsec-3.0
 	./scripts/run.sh $(INPUT) $(BENCHMARK)
 
 clean:
