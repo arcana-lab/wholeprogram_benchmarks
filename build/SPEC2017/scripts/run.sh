@@ -17,9 +17,10 @@ function runBenchmark {
 	arguments="$( echo $lastline | awk -F${1} '{print $2}')"
 	echo "Running \"${1}\" with \"${1}_newbin ${arguments} >${1}_${inputsize}_output.txt\""
 	# ${BENCHMARKS_DIR}/${1}/${1}_newbin ${arguments} >${BENCHMARKS_DIR}/${1}/${1}_${inputsize}_output.txt
-	perf stat ../${1}_newbin ${arguments} >${BENCHMARKS_DIR}/${1}/${1}_${inputsize}_output.txt
+	# perf stat ../${1}_newbin ${arguments} >${BENCHMARKS_DIR}/${1}/${1}_${inputsize}_output.txt
+	eval /usr/bin/time ../${1}_newbin ${arguments} 2>&1 >${BENCHMARKS_DIR}/${1}/${1}_${inputsize}_output.txt ;
   exitOutput=$? ;
-	echo `tail -n 1 ${BENCHMARKS_DIR}/${1}/${1}_${inputsize}_output.txt`
+	echo `tail -n 2 ${BENCHMARKS_DIR}/${1}/${1}_${inputsize}_output.txt`
 	echo "--------------------------------------------------------------------------------------"
 }
 

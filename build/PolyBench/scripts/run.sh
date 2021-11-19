@@ -19,14 +19,15 @@ function runBenchmark {
   perfStatFile="${pathToBenchmark}/${benchmarkArg}__output.txt" ;
   commandToRunSplit="./${benchmarkArg}" ;
   echo "Running: ${commandToRunSplit} in ${PWD}" ;
-  eval perf stat ${commandToRunSplit} > ${perfStatFile} ;
+  # eval perf stat ${commandToRunSplit} > ${perfStatFile} ;
+  eval /usr/bin/time ${commandToRunSplit} 2>&1 > ${perfStatFile} ;
   if [ "$?" != 0 ] ; then
     echo "ERROR: run of ${commandToRunSplit} failed." ;
     exit 1 ;
   fi
 
   # Print last line of perf stat output file
-  echo `tail -n 1 ${perfStatFile}` ;
+  echo `tail -n 2 ${perfStatFile}` ;
 	echo "--------------------------------------------------------------------------------------" ;
 
   return ;
