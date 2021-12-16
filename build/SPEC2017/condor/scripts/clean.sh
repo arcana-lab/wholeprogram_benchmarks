@@ -34,7 +34,12 @@ for i in `ls` ; do
   if ! test -d $i ; then
     continue ;
   fi
-  rm -f $i/$i ;
+  rm -f ${i}/${i} ;
+  rm -f ${i}/runme* ${i}/fetchRuntime.sh ${i}/download.sh ;
+  rm -rf ${i}/include ;
+  rm -f ${i}/input* ;
+  rm -f ${i}/*.pgm ;
+  rm -f ${i}/*.jpg ;
 done
 popd ;
 
