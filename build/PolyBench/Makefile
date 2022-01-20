@@ -8,7 +8,7 @@ optimized_code_generation: compile_all bitcode bitcode_copy optimization binary 
 baseline_code_generation: compile_all bitcode bitcode_copy binary
 
 polybench-3.1:
-	if ! test -d polybench-3.1 ; then tar -xf $^ ; fi
+	if ! test -d polybench-3.1 ; then tar -xf $(TAR) ; fi
 
 compile_all: polybench-3.1
 	./scripts/compile.sh ;
