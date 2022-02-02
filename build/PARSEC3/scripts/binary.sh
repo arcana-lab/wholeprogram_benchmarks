@@ -46,7 +46,7 @@ benchmarkSuiteName="parsec-3.0" ;
 # Compilers
 CC="clang" ;
 CXX="clang++" ;
-FLAGS="-O1" ;
+FLAGS="-O3" ;
 
 # Libraries
 LIBS="-lm -lstdc++ -lpthread" ;

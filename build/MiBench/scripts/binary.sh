@@ -7,7 +7,7 @@ benchmarkSuiteName="MiBench" ;
 # Compilers
 CC="clang" ;
 CXX="clang++" ;
-FLAGS="-O1" ;
+FLAGS="-O3" ;
 
 # Libraries
 LIBS="-lm -lstdc++ -lpthread" ;
@@ -33,7 +33,7 @@ function genBinary {
   if [ "${1}" == "lame" ] ; then
     ${CXX} ${FLAGS} ${1}.bc ${LIBS} ${LIBS_EXTRA} -o ${1} ;
   else
-	  ${CXX} -O1 ${1}.bc ${LIBS} -o ${1} ;
+	  ${CXX} -O3 ${1}.bc ${LIBS} -o ${1} ;
   fi
 
   # If something goes wrong, return and go to the next benchmark
