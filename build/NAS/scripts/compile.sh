@@ -16,7 +16,7 @@ cd ${benchmarkDir} ;
 # Compile benchmark
 make clean ;
 if test "$benchmark" == "BT" || test "$benchmark" == "FT" ; then
-  make CC=gclang CXX=gclang++ CLASS=B $benchmark ;
+  make CC=gclang CXX=gclang++ CLASS=A $benchmark ;
 else
-  make CC=gclang CXX=gclang++ CLASS=C $benchmark ;
+  make CC=gclang CXX=gclang++ CLASS=A $benchmark ;
 fi
