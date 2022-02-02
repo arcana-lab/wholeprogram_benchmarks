@@ -1,13 +1,22 @@
 #!/bin/bash
 
-# Set local variables
-BUILD_DIR=`pwd`
+# Get benchmark directory
+benchmarkDir="$1" ;
+benchmark="$2" ;
 
-# Enable GLLVM
-source /project/gllvm/enable
+# Check that benchmark dir exists
+if ! test -d ${benchmarkDir} ; then
+  echo "ERROR: ${benchmarkDir} not found." ;
+  exit 1 ;
+fi
 
-cd NAS
-mkdir bin
-CC=gclang CXX=gclang++ make suite -j
+# Go to benchmark dir
+cd ${benchmarkDir} ;
 
-echo "DONE compiling NAS benchmarks at ${BUILD_DIR}/NAS" 
+# Compile benchmark
+make clean ;
+if test "$benchmark" == "BT" || test "$benchmark" == "FT" ; then
+  make CC=gclang CXX=gclang++ CLASS=B $benchmark ;
+else
+  make CC=gclang CXX=gclang++ CLASS=C $benchmark ;
+fi

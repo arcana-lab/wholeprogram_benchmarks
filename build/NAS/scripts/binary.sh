@@ -1,46 +1,62 @@
 #!/bin/bash
 
+# Get benchmark suite dir
+PWD_PATH="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )/.." ;
+benchmarkSuiteName="NAS" ;
+
 # Compilers
-CC=clang
-CPP=clang++
-OPT=opt
+CC="clang" ;
+CXX="clang++" ;
+FLAGS="-O1" ;
 
 # Libraries
-LIBS="-lm -mavx -z muldefs -Wno-return-type -lstdc++ "
+LIBS="-lm -lstdc++ -lpthread" ;
 
-# Set local variables
-if [ "${1}" == "rate" ]; then
-	key="_r"
-elif [ "${1}" == "speed" ]; then
-	key="_s"
-else
-	key=""
-fi
-BUILD_DIR=`pwd`
+# Additional libraries for lame benchmmark
+LIBS_EXTRA="" ;
 
-# Check the state
-if [ ! -d "${BUILD_DIR}/NAS" ]; then
-	echo "Please run ./rebuild.sh first to install NAS and build benchmarks. Then run ./setupRun.sh to extract bitcodes before running this script."
-	exit
-fi
-if [ ! -d "${BUILD_DIR}/benchmarks" ]; then
-	echo "Please run ./setupRun.sh first to build benchmarks and extract bitcodes."
-	exit
-fi
-
-# Generate Binaries from Bitcode
-BENCHMARKS_DIR=${BUILD_DIR}/benchmarks
-
-for benchmark_string in `sed 1d ${BUILD_DIR}/pure_c_cpp_${1}.bset | grep ${key}`; do
-	benchmark="$( echo $benchmark_string | awk -F'.' '{print $2}')"
-	if [ -f "${BENCHMARKS_DIR}/${benchmark}/${benchmark}_newbin" ]; then
-		rm ${BENCHMARKS_DIR}/${benchmark}/${benchmark}_newbin
+function genBinary {
+  # Check if bitcode exists
+	if [ ! -f "${benchmarksDir}/${1}/${1}.bc" ]; then
+		echo "Warning: Bitcode not found for ${1}, skipping" ;
+		return ;
 	fi
-	cd ${BENCHMARKS_DIR}/${benchmark}
-	echo "Generating binary '${benchmark}_newbin' for ${benchmark} from ${benchmark}.bc" ;
-	${CC} -O3 ${benchmark}.bc ${LIBS} -o ${benchmark}_newbin;
-	chmod +x ${benchmark}_newbin;
-done
+
+  # Check if binary already exists, if that's the case remove it
+	if [ -f "${benchmarksDir}/${1}/${1}" ]; then
+		rm ${benchmarksDir}/${1}/${1} ;
+	fi
+
+  # Generate binary
+	echo "Generating binary '${1}' for ${1} from ${1}.bc" ;
+	cd ${benchmarksDir}/${1} ;
+  ${CXX} -O1 ${1}.bc ${LIBS} -o ${1} ;
+
+  # If something goes wrong, return and go to the next benchmark
+  if [ "$?" != 0 ] ; then
+    echo "ERROR: compiling ${1} from bitcode." ;
+    return ;
+  fi
+
+	chmod +x ${1} ;
+  cp ${1} ${1}_newbin ;
+}
+
+# Get bitcode benchmark dir
+benchmarksDir="${PWD_PATH}/benchmarks" ;
+if ! test -d ${benchmarksDir} ; then
+  echo "ERROR: ${benchmarksDir} not found. Run make setup." ;
+  exit 1 ;
+fi
+
+if [ "${1}" == "all" ]; then
+	for benchmark in `ls ${benchmarksDir}`; do
+		genBinary ${benchmark} ;
+	done
+else
+	genBinary ${1} ;
+fi
+
 echo "-----------------------------------------------------------"
 
 echo "DONE" 
