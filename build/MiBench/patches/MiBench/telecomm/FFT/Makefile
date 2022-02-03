@@ -3,7 +3,7 @@ SB_OPT=-O1 -Xclang -disable-llvm-passes
 
 OBJ = main.o fftmisc.o  fourierf.o
 FILE = main.c fftmisc.c  fourierf.c
-CFLAGS = -static -O1 -g
+CFLAGS = -static 
 
 fft: ${OBJ} Makefile
 	$(CC) ${CFLAGS} ${OBJ} -o fft -lm $(SB_OPT)

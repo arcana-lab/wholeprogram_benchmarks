@@ -307,7 +307,7 @@ LD	= $(CC) -static
 
 RCOPY	= cp -r
 
-COPTS	= -ansi -pedantic -Wall -O1
+COPTS	= -ansi -pedantic -Wall
 # COPTS	= -ansi -pedantic -Wall
 
 CFLAGS	= -DOS_UNIX=$(OSUNIX)					\

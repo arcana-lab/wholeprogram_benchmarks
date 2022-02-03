@@ -34,9 +34,9 @@ SASR	= -DSASR
 
 CC		= gcc -ansi -pedantic -static
 SB_OPT=-O1 -Xclang -disable-llvm-passes
-# ARM gcc doesn't like the -O1 here...
-#CCFLAGS 	= -c -O1 -DSTUPID_COMPILER -DNeedFunctionPrototypes=1
-CCFLAGS 	= -c -O1 -DSTUPID_COMPILER -DNeedFunctionPrototypes=1 $(SB_OPT)
+# ARM gcc doesn't like the here...
+#CCFLAGS 	= -c -DSTUPID_COMPILER -DNeedFunctionPrototypes=1
+CCFLAGS 	= -c -DSTUPID_COMPILER -DNeedFunctionPrototypes=1 $(SB_OPT)
 
 LD 		= $(CC)
 

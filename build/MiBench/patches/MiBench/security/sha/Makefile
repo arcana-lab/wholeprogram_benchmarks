@@ -5,7 +5,7 @@
 
 CC = clang
 SB_OPT=-O1 -Xclang -disable-llvm-passes
-CFLAGS = -O1 
+CFLAGS = 
 
 %.o: %.c
 	$(CC) -c $(SB_OPT) $^ -o $@

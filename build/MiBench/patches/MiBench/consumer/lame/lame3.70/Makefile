@@ -79,7 +79,7 @@ ifeq ($(UNAME),Linux)
 
 
 # suggested for gcc-2.7.x
-   CC_OPTS =  -O1 -fomit-frame-pointer -funroll-loops -ffast-math  -finline-functions -Wall
+   CC_OPTS =  -fomit-frame-pointer -funroll-loops -ffast-math  -finline-functions -Wall
 #  CC_OPTS =  -O9 -fomit-frame-pointer -fno-strength-reduce -mpentiumpro -ffast-math -finline-functions -funroll-loops -Wall -malign-double -g -march=pentiumpro -mfancy-math-387 -pipe 
 
 #  for debugging:
@@ -169,7 +169,7 @@ endif
 ##########################################################################
 ifeq ($(UNAME),OSF1)
    CC = cc
-   CC_OPTS = -fast -O1 -std -g3 -non_shared
+   CC_OPTS = -fast -std -g3 -non_shared
 endif
 
 ##########################################################################
@@ -208,7 +208,7 @@ endif
 ifeq ($(UNAME),OS/2)
    SHELL=sh	
    CC = gcc
-   CC_OPTS = -O1
+   CC_OPTS =
    PGM = lame.exe
    LIBS =
 

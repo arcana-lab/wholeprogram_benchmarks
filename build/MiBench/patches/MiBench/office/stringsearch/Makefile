@@ -7,10 +7,10 @@ FILE2 = bmhasrch.c  bmhisrch.c  bmhsrch.c  pbmsrch_large.c
 all: search
 
 search_small: ${FILE1} Makefile
-	$(CC) -static ${FILE1} -O1 -o search_small
+	$(CC) -static ${FILE1} -o search_small
 
 search: ${FILE2} Makefile
-	$(CC) -static ${FILE2} -O1 -o search $(SB_OPT)
+	$(CC) -static ${FILE2} -o search $(SB_OPT)
 
 clean:
 	rm -rf search search_* output*

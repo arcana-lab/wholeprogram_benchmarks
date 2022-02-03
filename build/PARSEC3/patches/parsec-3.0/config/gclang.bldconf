@@ -71,7 +71,7 @@ export MAKE="${GNUTOOL_HOME}/bin/${BINARY_PREFIX}make"
 PORTABILITY_FLAGS="-static-libgcc -Wl,--hash-style=both,--as-needed"
 
 # Arguments to use
-SB_OPT="-O1 -g -Xclang -disable-llvm-passes"
+SB_OPT="-O1 -Xclang -disable-llvm-passes"
 export CFLAGS=" ${SB_OPT} ${PORTABILITY_FLAGS} "
 export CXXFLAGS=" ${SB_OPT} -fpermissive -fno-exceptions ${PORTABILITY_FLAGS} "
 export CPPFLAGS=""
