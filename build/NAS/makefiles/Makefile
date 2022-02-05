@@ -4,7 +4,7 @@ CPP=clang++
 OPT=opt
 OPT_LEVEL=-O3
 
-NOELLE_CORES ?= 12
+NOELLE_CORES ?= 8
 
 # Arguments
 BENCHMARK=

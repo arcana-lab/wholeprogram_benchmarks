@@ -4,11 +4,13 @@ CPP=clang++
 OPT=opt
 OPT_LEVEL=-O3
 
+NOELLE_CORES ?= 8
+
 # Arguments
 BENCHMARK=
 PARALLELIZATION_OPTIONS=-noelle-disable-helix -noelle-disable-dswp
 DISABLE_ENABLERS=-noelle-inliner-avoid-hoist-to-main -noelle-disable-whilifier -noelle-disable-loop-invariant-code-motion -noelle-disable-loop-distribution
-NOELLE_OPTIONS=-noelle-verbose=3 -noelle-pdg-verbose=1 -noelle-min-hot=1 -noelle-max-cores=8 $(DISABLE_ENABLERS)
+NOELLE_OPTIONS=-noelle-verbose=3 -noelle-pdg-verbose=1 -noelle-min-hot=1 -noelle-max-cores=${NOELLE_CORES} $(DISABLE_ENABLERS)
 
 # Front-end
 FRONTEND_FLAGS=-emit-llvm -O1 -Xclang -disable-llvm-passes
