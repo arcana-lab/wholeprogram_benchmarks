@@ -15,7 +15,6 @@ function runOptimizations {
 
   # Run optimization
 	echo "Running your optimizations for \"${1}\"" ;
-	make clean > /dev/null ;
   make BENCHMARK=${1} >> noelle_output.txt 2>&1 ;
   exitOutput=$? ;
   return ;
