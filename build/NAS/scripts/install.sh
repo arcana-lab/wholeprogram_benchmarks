@@ -9,11 +9,11 @@ pathToTar="${1}" ;
 if ! test -d ${PWD_PATH}/${benchmarkSuiteName} ; then
   tar xf ${pathToTar} -C ${PWD_PATH} ;
 
-  if ! test -d ${PWD_PATH}/NPB3.0-omp-C ; then 
+  if test -d ${PWD_PATH}/NPB3.0-omp-C ; then 
     mv ${PWD_PATH}/NPB3.0-omp-C ${PWD_PATH}/${benchmarkSuiteName} ;
   fi
 
-  if ! test -d ${PWD_PATH}/benchmark-subsetting-NPB3.0-omp-C-5d565d9 ; then
+  if test -d ${PWD_PATH}/benchmark-subsetting-NPB3.0-omp-C-5d565d9 ; then
     mv ${PWD_PATH}/benchmark-subsetting-NPB3.0-omp-C-5d565d9 ${PWD_PATH}/${benchmarkSuiteName} ;
   fi
 fi
