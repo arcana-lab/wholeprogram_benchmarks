@@ -30,8 +30,8 @@ errorFile="${PWD_PATH}/error_compiling.txt" ;
 rm -f ${errorFile} ;
 
 # Get a list of all the Makefile(s) (assumption: one Makefile per benchmark)
-#benchmarks="BT CG EP FT IS LU MG SP"
-benchmarks="CG EP FT IS LU MG"
+benchmarks="BT CG EP FT IS LU MG SP"
+#benchmarks="CG EP FT IS LU MG"
 
 
 # Go inside the directory of each Makefile of each benchmark and run make
