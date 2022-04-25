@@ -75,7 +75,7 @@ function runBenchmark {
   commandToRunSplit="${binary}" ;
   echo "Running: ${commandToRunSplit} in ${PWD}" ;
   # eval perf stat ${commandToRunSplit} > ${perfStatFile} ;
-  eval /usr/bin/time ${commandToRunSplit} 2>&1 > ${perfStatFile} ;
+  eval /usr/bin/time -p ${commandToRunSplit} 2>&1 > ${perfStatFile} ;
   if [ "$?" != 0 ] ; then
     echo "ERROR: run of ${commandToRunSplit} failed." ;
     return ;
