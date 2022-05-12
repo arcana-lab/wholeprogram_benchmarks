@@ -94,7 +94,7 @@ C_INC = -I../common
 #---------------------------------------------------------------------------
 # Global *compile time* flags for C programs
 #---------------------------------------------------------------------------
-# CFLAGS	= -emit-llvm -O1 -Xclang -disable-llvm-passes
+CFLAGS	= -g -O1 -Xclang -disable-llvm-passes
 # CFLAGS = -g
 
 #---------------------------------------------------------------------------
