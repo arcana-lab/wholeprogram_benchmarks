@@ -82,7 +82,7 @@ function runBenchmark {
   fi
 
   # Print last line of perf stat output file
-  echo `tail -n 2 ${perfStatFile}` ;
+  cat ${perfStatFile} ;
 	echo "--------------------------------------------------------------------------------------" ;
 
   return ;
