@@ -7,7 +7,7 @@ benchmarkSuiteName="NAS" ;
 # Compilers
 CC="clang" ;
 CXX="clang++" ;
-FLAGS="-O1" ;
+FLAGS="-O3" ;
 
 # Libraries
 LIBS="-lm -lstdc++ -lpthread" ;
@@ -30,7 +30,7 @@ function genBinary {
   # Generate binary
 	echo "Generating binary '${1}' for ${1} from ${1}.bc" ;
 	cd ${benchmarksDir}/${1} ;
-  ${CXX} -O1 ${1}.bc ${LIBS} -o ${1} ;
+  ${CXX} ${FLAGS} ${1}.bc ${LIBS} -o ${1} ;
 
   # If something goes wrong, return and go to the next benchmark
   if [ "$?" != 0 ] ; then
