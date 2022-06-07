@@ -19,6 +19,6 @@ if ! test -d ${PWD_PATH}/${benchmarkSuiteName} ; then
 fi
 
 # Copy patches
-#cp -r ${PWD_PATH}/patches/${benchmarkSuiteName} ${PWD_PATH} ;
+cp -r ${PWD_PATH}/patches/${benchmarkSuiteName} ${PWD_PATH} ;
 cp -r ${PWD_PATH}/configs/* ${PWD_PATH}/${benchmarkSuiteName}/config/
 mkdir ${PWD_PATH}/${benchmarkSuiteName}/bin
