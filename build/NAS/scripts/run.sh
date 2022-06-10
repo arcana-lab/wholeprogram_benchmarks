@@ -63,6 +63,9 @@ function runBenchmark {
 #    ./unpack_input.sh ;
 #  fi
 
+  # Set the stack size to be unlimited. This is needed for IS
+  ulimit -s unlimited  ;
+
   # Run the benchmark
 #  commandToRun=`tail -n 1 ${runScript}` ;
   binary=./${benchmarkArg} ; #$(split h "${commandToRun}") ;
