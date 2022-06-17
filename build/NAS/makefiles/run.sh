@@ -49,6 +49,9 @@ function runBenchmark {
 
   # Get args to run binary with
  # NTHREADS=1 source ${pathToInputConf} ;
+  
+  # Increase the stack size (this is needed for is)
+  ulimit -s unlimited  ;
 
   # Run benchmark in benchmarks/${benchmark}/run dir
   commandToRunSplit="./${binaryNameArg}" ;
