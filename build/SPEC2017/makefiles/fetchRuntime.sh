@@ -9,3 +9,4 @@ fi
 
 echo $noelleDir ;
 ln -s ${noelleDir}/src/core/runtime/Parallelizer_utils.cpp
+ln -s ${noelleDir}/src/core/runtime/NOELLE_APIs.c
