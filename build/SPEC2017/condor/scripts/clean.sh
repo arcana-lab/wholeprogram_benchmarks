@@ -21,9 +21,12 @@ rm -f benchmarks/*/baseline* ;
 rm -f benchmarks/*/noelle_output.txt ;
 rm -f benchmarks/*/*train_output.txt ;
 rm -f benchmarks/*/NOELLE_input.bc ;
+rm -f benchmarks/*/afterLoopMetadata.bc ;
+rm -f benchmarks/*/NOELLE_API.bc ;
+rm -f benchmarks/*/parallelized*.bc ;
+rm -f benchmarks/*/code*.bc ;
 rm -f benchmarks/*/*newbin;
 rm -f benchmarks/*/*.dot ;
-rm -f benchmarks/*/Parallelizer_utils.cpp ;
 rm -f benchmarks/*/Parallelizer_utils.bc ;
 rm -f benchmarks/*/*output.txt ;
 rm -f *.txt ;
@@ -40,6 +43,13 @@ for i in `ls` ; do
   rm -f ${i}/input* ;
   rm -f ${i}/*.pgm ;
   rm -f ${i}/*.jpg ;
+done
+popd ;
+
+pushd ./ ;
+cd makefiles ; 
+for i in `ls` ; do
+  rm ../benchmarks/*/$i ;
 done
 popd ;
 
