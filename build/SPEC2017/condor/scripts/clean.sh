@@ -49,7 +49,7 @@ popd ;
 pushd ./ ;
 cd makefiles ; 
 for i in `ls` ; do
-  rm ../benchmarks/*/$i ;
+  rm -f ../benchmarks/*/$i ;
 done
 popd ;
 
