@@ -22,7 +22,7 @@ rm -f benchmarks/*/noelle_output.txt ;
 rm -f benchmarks/*/*train_output.txt ;
 rm -f benchmarks/*/NOELLE_input.bc ;
 rm -f benchmarks/*/afterLoopMetadata.bc ;
-rm -f benchmarks/*/NOELLE_API.bc ;
+rm -f benchmarks/*/NOELLE_APIs.bc ;
 rm -f benchmarks/*/parallelized*.bc ;
 rm -f benchmarks/*/code*.bc ;
 rm -f benchmarks/*/*newbin;
