@@ -6,4 +6,6 @@ binaryName="${2}" ;
 inputArg="$3" ;
 
 cd train ; 
-./../${binaryName} `tail -n 1 ../run_train.sh | awk -F$(BENCHMARK) '{print $$2}'`; 
+argsToUse="`tail -n 1 ../run_train.sh | awk -F${benchmarkToRun} '{print $$2}'`" ;
+./../${binaryName} $argsToUse; 
+mv default.profraw ../ ;
