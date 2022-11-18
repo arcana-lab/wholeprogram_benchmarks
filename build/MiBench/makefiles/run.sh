@@ -98,7 +98,7 @@ PWD_PATH="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )/../.
 # Get args
 benchmarkToRun="${1}" ;
 binaryName="${2}" ;
-
+inputArg="$3" ;
 
 # Run benchmark
 runBenchmark ${benchmarkToRun} ${binaryName} ;
