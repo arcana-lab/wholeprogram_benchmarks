@@ -5,8 +5,6 @@ function runBenchmark {
   benchmarkArg="${1}" ;
   binaryNameArg="${2}" ;
 
-  inputArg="native" ;
-
   # Check if paths exists
   pathToBenchmark="${PWD_PATH}/benchmarks/${benchmarkArg}" ;
   if ! test -d ${pathToBenchmark} ; then
@@ -73,6 +71,7 @@ PWD_PATH="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )/../.
 # Get args
 benchmarkToRun="${1}" ;
 binaryName="${2}" ;
+inputArg="$3" ;
 
 # Run benchmark
 runBenchmark ${benchmarkToRun} ${binaryName} ;
