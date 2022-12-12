@@ -20,7 +20,7 @@ for i in `cat utilities/benchmark_list`; do
   rm -f *.bc *.ll *.o ;
 
   # Generate the bitcode files
-  clang -O0 -Xclang -disable-O0-optnone -I ${suiteDir}/utilities -I ./ ${suiteDir}/utilities/polybench.c $benchName -DLARGE_DATASET -emit-llvm -c
+  clang -O1 -Xclang -disable-llvm-passes -I ${suiteDir}/utilities -I ./ ${suiteDir}/utilities/polybench.c $benchName -DLARGE_DATASET -emit-llvm -c
   if test $? -ne 0 ; then
     rm -f *.bc *.ll ;
     popd ;
@@ -28,11 +28,11 @@ for i in `cat utilities/benchmark_list`; do
   fi
 
   # Link them
-  llvm-link *.bc -o all.bc ;
+  llvm-link *.bc -o ${benchDirName}.bc ;
 
   # Copy the bitcode file
   mkdir -p ${origDir}/benchmarks/$benchDirName ;
-  cp all.bc ${origDir}/benchmarks/$benchDirName/  ;
+  cp ${benchDirName}.bc ${origDir}/benchmarks/${benchDirName}/  ;
 
   popd ;
 done
