@@ -13,5 +13,5 @@ fi
 cd ${benchmarkDir} ;
 
 # Compile benchmark
-make clean ;
+make clean &> /dev/null ;
 make CC=gclang CXX=gclang++ ;
