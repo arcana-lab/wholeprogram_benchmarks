@@ -22,10 +22,10 @@ function isNoBenchmark {
 
 # Setup the local variables and environment
 BUILD_DIR=`pwd`
-pushd ./;
+pushd ./ &>/dev/null ;
 cd ../../install/bin ;
 export PATH=`pwd`:$PATH ;
-popd ;
+popd &>/dev/null ;
 
 # Get benchmark suite dir
 PWD_PATH="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )/.." ;

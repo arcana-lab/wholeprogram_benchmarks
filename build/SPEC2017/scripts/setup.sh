@@ -21,10 +21,10 @@ fi
 
 # Setup the local variables and environment
 BUILD_DIR=`pwd`
-pushd ./;
+pushd ./ &>/dev/null ;
 cd ../../install/bin ;
 export PATH=`pwd`:$PATH ;
-popd ;
+popd &>/dev/null ;
 
 cd ${BUILD_DIR}
 

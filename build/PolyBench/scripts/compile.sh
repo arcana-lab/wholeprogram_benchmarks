@@ -9,7 +9,7 @@ cd polybench-3.1 ;
 suiteDir=`pwd` ;
 for i in `cat utilities/benchmark_list`; do 
   echo "Compiling $i" ;
-  pushd ./ ;
+  pushd ./ &>/dev/null ;
 
   benchDir=`dirname $i` ;
   benchDirName=`basename $benchDir` ;
@@ -23,7 +23,7 @@ for i in `cat utilities/benchmark_list`; do
   clang -O1 -Xclang -disable-llvm-passes -I ${suiteDir}/utilities -I ./ ${suiteDir}/utilities/polybench.c $benchName -DLARGE_DATASET -emit-llvm -c
   if test $? -ne 0 ; then
     rm -f *.bc *.ll ;
-    popd ;
+    popd &>/dev/null ;
     continue ;
   fi
 
@@ -34,5 +34,5 @@ for i in `cat utilities/benchmark_list`; do
   mkdir -p ${origDir}/benchmarks/$benchDirName ;
   cp ${benchDirName}.bc ${origDir}/benchmarks/${benchDirName}/  ;
 
-  popd ;
+  popd &>/dev/null ;
 done

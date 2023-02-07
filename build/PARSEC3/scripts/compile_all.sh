@@ -2,10 +2,10 @@
 
 # Setup the local variables and environment
 BUILD_DIR=`pwd`
-pushd ./;
+pushd ./ &>/dev/null ;
 cd ../../install/bin ;
 export PATH=`pwd`:$PATH ;
-popd ;
+popd &>/dev/null ;
 
 # Check if gclang is in PATH
 which gclang ;

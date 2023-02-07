@@ -2,10 +2,10 @@
 
 # Setup the local variables and environment
 BUILD_DIR=`pwd`
-pushd ./;
+pushd ./ &>/dev/null ;
 cd ../../install/bin ;
 export PATH=`pwd`:$PATH ;
-popd ;
+popd &>/dev/null ;
 
 if [ ! -d "${BUILD_DIR}/SPEC2017" ]; then
 	echo "Error: Please run \"./scripts/install.sh\"  first to install SPEC2017."
