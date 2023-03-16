@@ -22,7 +22,7 @@ MAKE=make -f Makefile
 
 CC=gcc
 SB_OPT=-O1 -Xclang -disable-llvm-passes
-CFLAG= -static -fomit-frame-pointer
+CFLAG= -static -fomit-frame-pointer -O1 -Xclang -disable-llvm-passes
 
 CFLAGS=$(OPTS) $(CFLAG)
 CPP=$(CC) -E

@@ -331,7 +331,9 @@ CFLAGS	= -DOS_UNIX=$(OSUNIX)					\
 	  -DDEBUG_ON=$(DEBUGGING)				\
 	  $(TRACING)						\
 	  -DPDF_COMPRESSION=$(PDF_COMPRESSION)			\
-	  $(ZLIBPATH)
+	  $(ZLIBPATH)																\
+		$(SB_OPT)
+
 
 OBJS	= z01.o z02.o z03.o z04.o z05.o z06.o z07.o z08.o	\
 	  z09.o z10.o z11.o z12.o z13.o z14.o z15.o z16.o	\
