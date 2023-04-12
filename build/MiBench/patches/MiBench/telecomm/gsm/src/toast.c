@@ -571,7 +571,8 @@ static int process_decode P0()
   (void)gsm_option(r, GSM_OPT_FAST,    &f_fast);
   (void)gsm_option(r, GSM_OPT_VERBOSE, &f_verbose);
 
-  for (int i = 0; i < 1000000000; ++i){ // ED: to increase execution time, this loop should not be a DOALL
+  //DD: with addition of "rewind" call this forloop can have 10^7 less iterations, or something like that.
+  for (int i = 0; i < 200; ++i){ // ED: to increase execution time, this loop should not be a DOALL
     while ((cc = fread(s, 1, sizeof(s), in)) > 0) {
 
       if (cc != sizeof(s)) {
@@ -600,6 +601,7 @@ static int process_decode P0()
         return -1;
       }
     }
+    rewind(in); //DDLOTT APR/12/2023: the change made by ED to this function requires this extra line to avoid breaking the benchmark.
   }
 
   if (cc < 0) {
