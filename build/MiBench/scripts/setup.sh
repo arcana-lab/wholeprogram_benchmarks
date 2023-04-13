@@ -67,11 +67,14 @@ function genInputBenchmark {
     ./unpack_input.sh ;
   fi
 
-  # Run the benchmark
+  # Generate input.txt (needed by noelle autotuner)
   commandToRun=`tail -n 1 ${runScript}` ;
   binary=$(split h "${commandToRun}") ;
   args=$(split t "${commandToRun}") ;
   echo ${args} > input.txt ;
+
+  # The current dir has everything we need to run the program, let's copy it into our benchmarks dir
+  cp -r ./* ${benchmarksDir}/${benchmarkArg}/ ;
 
   return ;
 }
