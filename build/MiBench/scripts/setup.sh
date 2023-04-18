@@ -42,12 +42,6 @@ function genInputBenchmark {
     return ;
   fi
 
-  currBinary="${pathToBenchmark}/${benchmarkArg}" ;
-  if ! test -f ${currBinary} ; then
-    echo "WARNING: ${currBinary} not found. Skipping..." ;
-    return ;
-  fi
-
   # Go in the benchmark suite where the script is
   cd ${pathToBinary} ;
 
