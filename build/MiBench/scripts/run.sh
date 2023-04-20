@@ -19,33 +19,8 @@ function runBenchmark {
   # Get function args
   benchmarkArg="${1}" ;
 
-  # Check if paths exists
-  pathToBenchmark="${PWD_PATH}/benchmarks/${benchmarkArg}" ;
-  if ! test -d ${pathToBenchmark} ; then
-    echo "WARNING: ${pathToBenchmark} not found. Skipping..." ;
-    return ;
-  fi
-
-  pathToBinaryPath="${pathToBenchmark}/path.txt" ;
-  if ! test -f ${pathToBinaryPath} ; then
-    echo "WARNING: ${pathToBinaryPath} not found. Skipping..." ;
-    return ;
-  fi
-
-  pathToBinary=`cat ${pathToBinaryPath}` ;
-  if ! test -d ${pathToBinary} ; then
-    echo "WARNING: ${pathToBinary} not found. Skipping..." ;
-    return ;
-  fi
-
-  currBinary="${pathToBenchmark}/${benchmarkArg}" ;
-  if ! test -f ${currBinary} ; then
-    echo "WARNING: ${currBinary} not found. Skipping..." ;
-    return ;
-  fi
-
-  # Go in the benchmark suite where the script is
-  cd ${pathToBinary} ;
+  # Go in the benchmark dir
+  cd ${benchmarksDir}/${benchmarkArg} ;
 
   # Get arguments of how to run the binary
   runScript="./runme_${benchmarkArg}.sh" ;
@@ -69,8 +44,8 @@ function runBenchmark {
   args=$(split t "${commandToRun}") ;
 
   # Copy binary into benchmark suite (i.e., current directory)
-  echo "Executing ${pathToBinary}/${benchmarkArg}" ;
-  cp ${currBinary} . ;
+  #echo "Executing ${pathToBinary}/${benchmarkArg}" ;
+  #cp ${currBinary} . ;
 
   perfStatFile="${PWD_PATH}/benchmarks/${benchmarkArg}/${benchmarkArg}_large_output.txt" ;
   commandToRunSplit="${binary} ${args}" ;

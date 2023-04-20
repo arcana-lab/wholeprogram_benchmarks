@@ -21,7 +21,7 @@ bitcode_copy: MiBench
 	./scripts/bitcode_copy.sh
 
 setup: MiBench
-	./scripts/setup.sh
+	./scripts/setup.sh $(BENCHMARK)
 
 optimization: MiBench
 	./scripts/optimization.sh $(BENCHMARK)
