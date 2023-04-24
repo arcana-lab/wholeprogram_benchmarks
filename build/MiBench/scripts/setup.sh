@@ -24,7 +24,7 @@ function genInputBenchmark {
   benchmarkArg="${1}" ;
 
   # Check if paths exists
-  pathToBenchmark="${PWD_PATH}/benchmarks/${benchmarkArg}" ;
+  pathToBenchmark="${benchmarksDir}/${benchmarkArg}" ;
   if ! test -d ${pathToBenchmark} ; then
     echo "WARNING: ${pathToBenchmark} not found. Skipping..." ;
     return ;
