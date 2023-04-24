@@ -136,9 +136,11 @@ libjpeg.a:  $(LIBOBJECTS)
 
 cjpeg: $(COBJECTS) libjpeg.a
 	$(LN) $(LDFLAGS) -o cjpeg $(COBJECTS) libjpeg.a $(LDLIBS) $(SB_OPT)
+	cp cjpeg ..
 
 djpeg: $(DOBJECTS) libjpeg.a
 	$(LN) $(LDFLAGS) -o djpeg $(DOBJECTS) libjpeg.a $(LDLIBS) $(SB_OPT)
+	cp djpeg ..
 
 jpegtran: $(TROBJECTS) libjpeg.a
 	$(LN) $(LDFLAGS) -o jpegtran $(TROBJECTS) libjpeg.a $(LDLIBS)
