@@ -19,8 +19,36 @@ function runBenchmark {
   # Get function args
   benchmarkArg="${1}" ;
 
-  # Go in the benchmark dir
-  cd ${benchmarksDir}/${benchmarkArg} ;
+  # Check if paths exists
+  pathToBenchmark="${benchmarksDir}/${benchmarkArg}" ;
+  if ! test -d ${pathToBenchmark} ; then
+    echo "WARNING: ${pathToBenchmark} not found. Skipping..." ;
+    return ;
+  fi
+
+  pathToBinaryPath="${pathToBenchmark}/path.txt" ;
+  if ! test -f ${pathToBinaryPath} ; then
+    echo "WARNING: ${pathToBinaryPath} not found. Skipping..." ;
+    return ;
+  fi
+
+  pathToBinary=`cat ${pathToBinaryPath}` ;
+  if ! test -d ${pathToBinary} ; then
+    echo "WARNING: ${pathToBinary} not found. Skipping..." ;
+    return ;
+  fi
+
+  currBinary="${pathToBenchmark}/${benchmarkArg}" ;
+  if ! test -f ${currBinary} ; then
+    echo "WARNING: ${currBinary} not found. Skipping..." ;
+    return ;
+  fi
+
+  # Go in the benchmark suite where the script is
+  cd ${pathToBinary} ;
+
+  # Copy binary into benchmark suite (i.e., current directory)
+  cp ${currBinary} . ;
 
   # Get arguments of how to run the binary
   runScript="./runme_${benchmarkArg}.sh" ;
@@ -38,14 +66,23 @@ function runBenchmark {
     ./unpack_input.sh ;
   fi
 
+  # The current dir has everything we need to run the program, let's copy it into our benchmarks dir
+  cp -r ./* ${pathToBenchmark}/ ;
+
+  # Go in the benchmark dir
+  cd ${pathToBenchmark} ;
+
+  # Get arguments of how to run the binary
+  runScript="./runme_${benchmarkArg}.sh" ;
+  if ! test -f ${runScript} ; then
+    echo "ERROR: ${runScript} not found. Abort." ;
+    return ;
+  fi
+
   # Run the benchmark
   commandToRun=`tail -n 1 ${runScript}` ;
   binary=$(split h "${commandToRun}") ;
   args=$(split t "${commandToRun}") ;
-
-  # Copy binary into benchmark suite (i.e., current directory)
-  #echo "Executing ${pathToBinary}/${benchmarkArg}" ;
-  #cp ${currBinary} . ;
 
   perfStatFile="${PWD_PATH}/benchmarks/${benchmarkArg}/${benchmarkArg}_large_output.txt" ;
   commandToRunSplit="${binary} ${args}" ;
