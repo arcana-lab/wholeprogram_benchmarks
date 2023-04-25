@@ -136,8 +136,8 @@ LFLAGS	= $(LDFLAGS) $(LDINC)
 
 LIBGSM	= $(LIB)/libgsm.a
 
-TOAST	= $(BIN)/toast
-UNTOAST	= $(BIN)/untoast
+TOAST	= toast
+UNTOAST	= untoast
 TCAT	= $(BIN)/tcat
 
 # Headers

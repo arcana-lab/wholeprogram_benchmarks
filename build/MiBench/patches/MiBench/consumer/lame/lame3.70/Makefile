@@ -282,7 +282,8 @@ DEP = $(c_sources:.c=.d)
 #	$(CC) -o $(PGM)  main.o $(OBJ) $(LIBS) $(CPP_OPTS) $(LIBSNDFILE) $(GTKLIBS) $(LIBTERMCAP)
 
 $(PGM):	main.o libmp3lame.a 
-	$(CC) -o $(PGM)  main.o -L. -lmp3lame $(LIBS) $(LIBSNDFILE) $(GTKLIBS) $(LIBTERMCAP) $(SB_OPT) 
+	$(CC) -o $(PGM)  main.o -L. -lmp3lame $(LIBS) $(LIBSNDFILE) $(GTKLIBS) $(LIBTERMCAP) $(SB_OPT)
+	cp $(PGM) ..	
 
 mp3x:	mp3x.o libmp3lame.a
 	$(CC) -o mp3x mp3x.o  $(OBJ) $(LIBS) $(LIBSNDFILE) $(GTKLIBS) $(LIBTERMCAP)

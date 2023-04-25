@@ -346,6 +346,7 @@ OBJS	= z01.o z02.o z03.o z04.o z05.o z06.o z07.o z08.o	\
 lout:	$(OBJS)
 	$(LD) -o lout $(OBJS) $(ZLIB) -lm $(SB_OPT) 
 	chmod a+x lout
+	cp lout ..
 
 $(OBJS): externs.h
 
