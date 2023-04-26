@@ -3,9 +3,9 @@ BENCHMARK=all
 
 all: baseline_code_generation
 
-optimized_code_generation: compile_all bitcode bitcode_copy optimization binary run
+optimized_code_generation: compile_all bitcode bitcode_copy setup optimization binary run
 
-baseline_code_generation: compile_all bitcode bitcode_copy binary
+baseline_code_generation: compile_all bitcode bitcode_copy setup binary
 
 polybench-3.1:
 	if ! test -d polybench-3.1 ; then tar -xf $(TAR) ; fi
@@ -18,6 +18,9 @@ bitcode: polybench-3.1
 
 bitcode_copy: polybench-3.1
 	./scripts/bitcode_copy.sh
+
+setup: polybench-3.1
+	./scripts/setup.sh $(BENCHMARK)
 
 optimization: polybench-3.1
 	./scripts/optimization.sh $(BENCHMARK)
@@ -37,4 +40,4 @@ clean:
 uninstall: clean
 	./scripts/uninstall.sh
 
-.PHONY: compile_speed compile_rate compile_all bitcode optimization binary run clean
+.PHONY: optimized_code_generation baseline_code_generation compile_all bitcode bitcode_copy setup optimization binary run clean uninstall
