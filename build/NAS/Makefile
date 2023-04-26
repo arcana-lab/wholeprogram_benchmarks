@@ -20,7 +20,7 @@ bitcode_copy: NAS
 	./scripts/bitcode_copy.sh
 
 setup: NAS
-	./scripts/setup.sh
+	./scripts/setup.sh $(BENCHMARK)
 
 optimization: NAS
 	./scripts/optimization.sh $(BENCHMARK)
@@ -40,4 +40,4 @@ clean:
 uninstall: clean
 	./scripts/uninstall.sh
 
-.PHONY: optimized_code_generation baseline_code_generation compile_all bitcode setup optimization binary run clean uninstall
+.PHONY: optimized_code_generation baseline_code_generation compile_all bitcode bitcode_copy setup optimization binary run clean uninstall

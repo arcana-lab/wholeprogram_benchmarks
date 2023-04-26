@@ -1,20 +1,20 @@
 #!/bin/bash
 
 function genInputBenchmark {
+
   # Get function args
   benchmarkArg="${1}" ;
 
   # Check if paths exists
   pathToBenchmark="${benchmarksDir}/${benchmarkArg}" ;
   if ! test -d ${pathToBenchmark} ; then
-    echo "WARNING: ${pathToBenchmark} not found. Skipping..." ;
-    return ;
+    echo "ERROR: ${pathToBenchmark} not found. Skipping..." ;
+    exit 1 ;
   fi
 
-  # Go in the benchmark suite where the script is
+  # Go in the benchmark dir
   cd ${pathToBenchmark} ;
 
-  # Create autotuner input file
   touch autotuner_input.txt ;
 
   return ;
@@ -26,14 +26,14 @@ PWD_PATH="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )/.." 
 # Get args
 benchmarkToRun="${1}" ;
 
-# Get bitcode benchmark dir
+# Get benchmark dir
 benchmarksDir="${PWD_PATH}/benchmarks" ;
 if ! test -d ${benchmarksDir} ; then
   echo "ERROR: ${benchmarksDir} not found. Run make bitcode_copy." ;
   exit 1 ;
 fi
 
-# Generate input file that contains the arguments to run the benchmark later
+# Run benchmark
 if [ "${benchmarkToRun}" == "all" ]; then
 	for benchmark in `ls ${benchmarksDir}`; do
     genInputBenchmark ${benchmark} ;
@@ -42,4 +42,5 @@ else
   genInputBenchmark ${benchmarkToRun} ;
 fi
 
-echo "DONE." ;
+echo "DONE" 
+exit

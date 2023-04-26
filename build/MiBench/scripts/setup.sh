@@ -65,10 +65,10 @@ function genInputBenchmark {
   commandToRun=`tail -n 1 ${runScript}` ;
   binary=$(split h "${commandToRun}") ;
   args=$(split t "${commandToRun}") ;
-  echo ${args} > input.txt ;
+  echo ${args} > autotuner_input.txt ;
 
   # The current dir has everything we need to run the program, let's copy it into our benchmarks dir
-  cp -r ./* ${benchmarksDir}/${benchmarkArg}/ ;
+  cp -r ./* ${pathToBenchmark}/ ;
 
   return ;
 }

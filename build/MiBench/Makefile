@@ -41,4 +41,4 @@ clean:
 uninstall: clean
 	./scripts/uninstall.sh
 
-.PHONY: optimized_code_generation baseline_code_generation compile_all bitcode setup optimization binary run clean uninstall
+.PHONY: optimized_code_generation baseline_code_generation compile_all bitcode bitcode_copy setup optimization binary run clean uninstall
