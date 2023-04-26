@@ -21,7 +21,7 @@ bitcode_copy: parsec-3.0
 	./scripts/bitcode_copy.sh
 
 setup: parsec-3.0
-	./scripts/setup.sh
+	./scripts/setup.sh $(INPUT) $(BENCHMARK)
 
 optimization: parsec-3.0
 	./scripts/optimization.sh $(BENCHMARK)
@@ -41,4 +41,4 @@ clean:
 uninstall: clean
 	./scripts/uninstall.sh
 
-.PHONY: optimized_code_generation baseline_code_generation compile_all bitcode setup optimization binary run clean uninstall
+.PHONY: optimized_code_generation baseline_code_generation compile_all bitcode bitcode_copy setup optimization binary run clean uninstall
