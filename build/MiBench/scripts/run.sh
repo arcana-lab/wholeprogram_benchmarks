@@ -84,9 +84,9 @@ function runBenchmark {
   binary=$(split h "${commandToRun}") ;
   args=$(split t "${commandToRun}") ;
 
-  perfStatFile="${PWD_PATH}/benchmarks/${benchmarkArg}/${benchmarkArg}_large_output.txt" ;
+  perfStatFile="${pathToBenchmark}/${benchmarkArg}_large_output.txt" ;
   commandToRunSplit="${binary} ${args}" ;
-  echo "Running: ${commandToRunSplit} in ${PWD}" ;
+  echo "Running: ${commandToRunSplit} in ${pathToBenchmark}" ;
   # eval perf stat ${commandToRunSplit} > ${perfStatFile} ;
   eval /usr/bin/time -p ${commandToRunSplit} 2>&1 > ${perfStatFile} ;
   if [ "$?" != 0 ] ; then
