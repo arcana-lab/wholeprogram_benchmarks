@@ -50,6 +50,12 @@ function runBenchmark {
   # Copy binary into benchmark suite (i.e., current directory)
   cp ${currBinary} . ;
 
+  # Copy correct autotuner_input.txt to avoid copying back the wrong one
+  # (all thanks to MiBench who likes to have multiple benchmarks in the same dir)
+  if test -f ${pathToBenchmark}/autotuner_input.txt ; then
+    cp ${pathToBenchmark}/autotuner_input.txt . ;
+  fi
+
   # Get arguments of how to run the binary
   runScript="./runme_${benchmarkArg}.sh" ;
   if ! test -f ${runScript} ; then
