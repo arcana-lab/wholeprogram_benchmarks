@@ -10,17 +10,46 @@ struct my3DVertexStruct {
   double distance;
 };
 
-int compare(const void *elem1, const void *elem2)
-{
+int vertex_compare(const vertex_t *restrict elem1,
+                   const vertex_t *restrict elem2) {
   /* D = [(x1 - x2)^2 + (y1 - y2)^2 + (z1 - z2)^2]^(1/2) */
   /* sort based on distances from the origin... */
 
   double distance1, distance2;
 
-  distance1 = (*((struct my3DVertexStruct *)elem1)).distance;
-  distance2 = (*((struct my3DVertexStruct *)elem2)).distance;
+  distance1 = (*((vertex_t *)elem1)).distance;
+  distance2 = (*((vertex_t *)elem2)).distance;
 
   return (distance1 > distance2) ? 1 : ((distance1 == distance2) ? 0 : -1);
+}
+
+void quicksort(off_t bottom, off_t top, vertex_t *restrict data) {
+  off_t lower, upper;
+  vertex_t temp;
+  if (bottom >= top)
+    return;
+
+  vertex_t *pivot = &data[bottom];
+  for (lower = bottom, upper = top; lower < upper;) {
+    while (lower <= upper && vertex_compare(&data[lower], pivot) < 0) {
+      lower++;
+    }
+    while (lower <= upper && vertex_compare(&data[upper], pivot) > 0) {
+      upper--;
+    }
+    if (lower < upper) {
+      temp = data[lower];
+      data[lower] = data[upper];
+      data[upper] = temp;
+    }
+  }
+
+  temp = data[bottom];
+  data[bottom] = data[upper];
+  data[upper] = temp;
+
+  quicksort(bottom, upper - 1, data);
+  quicksort(upper + 1, top, data);
 }
 
 
@@ -49,7 +78,7 @@ main(int argc, char *argv[]) {
     }
   }
   printf("\nSorting %d vectors based on distance from the origin.\n\n",count);
-  qsort(array,count,sizeof(struct my3DVertexStruct),compare);
+  quicksort(0, count, array);
   
   for(i=0;i<count;i++)
     printf("%d %d %d\n", array[i].x, array[i].y, array[i].z);
