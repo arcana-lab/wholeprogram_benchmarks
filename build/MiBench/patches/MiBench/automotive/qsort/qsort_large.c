@@ -10,6 +10,8 @@ struct my3DVertexStruct {
   double distance;
 };
 
+typedef struct my3DVertexStruct vertex_t;
+
 int vertex_compare(const vertex_t *restrict elem1,
                    const vertex_t *restrict elem2) {
   /* D = [(x1 - x2)^2 + (y1 - y2)^2 + (z1 - z2)^2]^(1/2) */
