@@ -15,6 +15,23 @@ function split {
   return ;
 }
 
+function rm_all_bc_files_but {
+  local benchmarkDir="${1}" ;
+  local bcFileToNotRemove="`basename ${benchmarkDir}`.bc" ;
+
+  cd ${benchmarkDir} ;
+
+  for elem in `ls *.bc` ; do
+    if [ "${elem}" == "${bcFileToNotRemove}" ] ; then
+      continue ;
+    fi
+    
+    rm ${elem} ;
+  done
+
+  return ;
+}
+
 function runBenchmark {
   # Get function args
   benchmarkArg="${1}" ;
@@ -74,6 +91,10 @@ function runBenchmark {
 
   # The current dir has everything we need to run the program, let's copy it into our benchmarks dir
   cp -r ./* ${pathToBenchmark}/ ;
+
+  # Remove all bitcode files except current_benchmark.bc
+  # We need this because MiBench has multiple benchmarks in the same dir
+  $(rm_all_bc_files_but "${pathToBenchmark}") ;
 
   # Go in the benchmark dir
   cd ${pathToBenchmark} ;
