@@ -174,12 +174,15 @@ DWORD crc32buf(char *buf, size_t len)
 int
 main(int argc, char *argv[])
 {
-      DWORD crc;
       long charcnt;
       register errors = 0;
 
       while(--argc > 0)
       {
+            // Initialize `crc` at the beginning of each iteration since
+            // it should not depend on the value of the previous iteration.
+            DWORD crc; 
+
             errors |= crc32file(*++argv, &crc, &charcnt);
             printf("%08lX %7ld %s\n", crc, charcnt, *argv);
       }
