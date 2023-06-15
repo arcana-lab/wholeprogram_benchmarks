@@ -3,6 +3,34 @@
 
 /* The printf's may be removed to isolate just the math calculations */
 
+// separating the hot loop to its own function is required 
+// to recognize x as clonable (even when declared inside the loop)
+void hot_loop(void) {
+  int upperBound = 1000; // ED
+  // replace reused variables with local versions.
+  for (double local_a1 = 1; local_a1 < upperBound; local_a1 += 1) {
+    for (double local_b1 = 10; local_b1 > 0; local_b1 -= .25) {
+      for (double local_c1 = 5; local_c1 < upperBound; local_c1 += 0.61) {
+        for (double local_d1 = -1; local_d1 > -5; local_d1 -= .451) {
+          // x is tricky. only the first `solutions` values
+          // are written and read each iteration, but
+          // otherwise it looks like a loop-carried dependence
+          // if declared outside of the loop
+          int local_solutions;
+          double local_x[3];
+          SolveCubic(local_a1, local_b1, local_c1, local_d1, &local_solutions,
+                     local_x);
+          printf("Solutions:");
+          for (int local_i = 0; local_i < local_solutions; local_i++)
+            printf(" %f", local_x[local_i]);
+          printf("\n");
+        }
+      }
+    }
+  }
+  return;
+}
+
 int main(void)
 {
 
@@ -75,21 +103,7 @@ int main(void)
   printf("\n");
 
   /* Now solve some random equations */
-  int upperBound = 1000; // ED
-  for(a1=1;a1<upperBound;a1+=1) {
-    for(b1=10;b1>0;b1-=.25) {
-      for(c1=5;c1<upperBound;c1+=0.61) {
-	   for(d1=-1;d1>-5;d1-=.451) {
-		SolveCubic(a1, b1, c1, d1, &solutions, x);  
-		printf("Solutions:");
-		for(i=0;i<solutions;i++)
-		  printf(" %f",x[i]);
-		printf("\n");
-	   }
-      }
-    }
-  }
-
+  hot_loop();
 
   printf("********* INTEGER SQR ROOTS ***********\n");
   /* perform some integer square roots */
