@@ -1,4 +1,6 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <ctype.h>
 #include "blowfish.h"
 
 int
@@ -7,12 +9,11 @@ main(int argc, char *argv[])
 	BF_KEY key;
 	unsigned char ukey[8];
 	unsigned char indata[40],outdata[40],ivec[8];
-	int num;
+	int num = 0;
 	int by=0,i=0;
 	int encordec=-1;
 	char *cp,ch;
 	FILE *fp,*fp2;
-
 if (argc<3)
 {
 	printf("Usage: blowfish {e|d} <intput> <output> key\n");
@@ -87,8 +88,8 @@ while(!feof(fp))
 	i=0;
 }
 
-close(fp);
-close(fp2);
+fclose(fp);
+fclose(fp2);
 
 //exit(1); // ED: WHO DOES THIS? Be ashame of yourself, you made me lose 3 hours. Let's return 0 if everything goes right.
 return 0;
