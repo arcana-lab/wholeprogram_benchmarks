@@ -418,7 +418,7 @@ void RebuildGrid()
 
 ////////////////////////////////////////////////////////////////////////////////
 
-int GetNeighborCells(int ci, int cj, int ck, int *neighCells)
+__attribute__((noinline)) int GetNeighborCells(int ci, int cj, int ck, int *neighCells)
 {
   int numNeighCells = 0;
 
@@ -467,17 +467,22 @@ void ComputeForces()
     }
   }
 
-  int neighCells[3*3*3];
 
-  int cindex = 0;
-  for(int ck = 0; ck < nz; ++ck)
-    for(int cj = 0; cj < ny; ++cj)
-      for(int ci = 0; ci < nx; ++ci, ++cindex)
-      {
+  //int cindex = 0;
+  //for(int ck = 0; ck < nz; ++ck)
+    //for(int cj = 0; cj < ny; ++cj)
+      //for(int ci = 0; ci < nx; ++ci, ++cindex)
+  for(int cindex = 0; cindex < nx*ny*nz; ++cindex) {
+
         int np = cnumPars[cindex];
         if(np == 0)
           continue;
 
+        int ci = cindex % nx;
+        int cj = ((int)(cindex/nx)) % ny;
+        int ck = ((int)(cindex/(nx*ny)));
+
+        int neighCells[3*3*3];
         int numNeighCells = GetNeighborCells(ci, cj, ck, neighCells);
 
         Cell *cell = &cells[cindex];
@@ -531,15 +536,21 @@ void ComputeForces()
     }
   }
 
-  cindex = 0;
-  for(int ck = 0; ck < nz; ++ck)
-    for(int cj = 0; cj < ny; ++cj)
-      for(int ci = 0; ci < nx; ++ci, ++cindex)
-      {
+  //cindex = 0;
+  //for(int ck = 0; ck < nz; ++ck)
+    //for(int cj = 0; cj < ny; ++cj)
+      //for(int ci = 0; ci < nx; ++ci, ++cindex)
+  for(int cindex = 0; cindex < nx*ny*nz; ++cindex) {
+
         int np = cnumPars[cindex];
         if(np == 0)
           continue;
 
+        int ci = cindex % nx;
+        int cj = ((int)(cindex/nx)) % ny;
+        int ck = ((int)(cindex/(nx*ny)));
+
+        int neighCells[3*3*3];
         int numNeighCells = GetNeighborCells(ci, cj, ck, neighCells);
 
         Cell *cell = &cells[cindex];
