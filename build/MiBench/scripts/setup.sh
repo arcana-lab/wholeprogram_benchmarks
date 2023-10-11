@@ -22,6 +22,7 @@ function split {
 function rm_all_bc_files_but {
   local benchmarkDir="${1}" ;
   local bcFileToNotRemove="`basename ${benchmarkDir}`.bc" ;
+  local bcFileToNotRemove2="baseline_with_metadata.bc" ;
 
   cd ${benchmarkDir} ;
 
@@ -29,7 +30,19 @@ function rm_all_bc_files_but {
     if [ "${elem}" == "${bcFileToNotRemove}" ] ; then
       continue ;
     fi
-    
+
+    if [ "${elem}" == "baseline_with_metadata.bc" ] ; then
+      continue ;
+    fi
+ 
+    if [ "${elem}" == "Parallelizer_utils.bc" ] ; then
+      continue ;
+    fi
+
+    if [ "${elem}" == "NOELLE_input.bc" ] ; then
+      continue ;
+    fi
+ 
     rm ${elem} ;
   done
 
@@ -84,8 +97,9 @@ function genInputBenchmark {
   args=$(split t "${commandToRun}") ;
   echo ${args} > autotuner_input.txt ;
 
-  # The current dir has everything we need to run the program, let's copy it into our benchmarks dir
-  cp -r ./* ${pathToBenchmark}/ ;
+  # The current dir has everything we need to run the program, let's copy it into our benchmarks dir (except for the Makefile)
+  find ./ ! -name Makefile -exec cp -rt ${pathToBenchmark}/ {} + ;
+  #cp -r ./* ${pathToBenchmark}/ ;
 
   # Remove all bitcode files except current_benchmark.bc
   # We need this because MiBench has multiple benchmarks in the same dir
