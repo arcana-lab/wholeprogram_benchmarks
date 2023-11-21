@@ -1,4 +1,4 @@
-TAR=/project/benchmarks/SPEC2017.tar.gz
+SPECTAR ?= /project/benchmarks/SPEC2017.tar.gz
 INPUT=test #test, train, ref
 VERSION=rate #speed, rate
 BENCHMARK=all #mcf_r, lbm_s, xz_r, ...
@@ -10,7 +10,7 @@ optimized_code_generation: compile_all bitcode bitcode_copy setup optimization b
 baseline_code_generation: compile_all bitcode bitcode_copy setup binary
 
 SPEC2017:
-	tar -xf $(TAR)
+	tar -xf $(SPECTAR)
 	chmod +x -R $@/bin $@/tools $@/*.sh
 	./scripts/install.sh
 
@@ -44,7 +44,7 @@ optimization: SPEC2017
 
 binary: SPEC2017
 	./scripts/$@.sh $(BENCHMARK)
-	
+
 run: SPEC2017
 	./scripts/$@.sh $(INPUT) $(BENCHMARK)
 
