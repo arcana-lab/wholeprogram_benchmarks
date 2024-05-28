@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 #define NUM_NODES                          5000
 #define NONE                               9999
@@ -95,7 +96,7 @@ int qcount (void)
   return(g_qCount);
 }
 
-int dijkstra(int chStart, int chEnd) 
+void dijkstra(int chStart, int chEnd) 
 {
   
 
