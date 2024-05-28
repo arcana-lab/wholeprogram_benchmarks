@@ -10,4 +10,4 @@ dijkstra_small: dijkstra_small.c
 	$(CC) -static dijkstra_small.c -o dijkstra_small 
 
 clean:
-	rm -rf dijkstra_* output*
+	rm -rf *.bc *.ll *.o dijkstra output*
