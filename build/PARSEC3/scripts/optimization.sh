@@ -14,7 +14,7 @@ function runOptimizations {
 
   # Copy all makefiles content in benchmarks
 	echo "Copy the makefiles within the benchmark directory" ;
-	cp ${PWD_PATH}/makefiles/* . >> noelle_output.txt ;
+	cp ${PWD_PATH}/makefiles/* ./ >> noelle_output.txt 2>&1 ;
 
   # Run optimization
 	echo "Running your optimizations for \"${1}\"" ;
