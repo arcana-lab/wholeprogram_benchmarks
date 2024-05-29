@@ -13,11 +13,13 @@ function runOptimizations {
 	cd ${benchmarkRunDir} ;
 
   # Copy all makefiles content in benchmarks
-	cp ${PWD_PATH}/makefiles/* . ;
+	echo "Copy the makefiles within the benchmark directory" ;
+	cp ${PWD_PATH}/makefiles/* . >> noelle_output.txt ;
 
   # Run optimization
 	echo "Running your optimizations for \"${1}\"" ;
   make BENCHMARK=${1} >> noelle_output.txt 2>&1 ;
+
   exitOutput=$? ;
   return ;
 }
